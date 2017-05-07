@@ -201,7 +201,7 @@ class FMViewForm_submissions {
               echo '</th>';
             }
             if($submit_date) {
-              echo '<th width="150" align="center" class="submitdate_fc"';
+              echo '<th align="center" class="submitdate_fc wd_front_submissons_th"';
               if(!(strpos($lists['hide_label_list'],'@submitdate@')===false)) 
               echo 'style="display:none;"';
               echo '>';
@@ -215,7 +215,7 @@ class FMViewForm_submissions {
               echo '</th>';
             } 
             if($submitter_ip) {
-              echo '<th width="100" align="center" class="submitterip_fc"';
+              echo '<th align="center" class="submitterip_fc wd_front_submissons_th"';
               if(!(strpos($lists['hide_label_list'],'@submitterip@')===false)) 
               echo 'style="display:none;"';
               echo '>';
@@ -229,7 +229,7 @@ class FMViewForm_submissions {
               echo '</th>';
             }
             if($username) {
-              echo '<th width="100" class="submitterusername_fc"';
+              echo '<th class="submitterusername_fc wd_front_submissons_th"';
               if(!(strpos($lists['hide_label_list'],'@submitterusername@')===false)) 
               echo 'style="display:none;"';
               echo '>';
@@ -243,7 +243,7 @@ class FMViewForm_submissions {
               echo '</th>';
             }            
             if($useremail) {
-              echo '<th width="100" class="submitteremail_fc"';
+              echo '<th class="submitteremail_fc wd_front_submissons_th"';
               if(!(strpos($lists['hide_label_list'],'@submitteremail@')===false)) 
               echo 'style="display:none;"';
               echo '>';
@@ -266,7 +266,7 @@ class FMViewForm_submissions {
                 if($sorted_labels_type[$i]=='type_paypal_payment_status') {
                   $ispaypal=true;
                 }
-                echo '<th align="center" class="'.$labels_id[$i].'_fc" '.$styleStr.'>';
+                echo '<th align="center" class="'.$labels_id[$i].'_fc wd_front_submissons_th" '.$styleStr.'>';
                 if($ordering)
                 echo '<a href="" onclick="document.getElementById(\'order_by\').value = \'' . $labels_id[$i] . '_field\'; document.getElementById(\'asc_or_desc\').value = \'' . (($order_by == $labels_id[$i] . '_field' && $asc_or_desc == 'asc') ? 'desc' : 'asc') . '\'; fm_form_submit(event, \'adminForm\');">
                     <span>' . $field_title . '</span>
@@ -282,7 +282,7 @@ class FMViewForm_submissions {
                 $styleStr2='aa';
               else 
                 $styleStr2='style="display:none;"';
-              echo '<th class="payment_info_fc" '.$styleStr2.'>Payment Info</th>';
+              echo '<th class="payment_info_fc wd_front_submissons_th" '.$styleStr2.'>Payment Info</th>';
             }	
       ?>
 
@@ -763,7 +763,7 @@ class FMViewForm_submissions {
 	$fm_settings = get_option('fm_settings');
 	$map_key = isset($fm_settings['map_key']) ? $fm_settings['map_key'] : '';
     $long = (isset($_GET['long']) ? esc_html(stripslashes($_GET['long'])) : 0);
-	$lat = (isset($_GET['lat']) ? esc_html(stripslashes($_GET['lat'])) : 0);
+		$lat = (isset($_GET['lat']) ? esc_html(stripslashes($_GET['lat'])) : 0);
 		?>
     <script src="<?php echo WD_FM_URL . '/js/if_gmap_back_end.js'; ?>"></script>
     <script src="https://maps.google.com/maps/api/js?v=3.exp&key=<?php echo $map_key ?>"></script>
@@ -923,7 +923,7 @@ class FMViewForm_submissions {
 					<td>'.$row->address.'</td>
 				</tr>
 				<tr>
-					<td class="key">PayPal info</td>
+					<td class="key">Payment info</td>
 					<td>'.$row->paypal_info.'</td>
 				</tr>	
 				<tr>

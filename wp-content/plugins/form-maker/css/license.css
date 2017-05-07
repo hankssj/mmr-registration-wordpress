@@ -16,14 +16,11 @@ div#featurs_table1 {
   position: relative;
   vertical-align: top;
   width: 330px;
-   height: 228px;
+  height: 191px;
   z-index: 10;
 }
 
 div#featurs_table1 span::after {
- //background-image: url("../images/arrow3.png");
- //background-position: center center;
- //background-repeat: no-repeat;
   content: "";
   display: inline-block;
   float: right;
@@ -155,10 +152,4 @@ span.no {
 .price {
   display: block;
   color: #F47629;
-}
-
-.fm-get-pro{
-	background: url("../images/buttons.png") no-repeat 15% 100%;
-    width: 148px;
-    height: 49px;
 }

@@ -48,8 +48,8 @@ class FMModelGenerete_xml {
 		
 		$sorted_labels_id = array();
 		$sorted_labels = array();
-		$sorted_types = array();
 		$label_titles = array();
+		$sorted_types = array();
 		$label_id = array();
 		$label_order = array();
 		$label_order_original = array();
@@ -89,9 +89,10 @@ class FMModelGenerete_xml {
 		$group_id_s_count = $limitstart + 1000 < count($group_id_s) ? $limitstart + 1000 : count($group_id_s);
 
 		sort($group_id_s,SORT_NUMERIC);
-		
 		for ($www = $limitstart; $www < $group_id_s_count; $www++) {
+
 			$i = $group_id_s[$www];
+
 			$field_key = array_search($i, $label_id);
 			if($label_type[$field_key] != 'type_arithmetic_captcha') {
 				$data_temp = array();
@@ -220,7 +221,7 @@ class FMModelGenerete_xml {
 							$data_temp[stripslashes($label_titles[$h])] = $matrix;
 						}
 						else {
-							$val = htmlspecialchars_decode($element_value);
+							$val = strip_tags(htmlspecialchars_decode($element_value));
 							$val = stripslashes(str_replace('&#039;', "'", $val));
 							$data_temp[stripslashes($label_titles[$h])] = ($element_value ? $val : '');
 						}

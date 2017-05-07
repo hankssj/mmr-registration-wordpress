@@ -29,19 +29,15 @@ class FMViewGoptions_fm {
 		$fm_shortcode = isset($fm_settings['fm_shortcode']) ? $fm_settings['fm_shortcode'] : '';
 		$map_key = isset($fm_settings['map_key']) ? $fm_settings['map_key'] : '';
 		?>
-		<div class="fm-user-manual">
-			This section allows you to edit form settings.
-			<a style="color: blue; text-decoration: none;" target="_blank" href="https://web-dorado.com/wordpress-form-maker-guide-2.html">Read More in User Manual</a>
-		</div>
 		<div class="fm-clear"></div>
-		<form class="wrap" method="post" action="admin.php?page=goptions_fm" style="width:99%;">
+		<form class="wrap" method="post" action="admin.php?page=goptions_fm">
 			<?php wp_nonce_field('nonce_fm', 'nonce_fm'); ?>     
 			<div class="fm-page-header">
 				<div class="fm-page-title">
 					Form Settings
 				</div>
 				<div class="fm-page-actions">
-					<button class="fm-button save-button small" onclick="if (fm_check_required('title', 'Title')) {return false;}; fm_set_input_value('task', 'save');">
+					<button class="fm-button save-button medium" onclick="if (fm_check_required('title', 'Title')) {return false;}; fm_set_input_value('task', 'save');">
 						<span></span>
 						Save
 					</button>
@@ -50,6 +46,7 @@ class FMViewGoptions_fm {
 
 			<table style="clear:both;">
 				<tbody>
+					
 					<tr>
 						<td>
 							<label for="public_key">Recaptcha Public Key:</label>

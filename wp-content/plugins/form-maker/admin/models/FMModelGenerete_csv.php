@@ -27,16 +27,16 @@ class FMModelGenerete_csv {
 		$limitstart = (int)$_REQUEST['limitstart'];
 		$search_labels	= isset($_REQUEST['search_labels']) ? $_REQUEST['search_labels'] : '';
 		$verified_emails	= isset($_REQUEST['verified_emails']) ? json_decode(stripslashes($_REQUEST['verified_emails']), true) : array();
-
 		
 		$paypal_info_fields = array('currency', 'ord_last_modified', 'status', 'full_name', 'fax', 'mobile_phone', 'email', 'phone', 'address', 'paypal_info',  'ipn', 'tax', 'shipping');
 		$paypal_info_labels = array( 'Currency', 'Last modified', 'Status', 'Full Name', 'Fax', 'Mobile phone', 'Email', 'Phone', 'Address', 'Paypal info', 'IPN', 'Tax', 'Shipping');
-		
+
+
 		if($search_labels){
 			$query = $wpdb->prepare("SELECT distinct group_id FROM " . $wpdb->prefix . "formmaker_submits where form_id=%d and group_id IN(".$search_labels.")", $form_id);		
 			$group_id_s = $wpdb->get_col($query);	
 		}
-			
+		
 
 		$query = $wpdb->prepare("SELECT distinct element_label FROM " . $wpdb->prefix . "formmaker_submits where form_id=%d",$form_id);	
 		$labels = $wpdb->get_col($query);
@@ -87,13 +87,12 @@ class FMModelGenerete_csv {
 			$rows = $wpdb->get_results($query, OBJECT_K);
 		}
 		
-
+		
 		$data = array();
 		$group_id_s_count = $limitstart + 1000 < count($group_id_s) ? $limitstart + 1000 : count($group_id_s);
 
 		sort($group_id_s,SORT_NUMERIC);
-		
-		for ($www = $limitstart; $www < $group_id_s_count; $www++) {
+		for ($www = $limitstart; $www < $group_id_s_count; $www++) {	
 			$i = $group_id_s[$www];
 			$field_key = array_search($i, $label_id);
 			if($label_type[$field_key] != 'type_arithmetic_captcha') {
@@ -113,10 +112,12 @@ class FMModelGenerete_csv {
 			
 				$element_labels = explode(',', $tt->element_label);
 				$element_values = explode('*:*el_value*:*', $tt->element_value);
+				
+
 				for ($h = 0; $h < $m; $h++) {
 					if(isset($data_temp[$label_titles[$h]]))
 						$label_titles[$h] .= '(1)';
-					
+
 					if(in_array($sorted_labels_id[$h], $element_labels)) {
 						$element_value = $element_values[array_search($sorted_labels_id[$h], $element_labels)];
 				
@@ -224,14 +225,15 @@ class FMModelGenerete_csv {
 							$data_temp[stripslashes($label_titles[$h])] = $matrix;
 						}
 						else {
-							$val = htmlspecialchars_decode($element_value);
+							$val = strip_tags(htmlspecialchars_decode($element_value));
 							$val = stripslashes(str_replace('&#039;', "'", $val));
 							$data_temp[stripslashes($label_titles[$h])] = ($element_value ? $val : '');
-						}
+						}		
 					}
-					else						
+					else {					
 						$data_temp[stripslashes($label_titles[$h])] = '';
-						
+					}	
+	
 					if(isset($verified_emails[$sorted_labels_id[$h]]) && $sorted_types[$h] == "type_submitter_mail") {
 						if($data_temp[stripslashes($label_titles[$h])] == '') {
 							$data_temp[stripslashes($label_titles[$h]).'(verified)'] = '';
@@ -244,7 +246,7 @@ class FMModelGenerete_csv {
 						}
 					}
 				}
-			
+		
 				$query = $wpdb->prepare("SELECT id FROM " . $wpdb->prefix . "formmaker_submits where element_label=%s AND form_id = %d AND group_id=%d",'item_total', $form_id, $i);	
 				$is_paypal = $wpdb->get_results($query);
 			
@@ -271,15 +273,16 @@ class FMModelGenerete_csv {
 						}
 					}
 				}
-				
+			
 				$data[$i] = $data_temp;
-			} 
+			}
+			 
 		}
+
 
 		array_push($params, $data);
 		array_push($params, $title);
 		array_push($params, $is_paypal_info);
-
 		return $params;	
 
 	}

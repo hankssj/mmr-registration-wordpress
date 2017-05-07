@@ -1,87 +1,74 @@
 <?php
 
 class FMControllerSubmissions_fm {
-  ////////////////////////////////////////////////////////////////////////////////////////
-  // Events                                                                             //
-  ////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////
-  // Constants                                                                          //
-  ////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////
-  // Variables                                                                          //
-  ////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////
-  // Constructor & Destructor                                                           //
-  ////////////////////////////////////////////////////////////////////////////////////////
-  public function __construct() {
-  }
-  ////////////////////////////////////////////////////////////////////////////////////////
-  // Public Methods                                                                     //
-  ////////////////////////////////////////////////////////////////////////////////////////
-  public function execute() {
-    $task = ((isset($_POST['task'])) ? esc_html($_POST['task']) : ''); 
-    $id = ((isset($_POST['current_id'])) ? (int)esc_html($_POST['current_id']) : 0);
-    $form_id = ((isset($_POST['form_id']) && esc_html($_POST['form_id']) != '') ? (int)esc_html($_POST['form_id']) : 0);	
-	
-    if (method_exists($this, $task)) {
-		if($task != 'show_stats')
-			check_admin_referer('nonce_fm', 'nonce_fm');
-		else
-			check_ajax_referer('nonce_fm_ajax', 'nonce_fm_ajax');
-		$this->$task($id); 
-    }
-    else {
-		$this->display($form_id); 
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////////////////
+	// Events                                                                             //
+	////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	// Constants                                                                          //
+	////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	// Variables                                                                          //
+	////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	// Constructor & Destructor                                                           //
+	////////////////////////////////////////////////////////////////////////////////////////
+	public function __construct() {
+	}
+	  ////////////////////////////////////////////////////////////////////////////////////////
+	  // Public Methods                                                                     //
+	  ////////////////////////////////////////////////////////////////////////////////////////
+	public function execute() {
+		$task = ((isset($_POST['task'])) ? esc_html($_POST['task']) : ''); 
+		$id = ((isset($_POST['current_id'])) ? (int)esc_html($_POST['current_id']) : 0);
+		$form_id = ((isset($_POST['form_id']) && esc_html($_POST['form_id']) != '') ? (int)esc_html($_POST['form_id']) : 0);	
+		
+		if (method_exists($this, $task)) {
+			if($task != 'show_stats')
+				check_admin_referer('nonce_fm', 'nonce_fm');
+			else
+				check_ajax_referer('nonce_fm_ajax', 'nonce_fm_ajax');
+			$this->$task($id); 
+		}
+		else {
+			$this->display($form_id); 
+		}
+	}
   
-  public function display($form_id) {
-    $form_id = ((isset($_POST['form_id']) && esc_html($_POST['form_id']) != '') ? (int)esc_html($_POST['form_id']) : 0);
-    require_once WD_FM_DIR . "/admin/models/FMModelSubmissions_fm.php";
-    $model = new FMModelSubmissions_fm();
+	public function display($form_id) {
+		$form_id = ((isset($_POST['form_id']) && esc_html($_POST['form_id']) != '') ? (int)esc_html($_POST['form_id']) : 0);
+		require_once WD_FM_DIR . "/admin/models/FMModelSubmissions_fm.php";
+		$model = new FMModelSubmissions_fm();
 
-    require_once WD_FM_DIR . "/admin/views/FMViewSubmissions_fm.php";
-    $view = new FMViewSubmissions_fm($model);
-    $view->display($form_id);
-  }
+		require_once WD_FM_DIR . "/admin/views/FMViewSubmissions_fm.php";
+		$view = new FMViewSubmissions_fm($model);
+		$view->display($form_id);
+	}
 
-  public function show_stats() {
+	public function show_stats() {
+		$form_id = ((isset($_POST['form_id']) && esc_html($_POST['form_id']) != '') ? (int)esc_html($_POST['form_id']) : 0);
+		require_once WD_FM_DIR . "/admin/models/FMModelSubmissions_fm.php";
+		$model = new FMModelSubmissions_fm();
 
-    $form_id = ((isset($_POST['form_id']) && esc_html($_POST['form_id']) != '') ? (int)esc_html($_POST['form_id']) : 0);
-    require_once WD_FM_DIR . "/admin/models/FMModelSubmissions_fm.php";
-    $model = new FMModelSubmissions_fm();
+		require_once WD_FM_DIR . "/admin/views/FMViewSubmissions_fm.php";
+		$view = new FMViewSubmissions_fm($model);
+		$view->show_stats($form_id);
+	}
 
-    require_once WD_FM_DIR . "/admin/views/FMViewSubmissions_fm.php";
-    $view = new FMViewSubmissions_fm($model);
-    $view->show_stats($form_id);
-  }
+	public function edit() {
+		global $wpdb;
+		require_once WD_FM_DIR . "/admin/models/FMModelSubmissions_fm.php";
+		$model = new FMModelSubmissions_fm();
 
-  public function edit() {
-    global $wpdb;
-    require_once WD_FM_DIR . "/admin/models/FMModelSubmissions_fm.php";
-    $model = new FMModelSubmissions_fm();
+		require_once WD_FM_DIR . "/admin/views/FMViewSubmissions_fm.php";
+		$view = new FMViewSubmissions_fm($model);
+		$id = ((isset($_POST['current_id']) && esc_html($_POST['current_id']) != '') ? (int) $_POST['current_id'] : 0);
+				
+		$form_id = (int)$wpdb->get_var("SELECT form_id FROM " . $wpdb->prefix . "formmaker_submits WHERE group_id='" . $id . "'");	
+		$form = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "formmaker WHERE id='" . $form_id . "'");
 
-    require_once WD_FM_DIR . "/admin/views/FMViewSubmissions_fm.php";
-    $view = new FMViewSubmissions_fm($model);
-    $id = ((isset($_POST['current_id']) && esc_html($_POST['current_id']) != '') ? (int) $_POST['current_id'] : 0);
-			
-    $form_id = (int)$wpdb->get_var("SELECT form_id FROM " . $wpdb->prefix . "formmaker_submits WHERE group_id='" . $id . "'");	
-    $form = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "formmaker WHERE id='" . $form_id . "'");
-
-    if (isset($form->form)) {
-      $old = TRUE;
-    }
-    else {
-      $old = FALSE;
-    }
-
-    if ($old == FALSE || ($old == TRUE && $form->form == '')) {
-      $view->new_edit($id, $form_id);
-    }
-    else {
-      $view->edit($id);
-    }
-  }
+    $view->edit($id);
+	}
   
   public function save() {
     $form_id = ((isset($_POST['form_id']) && esc_html($_POST['form_id']) != '') ? (int)esc_html($_POST['form_id']) : 0);
@@ -135,7 +122,6 @@ class FMControllerSubmissions_fm {
 			$i=$label_id[$key];
 			$id = 'form_id_temp';	
 			switch ($type) {
-			
 				case 'type_text':
 				case 'type_password':
 				case 'type_textarea':
@@ -143,6 +129,7 @@ class FMControllerSubmissions_fm {
 				case "type_date":
 				case "type_own_select":					
 				case "type_country":				
+				case "type_phone_new":				
 				case "type_number":	{
 					$value = (isset($_POST['wdform_'.$i."_element".$id]) ? $_POST['wdform_'.$i."_element".$id] : NULL);
 					break;
@@ -159,7 +146,6 @@ class FMControllerSubmissions_fm {
 
 					break;
 				}
-				
 				case "type_date_new":{
 					$value = isset($_POST['wdform_'.$i."_element".$id]) ? esc_html($_POST['wdform_'.$i."_element".$id]) : "";
 					
@@ -170,8 +156,7 @@ class FMControllerSubmissions_fm {
 					$value = (isset($_POST['wdform_'.$i."_element".$id."0"]) ? esc_html($_POST['wdform_'.$i."_element".$id."0"]) : "").' - '.(isset($_POST['wdform_'.$i."_element".$id."1"]) ? esc_html($_POST['wdform_'.$i."_element".$id."1"]) : "");
 					
 					break;
-				}
-
+				}				
 				case "type_date_fields": {
 				    $day = (isset($_POST['wdform_'.$i."_day".$id]) ? $_POST['wdform_'.$i."_day".$id] : NULL);
 				    $month = (isset($_POST['wdform_'.$i."_month".$id]) ? $_POST['wdform_'.$i."_month".$id] : NULL);
@@ -332,18 +317,25 @@ class FMControllerSubmissions_fm {
 					break;
 				}			
 				
+				case "type_paypal_price_new": {
+				
+					$value = isset($_POST['wdform_'.$i."_element".$id]) ? $form_currency.$_POST['wdform_'.$i."_element".$id] : $form_currency.'0';
+					break;
+				}
 				case "type_paypal_select": {	
-		
-					if((isset($_POST['wdform_'.$i."_element_label".$id]) ? $_POST['wdform_'.$i."_element_label".$id] : NULL)) 
-						$value = (isset($_POST['wdform_'.$i."_element_label".$id]) ? $_POST['wdform_'.$i."_element_label".$id] : NULL) . ' : ' . (isset($_POST['wdform_'.$i."_element".$id]) ? $_POST['wdform_'.$i."_element".$id] : NULL) . $form_currency; 
-					else
-						$value = '';
-					
-					$element_quantity = (isset($_POST['wdform_'.$i."element_quantity".$id]) ? $_POST['wdform_'.$i."element_quantity".$id] : NULL);
-					if(isset($element_quantity) && $value!='')
-						$value .= '***br***' . (isset($_POST['wdform_'.$i."_element_quantity_label".$id]) ? $_POST['wdform_'.$i."_element_quantity_label".$id] : NULL) . ': ' . (isset($_POST['wdform_'.$i."_element_quantity".$id]) ? $_POST['wdform_'.$i."_element_quantity".$id] : NULL);
-					
-					
+
+				  if(isset($_POST['wdform_'.$i."_element".$id]) && $_POST['wdform_'.$i."_element".$id]) {
+					$value = (isset($_POST['wdform_'.$i."_element_label".$id]) && $_POST['wdform_'.$i."_element_label".$id] ? $_POST['wdform_'.$i."_element_label".$id] : '' ) . ' : ' . $form_currency . $_POST['wdform_'.$i."_element".$id];
+				  }
+				  else {
+					$value = '';
+				  }
+				  
+	
+					$element_quantity = isset($_POST['wdform_'.$i."_element_quantity".$id]) ? $_POST['wdform_'.$i."_element_quantity".$id] : NULL;
+				  if(isset($element_quantity) && $value != '') {
+					$value .= '***br***' . (isset($_POST['wdform_'.$i."_element_quantity_label".$id]) ? $_POST['wdform_'.$i."_element_quantity_label".$id] : "") . ': ' . $_POST['wdform_'.$i."_element_quantity".$id] . '***quantity***';
+				  }
 					for($k=0; $k<50; $k++) {
 						$temp_val = (isset($_POST['wdform_'.$i."_property".$id.$k]) ? $_POST['wdform_'.$i."_property".$id.$k] : NULL);
 						if(isset($temp_val) && $value!='') {			
@@ -357,7 +349,7 @@ class FMControllerSubmissions_fm {
 				case "type_paypal_radio": { 
 					
 					if((isset($_POST['wdform_'.$i."_element_label".$id]) ? $_POST['wdform_'.$i."_element_label".$id] : NULL)) 
-						$value = (isset($_POST['wdform_'.$i."_element".$id]) ? $_POST['wdform_'.$i."_element".$id] : NULL) . ' : ' . (isset($_POST['wdform_'.$i."_element".$id]) ? $_POST['wdform_'.$i."_element".$id] : NULL) . $form_currency;
+						$value = (isset($_POST['wdform_'.$i."_element_label".$id]) ? $_POST['wdform_'.$i."_element_label".$id] : NULL) . ' : ' . $form_currency . (isset($_POST['wdform_'.$i."_element".$id]) ? $_POST['wdform_'.$i."_element".$id] : NULL);
 					else
 						$value=''; 
 
@@ -381,11 +373,10 @@ class FMControllerSubmissions_fm {
 				case "type_paypal_shipping": {
 					
 					if((isset($_POST['wdform_'.$i."_element_label".$id]) ? $_POST['wdform_'.$i."_element_label".$id] : NULL)) 
-						$value = (isset($_POST['wdform_'.$i."_element_label".$id]) ? $_POST['wdform_'.$i."_element_label".$id] : NULL) . ' : ' . (isset($_POST['wdform_'.$i."_element".$id]) ? $_POST['wdform_'.$i."_element".$id] : NULL) . $form_currency;
+						$value = (isset($_POST['wdform_'.$i."_element_label".$id]) ? $_POST['wdform_'.$i."_element_label".$id] : NULL) . ' : ' . $form_currency . (isset($_POST['wdform_'.$i."_element".$id]) ? $_POST['wdform_'.$i."_element".$id] : NULL);
 					else
-						$value=''; 
-					$value = (isset($_POST['wdform_'.$i."_element_label".$id]) ? $_POST['wdform_'.$i."_element_label".$id] : NULL) . ' - ' . (isset($_POST['wdform_'.$i."_element".$id]) ? $_POST['wdform_'.$i."_element".$id] : NULL);
-					
+						$value='';
+						
 					$paypal['shipping'] = (isset($_POST['wdform_'.$i."_element".$id]) ? $_POST['wdform_'.$i."_element".$id] : NULL);
 
 					break;
@@ -414,15 +405,8 @@ class FMControllerSubmissions_fm {
 						for($j=$start; $j<100; $j++) {
 							$element = (isset($_POST['wdform_'.$i."_element".$id.$j]) ? $_POST['wdform_'.$i."_element".$id.$j] : NULL);
 							if(isset($element))
-							if($j==$other_element_id) {
-								$value = $value . (isset($_POST['wdform_'.$i."_other_input".$id]) ? $_POST['wdform_'.$i."_other_input".$id] : NULL) . '***br***'; 
-								
-							}
-							else { 
-							  
-								$value = $value . (isset($_POST['wdform_'.$i."_element".$id.$j."_label"]) ? $_POST['wdform_'.$i."_element".$id.$j."_label"] : NULL) . ' - ' . ((isset($_POST['wdform_'.$i."_element".$id.$j]) ? $_POST['wdform_'.$i."_element".$id.$j] : NULL) == '' ? '0' : (isset($_POST['wdform_'.$i."_element".$id.$j]) ? $_POST['wdform_'.$i."_element".$id.$j] : NULL)) . $form_currency . '***br***';
+							$value = $value . (isset($_POST['wdform_'.$i."_element".$id.$j."_label"]) ? $_POST['wdform_'.$i."_element".$id.$j."_label"] : NULL) . ' - '  . $form_currency . (isset($_POST['wdform_'.$i."_element".$id.$j]) && $_POST['wdform_'.$i."_element".$id.$j] ? $_POST['wdform_'.$i."_element".$id.$j] : 0 ). '***br***';
 							
-							}
 						}
 						
 						$element_quantity = (isset($_POST['wdform_'.$i."element_quantity".$id]) ? $_POST['wdform_'.$i."element_quantity".$id] : NULL);
@@ -684,28 +668,17 @@ class FMControllerSubmissions_fm {
     global $wpdb;
     $form_id = ((isset($_POST['form_id']) && esc_html($_POST['form_id']) != '') ? (int)esc_html($_POST['form_id']) : 0);	    
     $query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'formmaker_submits WHERE group_id="%d"', $id);
-    // $elements_col = $wpdb->get_col($wpdb->prepare('SELECT element_value FROM ' . $wpdb->prefix . 'formmaker_submits WHERE group_id="%d"', $id));
     if ($wpdb->query($query)) {
-      // foreach ($elements_col as $element_value) {
-        // $destination = str_replace(site_url() . '/', '', $element_value);
-        // $destination = str_replace('*@@url@@*', '', $destination);
-        // if ($destination) {
-          // $destination = ABSPATH . $destination;
-          // if (file_exists($destination)) {
-             // unlink($destination);
-          // }
-        // }
-      // }
       echo WDW_FM_Library::message('Item Succesfully Deleted.', 'updated');
     }
     else {
       echo WDW_FM_Library::message('Error. Please install plugin again.', 'error');
     } 
-
-	$query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'formmaker_sessions WHERE form_id="%d" AND group_id="%d"', $form_id, $id);
-	$wpdb->query($query);	
 	
-    $this->display($form_id);
+	$query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'formmaker_sessions WHERE form_id="%d" AND group_id="%d"', $form_id, $id);
+	$wpdb->query($query);
+   
+   $this->display($form_id);
   }
   
   public function delete_all() {
@@ -716,9 +689,8 @@ class FMControllerSubmissions_fm {
 	  array_walk($cid, create_function('&$value', '$value = (int)$value;')); 
       $cids = implode(',', $cid);
       $query = 'DELETE FROM ' . $wpdb->prefix . 'formmaker_submits WHERE group_id IN ( ' . $cids . ' )';
-      // $elements_col = $wpdb->get_col('SELECT element_value FROM ' . $wpdb->prefix . 'formmaker_submits WHERE group_id IN ( ' . $cids . ' )');
+     
       if ($wpdb->query($query)) {
-       
         echo WDW_FM_Library::message('Items Succesfully Deleted.', 'updated');
       }
       else {

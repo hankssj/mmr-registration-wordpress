@@ -1,6 +1,10 @@
 /* The main calendar widget.  DIV containing a table. */
 
 /* Form Wordpress. */
+.calendar table {
+  width: 100% !important;
+}
+
 .calendar .button {
   display: table-cell !important;
 }

@@ -53,8 +53,11 @@ class FMControllerGoptions_fm {
     $private_key = (isset($_POST['private_key']) ?  esc_html(stripslashes( $_POST['private_key'])) : '');
     $csv_delimiter = (isset($_POST['csv_delimiter']) && $_POST['csv_delimiter']!='' ? esc_html(stripslashes( $_POST['csv_delimiter'])) : ',');
 		$fm_shortcode = (isset($_POST['fm_shortcode']) ?  "old" : '');
+
 		$map_key = (isset($_POST['map_key']) ?  esc_html(stripslashes( $_POST['map_key'])) : '');
-    update_option('fm_settings', array('public_key' => $public_key, 'private_key' => $private_key, 'csv_delimiter' => $csv_delimiter, 'map_key' => $map_key, 'fm_shortcode' => $fm_shortcode));	
+    update_option('fm_settings', array('public_key' => $public_key, 'private_key' => $private_key, 'csv_delimiter' => $csv_delimiter, 'map_key' => $map_key, 'fm_shortcode' => $fm_shortcode,));	
+		
+
   }
 
 

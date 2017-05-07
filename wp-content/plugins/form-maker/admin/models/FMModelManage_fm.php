@@ -20,14 +20,14 @@ class FMModelManage_fm {
   ////////////////////////////////////////////////////////////////////////////////////////
   public function get_rows_data() {
     global $wpdb;
-	$where = 'WHERE `id` NOT IN (' . (get_option('contact_form_forms', '') != '' ? get_option('contact_form_forms') : 0) . ')';
+    $where = 'WHERE `id` NOT IN (' . (get_option('contact_form_forms', '') != '' ? get_option('contact_form_forms') : 0) . ')';
     $where .= ((isset($_POST['search_value']) && (esc_html($_POST['search_value']) != '')) ? ' AND title LIKE "%' . esc_html($_POST['search_value']) . '%"' : '');
     $asc_or_desc = ((isset($_POST['asc_or_desc']) && $_POST['asc_or_desc'] == 'desc') ? 'desc' : 'asc');
-	$order_by_array = array('id', 'title', 'mail');
-	$order_by = isset($_POST['order_by']) && in_array(esc_html(stripslashes($_POST['order_by'])), $order_by_array) ? esc_html(stripslashes($_POST['order_by'])) :  'id';
+    $order_by_array = array('id', 'title', 'mail');
+    $order_by = isset($_POST['order_by']) && in_array(esc_html(stripslashes($_POST['order_by'])), $order_by_array) ? esc_html(stripslashes($_POST['order_by'])) : 'id';
     $order_by = ' ORDER BY `' . $order_by . '` ' . $asc_or_desc;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
-      $limit = ((int) $_POST['page_number'] - 1) * 20;
+      $limit = ((int)$_POST['page_number'] - 1) * 20;
     }
     else {
       $limit = 0;
@@ -91,6 +91,11 @@ class FMModelManage_fm {
       $row->mail_from_name_user = '';
       $row->reply_to_user = '';
       $row->save_uploads = 1;
+      $row->header_title = '';
+      $row->header_description = '';
+      $row->header_image_url = '';
+      $row->header_image_animation = '';
+      $row->header_hide_image = '';
     }
     return $row;
   }
@@ -154,8 +159,9 @@ class FMModelManage_fm {
             }
             
             case 'type_send_copy':
+            case 'type_stripe':
             case 'type_captcha':
-			case 'type_arithmetic_captcha':
+            case 'type_arithmetic_captcha':
             case 'type_recaptcha':
             {
               $arrows =$arrows.'<div id="wdform_arrows'.$id.'" class="wdform_arrows"><div id="X_'.$id.'" valign="middle" align="right" class="element_toolbar"><img src="' . WD_FM_URL . '/images/delete_el.png?ver='. get_option("wd_form_maker_version").'" title="Remove the field" onclick="remove_row(&quot;'.$id.'&quot;)" onmouseover="chnage_icons_src(this,&quot;delete_el&quot;)" onmouseout="chnage_icons_src(this,&quot;delete_el&quot;)"></div><div id="left_'.$id.'" valign="middle" class="element_toolbar"><img src="' . WD_FM_URL . '/images/left.png?ver='. get_option("wd_form_maker_version").'" title="Move the field to the left" onclick="left_row(&quot;'.$id.'&quot;)" onmouseover="chnage_icons_src(this,&quot;left&quot;)" onmouseout="chnage_icons_src(this,&quot;left&quot;)"></div><div id="up_'.$id.'" valign="middle" class="element_toolbar"><img src="' . WD_FM_URL . '/images/up.png?ver='. get_option("wd_form_maker_version").'" title="Move the field up" onclick="up_row(&quot;'.$id.'&quot;)" onmouseover="chnage_icons_src(this,&quot;up&quot;)" onmouseout="chnage_icons_src(this,&quot;up&quot;)"></div><div id="down_'.$id.'" valign="middle" class="element_toolbar"><img src="' . WD_FM_URL . '/images/down.png?ver='. get_option("wd_form_maker_version").'" title="Move the field down" onclick="down_row(&quot;'.$id.'&quot;)" onmouseover="chnage_icons_src(this,&quot;down&quot;)" onmouseout="chnage_icons_src(this,&quot;down&quot;)"></div><div id="right_'.$id.'" valign="middle" class="element_toolbar"><img src="' . WD_FM_URL . '/images/right.png?ver='. get_option("wd_form_maker_version").'" title="Move the field to the right" onclick="right_row(&quot;'.$id.'&quot;)" onmouseover="chnage_icons_src(this,&quot;right&quot;)" onmouseout="chnage_icons_src(this,&quot;right&quot;)"></div><div id="edit_'.$id.'" valign="middle" class="element_toolbar"><img src="' . WD_FM_URL . '/images/edit.png?ver='. get_option("wd_form_maker_version").'" title="Edit the field" onclick="edit(&quot;'.$id.'&quot;)" onmouseover="chnage_icons_src(this,&quot;edit&quot;)" onmouseout="chnage_icons_src(this,&quot;edit&quot;)"></div><div id="duplicate_'.$id.'" valign="middle" class="element_toolbar"></div><div id="page_up_'.$id.'" valign="middle" class="element_toolbar"><img src="' . WD_FM_URL . '/images/page_up.png?ver='. get_option("wd_form_maker_version").'" title="Move the field to the upper page" onclick="page_up(&quot;'.$id.'&quot;)" onmouseover="chnage_icons_src(this,&quot;page_up&quot;)" onmouseout="chnage_icons_src(this,&quot;page_up&quot;)"></div><div id="page_down_'.$id.'" valign="middle" class="element_toolbar"><img src="' . WD_FM_URL . '/images/page_down.png?ver='. get_option("wd_form_maker_version").'" title="Move the field to the lower page" onclick="page_down(&quot;'.$id.'&quot;)" onmouseover="chnage_icons_src(this,&quot;page_down&quot;)" onmouseout="chnage_icons_src(this,&quot;page_down&quot;)"></div></div>';
@@ -169,6 +175,10 @@ class FMModelManage_fm {
             }
             
           }
+					
+					
+					
+					
           switch ($type) {
             case 'type_section_break': {
               $params_names = array('w_editor');
@@ -195,6 +205,10 @@ class FMModelManage_fm {
             case 'type_send_copy': {
               $params_names = array('w_field_label_size', 'w_field_label_pos', 'w_first_val', 'w_required');
               $temp = $params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names = array('w_field_label_size', 'w_field_label_pos', 'w_hide_label', 'w_first_val', 'w_required');
+			  
               foreach ($params_names as $params_name ) {
                 $temp = explode('*:*' . $params_name . '*:*', $temp);
                 $param[$params_name] = $temp[0];
@@ -208,9 +222,13 @@ class FMModelManage_fm {
                 }
               }
               $param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");	
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+			  
               $input_active = ($param['w_first_val'] == 'true' ? "checked='checked'" : "");
               $required_sym = ($param['w_required'] == "yes" ? " *" : "");
-              $rep ='<div id="wdform_field'.$id.'" type="type_send_copy" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" style="display: '.$param['w_field_label_pos'].'"><input type="hidden" value="type_send_copy" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp" /><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp" /><input type="checkbox" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" onclick="set_checked(&quot;'.$id.'&quot;,&quot;&quot;,&quot;form_id_temp&quot;)" '.$input_active.' '.$param['attributes'].' disabled /></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_send_copy" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" style="display: '.$param['w_field_label_pos'].'"><input type="hidden" value="type_send_copy" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp" /><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp" /><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="checkbox" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" onclick="set_checked(&quot;'.$id.'&quot;,&quot;&quot;,&quot;form_id_temp&quot;)" '.$input_active.' '.$param['attributes'].' disabled /></div></div>';
               break;
             }
             case 'type_text': {
@@ -218,6 +236,13 @@ class FMModelManage_fm {
 				$temp = $params;
 				if(strpos($temp, 'w_regExp_status') > -1)
 					$params_names = array('w_field_label_size','w_field_label_pos','w_size','w_first_val','w_title','w_required', 'w_regExp_status', 'w_regExp_value', 'w_regExp_common', 'w_regExp_arg', 'w_regExp_alert', 'w_unique');
+					
+				if(strpos($temp, 'w_readonly') > -1)
+					$params_names = array('w_field_label_size','w_field_label_pos','w_size','w_first_val','w_title','w_required', 'w_regExp_status', 'w_regExp_value', 'w_regExp_common', 'w_regExp_arg', 'w_regExp_alert', 'w_unique', 'w_readonly');	
+					
+				if(strpos($temp, 'w_hide_label') > -1)
+					$params_names = array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_size','w_first_val','w_title','w_required', 'w_regExp_status', 'w_regExp_value', 'w_regExp_common', 'w_regExp_arg', 'w_regExp_alert', 'w_unique', 'w_readonly');
+					
 				foreach ($params_names as $params_name) {
 					$temp = explode('*:*' . $params_name . '*:*', $temp);
 					$param[$params_name] = $temp[0];
@@ -230,6 +255,9 @@ class FMModelManage_fm {
 					  $param['attributes'] = $param['attributes'] . ' add_' . $attr;
 					}
 				}
+
+				
+				
 				
 				$param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");
 				$input_active = ($param['w_first_val'] == $param['w_title'] ? "input_deactive" : "input_active");
@@ -241,7 +269,13 @@ class FMModelManage_fm {
 				$param['w_regExp_arg'] = (isset($param['w_regExp_arg']) ? $param['w_regExp_arg'] : "");
 				$param['w_regExp_alert'] = (isset($param['w_regExp_alert']) ? $param['w_regExp_alert'] : "Incorrect Value");
 				
-				$rep ='<div id="wdform_field'.$id.'" type="type_text" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" style="display: '.$param['w_field_label_pos'].'"><input type="hidden" value="type_text" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp" /><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp" /><input type="hidden" value="'.$param['w_regExp_status'].'" name="'.$id.'_regExpStatusform_id_temp" id="'.$id.'_regExpStatusform_id_temp"><input type="hidden" value="'.$param['w_regExp_value'].'" name="'.$id.'_regExp_valueform_id_temp" id="'.$id.'_regExp_valueform_id_temp"><input type="hidden" value="'.$param['w_regExp_common'].'" name="'.$id.'_regExp_commonform_id_temp" id="'.$id.'_regExp_commonform_id_temp"><input type="hidden" value="'.$param['w_regExp_alert'].'" name="'.$id.'_regExp_alertform_id_temp" id="'.$id.'_regExp_alertform_id_temp"><input type="hidden" value="'.$param['w_regExp_arg'].'" name="'.$id.'_regArgumentform_id_temp" id="'.$id.'_regArgumentform_id_temp"><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp" /><input type="text" class="'.$input_active.'" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" value="'.$param['w_first_val'].'" title="'.$param['w_title'].'" onfocus="delete_value(&quot;'.$id.'_elementform_id_temp&quot;)" onblur="return_value(&quot;'.$id.'_elementform_id_temp&quot;)" onchange="change_value(&quot;'.$id.'_elementform_id_temp&quot;)" style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled /></div></div>';
+				$param['w_readonly'] = (isset($param['w_readonly']) ? $param['w_readonly'] : "no");
+				
+				$param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+				$display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+				
+				
+				$rep ='<div id="wdform_field'.$id.'" type="type_text" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" style="display: '.$param['w_field_label_pos'].'"><input type="hidden" value="type_text" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp" /><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp" /><input type="hidden" value="'.$param['w_readonly'].'" name="'.$id.'_readonlyform_id_temp" id="'.$id.'_readonlyform_id_temp"/><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_regExp_status'].'" name="'.$id.'_regExpStatusform_id_temp" id="'.$id.'_regExpStatusform_id_temp"><input type="hidden" value="'.$param['w_regExp_value'].'" name="'.$id.'_regExp_valueform_id_temp" id="'.$id.'_regExp_valueform_id_temp"><input type="hidden" value="'.$param['w_regExp_common'].'" name="'.$id.'_regExp_commonform_id_temp" id="'.$id.'_regExp_commonform_id_temp"><input type="hidden" value="'.$param['w_regExp_alert'].'" name="'.$id.'_regExp_alertform_id_temp" id="'.$id.'_regExp_alertform_id_temp"><input type="hidden" value="'.$param['w_regExp_arg'].'" name="'.$id.'_regArgumentform_id_temp" id="'.$id.'_regArgumentform_id_temp"><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp" /><input type="text" class="'.$input_active.'" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" value="'.$param['w_first_val'].'" title="'.$param['w_title'].'" onfocus="delete_value(&quot;'.$id.'_elementform_id_temp&quot;)" onblur="return_value(&quot;'.$id.'_elementform_id_temp&quot;)" onchange="change_value(&quot;'.$id.'_elementform_id_temp&quot;)" style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled /></div></div>';
 				
 				break;
             }
@@ -268,10 +302,16 @@ class FMModelManage_fm {
             }
             case 'type_password': {
               $params_names = array('w_field_label_size', 'w_field_label_pos', 'w_size', 'w_required', 'w_unique', 'w_class');
-			  $temp = $params;
+              $temp = $params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names = array('w_field_label_size', 'w_field_label_pos', 'w_hide_label', 'w_size', 'w_required', 'w_unique', 'w_class');
+			  
 			  if(strpos($temp, 'w_verification') > -1)
-				$params_names = array('w_field_label_size', 'w_field_label_pos', 'w_size', 'w_required', 'w_unique', 'w_class', 'w_verification', 'w_verification_label');
-              
+				$params_names = array('w_field_label_size', 'w_field_label_pos', 'w_hide_label', 'w_size', 'w_required', 'w_unique', 'w_class', 'w_verification', 'w_verification_label');
+				
+			  
+			  
               foreach ($params_names as $params_name) {
                 $temp = explode('*:*' . $params_name . '*:*', $temp);
                 $param[$params_name] = $temp[0];
@@ -284,12 +324,15 @@ class FMModelManage_fm {
                   $param['attributes'] = $param['attributes'] . ' add_' . $attr;
                 }
               }
+
+              $param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");
+
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
 			  
-			  $param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");	
-              $required_sym = ($param['w_required'] == "yes" ? " *" : "");
 			  
 			  if(isset($param['w_verification']) && $param['w_verification'] == "yes"){
-				$display_label_confirm = $param['w_field_label_pos'];
+				$display_label_confirm = $display_label;
 				$display_element_confirm = $param['w_field_label_pos'];
 			  }
 			  else{
@@ -299,16 +342,26 @@ class FMModelManage_fm {
 
 			  $param['w_verification'] = isset($param['w_verification']) ? $param['w_verification'] : "no";
 			  $param['w_verification_label'] = isset($param['w_verification_label']) ? $param['w_verification_label'] : "Password confirmation:";
+			  $required_sym = ($param['w_required'] == "yes" ? " *" : "");	
+			  
 			  
 			  $confirm_password ='<br><div align="left" id="'.$id.'_1_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label_confirm.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_1_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$param['w_verification_label'].'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_1_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_element_confirm.';"><input type="hidden" value="'.$param['w_verification'].'" name="'.$id.'_verification_id_temp" id="'.$id.'_verification_id_temp"><input type="text" class="input_deactive" id="'.$id.'_1_elementform_id_temp" name="'.$id.'_1_elementform_id_temp" style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled /></div>';
 			  
-              	
-              $rep ='<div id="wdform_field'.$id.'" type="type_password" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp"  class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'"><input type="hidden" value="type_password" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><input type="password" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled /></div>'.$confirm_password.'</div>';
+			  
+			  
+              $rep ='<div id="wdform_field'.$id.'" type="type_password" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp"  class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'"><input type="hidden" value="type_password" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><input type="password" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled /></div>'.$confirm_password.'</div>';
               break;
+ 
             }
             case 'type_textarea': {
               $params_names = array('w_field_label_size', 'w_field_label_pos', 'w_size_w', 'w_size_h', 'w_first_val', 'w_title', 'w_required', 'w_unique', 'w_class');
               $temp = $params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+			  $params_names = array('w_field_label_size', 'w_field_label_pos', 'w_hide_label', 'w_size_w', 'w_size_h', 'w_first_val', 'w_title', 'w_required', 'w_unique', 'w_class');
+			  
+			  
+			  
               foreach ($params_names as $params_name) {
                 $temp = explode('*:*' . $params_name . '*:*', $temp);
                 $param[$params_name] = $temp[0];
@@ -324,12 +377,22 @@ class FMModelManage_fm {
               $param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");
               $input_active = ($param['w_first_val'] == $param['w_title'] ? "input_deactive" : "input_active");
               $required_sym = ($param['w_required'] == "yes" ? " *" : "");
-              $rep ='<div id="wdform_field'.$id.'" type="type_textarea" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display:'.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: table-cell;"><input type="hidden" value="type_textarea" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><textarea class="'.$input_active.'" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" title="'.$param['w_title'].'"  onfocus="delete_value(&quot;'.$id.'_elementform_id_temp&quot;)" onblur="return_value(&quot;'.$id.'_elementform_id_temp&quot;)" onchange="change_value(&quot;'.$id.'_elementform_id_temp&quot;)" style="width: '.$param['w_size_w'].'px; height: '.$param['w_size_h'].'px;" '.$param['attributes'].' disabled>'.$param['w_first_val'].'</textarea></div></div>';
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
+			  
+              $rep ='<div id="wdform_field'.$id.'" type="type_textarea" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display:'.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: table-cell;"><input type="hidden" value="type_textarea" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><textarea class="'.$input_active.'" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" title="'.$param['w_title'].'"  onfocus="delete_value(&quot;'.$id.'_elementform_id_temp&quot;)" onblur="return_value(&quot;'.$id.'_elementform_id_temp&quot;)" onchange="change_value(&quot;'.$id.'_elementform_id_temp&quot;)" style="width: '.$param['w_size_w'].'px; height: '.$param['w_size_h'].'px;" '.$param['attributes'].' disabled>'.$param['w_first_val'].'</textarea></div></div>';
               break;
             }
             case 'type_phone': {
               $params_names = array('w_field_label_size', 'w_field_label_pos', 'w_size', 'w_first_val', 'w_title', 'w_mini_labels', 'w_required', 'w_unique', 'w_class');
               $temp = $params;
+							
+							if(strpos($temp, 'w_hide_label') > -1)
+							$params_names = array('w_field_label_size', 'w_field_label_pos', 'w_hide_label', 'w_size', 'w_first_val', 'w_title', 'w_mini_labels', 'w_required', 'w_unique', 'w_class');
+			  
+			  
               foreach ($params_names as $params_name) {
                 $temp = explode('*:*' . $params_name . '*:*', $temp);
                 $param[$params_name] = $temp[0];
@@ -346,12 +409,44 @@ class FMModelManage_fm {
               $w_title = explode('***', $param['w_title']);
               $w_mini_labels = explode('***', $param['w_mini_labels']);
               $param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");
+							$param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+							$display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+			  
               $input_active = ($param['w_first_val'] == $param['w_title'] ? "input_deactive" : "input_active");
               $required_sym = ($param['w_required'] == "yes" ? " *" : "");
-              $rep ='<div id="wdform_field'.$id.'" type="type_phone" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_phone" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><div id="'.$id.'_table_name" style="display: table;"><div id="'.$id.'_tr_name1" style="display: table-row;"><div id="'.$id.'_td_name_input_first" style="display: table-cell;"><input type="text" class="'.$input_active.'" id="'.$id.'_element_firstform_id_temp" name="'.$id.'_element_firstform_id_temp" value="'.$w_first_val[0].'" title="'.$w_title[0].'" onfocus="delete_value(&quot;'.$id.'_element_firstform_id_temp&quot;)"onblur="return_value(&quot;'.$id.'_element_firstform_id_temp&quot;)"onchange="change_value(&quot;'.$id.'_element_firstform_id_temp&quot;)" onkeypress="return check_isnum(event)"style="width: 50px;" '.$param['attributes'].' disabled /><span class="wdform_line" style="margin: 0px 4px; padding: 0px;">-</span></div><div id="'.$id.'_td_name_input_last" style="display: table-cell;"><input type="text" class="'.$input_active.'" id="'.$id.'_element_lastform_id_temp" name="'.$id.'_element_lastform_id_temp" value="'.$w_first_val[1].'" title="'.$w_title[1].'" onfocus="delete_value(&quot;'.$id.'_element_lastform_id_temp&quot;)"onblur="return_value(&quot;'.$id.'_element_lastform_id_temp&quot;)" onchange="change_value(&quot;'.$id.'_element_lastform_id_temp&quot;)" onkeypress="return check_isnum(event)"style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled /></div></div><div id="'.$id.'_tr_name2" style="display: table-row;"><div id="'.$id.'_td_name_label_first" align="left" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_area_code">'.$w_mini_labels[0].'</label></div><div id="'.$id.'_td_name_label_last" align="left" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_phone_number">'.$w_mini_labels[1].'</label></div></div></div></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_phone" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_phone" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><div id="'.$id.'_table_name" style="display: table;"><div id="'.$id.'_tr_name1" style="display: table-row;"><div id="'.$id.'_td_name_input_first" style="display: table-cell;"><input type="text" class="'.$input_active.'" id="'.$id.'_element_firstform_id_temp" name="'.$id.'_element_firstform_id_temp" value="'.$w_first_val[0].'" title="'.$w_title[0].'" onfocus="delete_value(&quot;'.$id.'_element_firstform_id_temp&quot;)"onblur="return_value(&quot;'.$id.'_element_firstform_id_temp&quot;)"onchange="change_value(&quot;'.$id.'_element_firstform_id_temp&quot;)" onkeypress="return check_isnum(event)"style="width: 50px;" '.$param['attributes'].' disabled /><span class="wdform_line" style="margin: 0px 4px; padding: 0px;">-</span></div><div id="'.$id.'_td_name_input_last" style="display: table-cell;"><input type="text" class="'.$input_active.'" id="'.$id.'_element_lastform_id_temp" name="'.$id.'_element_lastform_id_temp" value="'.$w_first_val[1].'" title="'.$w_title[1].'" onfocus="delete_value(&quot;'.$id.'_element_lastform_id_temp&quot;)"onblur="return_value(&quot;'.$id.'_element_lastform_id_temp&quot;)" onchange="change_value(&quot;'.$id.'_element_lastform_id_temp&quot;)" onkeypress="return check_isnum(event)"style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled /></div></div><div id="'.$id.'_tr_name2" style="display: table-row;"><div id="'.$id.'_td_name_label_first" align="left" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_area_code">'.$w_mini_labels[0].'</label></div><div id="'.$id.'_td_name_label_last" align="left" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_phone_number">'.$w_mini_labels[1].'</label></div></div></div></div></div>';
               break;
             }
-           case 'type_name': {
+						
+						case 'type_phone_new': {
+              $temp = $params;
+							$params_names = array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_size','w_first_val', 'w_top_country','w_required','w_unique', 'w_class');
+				
+              foreach ($params_names as $params_name) {
+                $temp = explode('*:*' . $params_name . '*:*', $temp);
+                $param[$params_name] = $temp[0];
+                $temp = $temp[1];
+              }
+              if ($temp) {
+                $temp	= explode('*:*w_attr_name*:*', $temp);
+                $attrs = array_slice($temp, 0, count($temp) - 1);
+                foreach ($attrs as $attr) {
+                  $param['attributes'] = $param['attributes'] . ' add_' . $attr;
+                }
+              }
+
+              $param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");
+							$param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+							$display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+			  
+              $required_sym = ($param['w_required'] == "yes" ? " *" : "");
+		
+						 $rep ='<div id="wdform_field'.$id.'" type="type_phone_new" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_phone_new" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><div id="'.$id.'_table_name" style="display: table;"><div id="'.$id.'_tr_name1" style="display: table-row;"><div id="'.$id.'_td_name_input_first" style="display: table-cell;"><input type="text"  id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" value="'.$param['w_first_val'].'" top-country = "'.$param['w_top_country'].'" onfocus="delete_value(&quot;'.$id.'_elementform_id_temp&quot;)" onblur="return_value(&quot;'.$id.'_elementform_id_temp&quot;)" onchange="change_value(&quot;'.$id.'_elementform_id_temp&quot;)" onkeypress="return check_isnum(&quot;'.$id.'_elementform_id_temp&quot;)" style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled></div></div></div></div></div>';
+              break;
+            }
+						
+						
+            case 'type_name': {
               $params_names = array('w_field_label_size', 'w_field_label_pos', 'w_first_val', 'w_title', 'w_mini_labels', 'w_size', 'w_name_format', 'w_required', 'w_unique', 'w_class');
               $temp = $params;
 			  if(strpos($temp, 'w_name_fields') > -1)
@@ -359,6 +454,10 @@ class FMModelManage_fm {
 			
 			  if(strpos($temp, 'w_autofill') > -1)
 				$params_names = array('w_field_label_size', 'w_field_label_pos', 'w_first_val', 'w_title', 'w_mini_labels', 'w_size', 'w_name_format', 'w_required', 'w_unique', 'w_class', 'w_name_fields', 'w_autofill');
+				
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names = array('w_field_label_size', 'w_field_label_pos', 'w_hide_label', 'w_first_val',  'w_title', 'w_mini_labels', 'w_size', 'w_name_format', 'w_required', 'w_unique', 'w_class', 'w_name_fields');
+				
               foreach ($params_names as $params_name) {
                 $temp = explode('*:*' . $params_name . '*:*', $temp);
                 $param[$params_name] = $temp[0];
@@ -372,6 +471,11 @@ class FMModelManage_fm {
                 }
               }
               $param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");
+			  
+			 $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			 $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	 
+			  
+			  
               $required_sym = ($param['w_required'] == "yes" ? " *" : "");
               $w_first_val = explode('***', $param['w_first_val']);
               $w_title = explode('***', $param['w_title']);
@@ -394,12 +498,18 @@ class FMModelManage_fm {
 				$w_name_format_mini_labels = $w_name_format_mini_labels.'<div id="'.$id.'_td_name_label_middle" align="left" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_middle">'.$w_mini_labels[3].'</label></div>';
 			  }
 			  
-              $rep ='<div id="wdform_field'.$id.'" type="type_name" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_name" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><input type="hidden" value="'.$param['w_autofill'].'" name="'.$id.'_autofillform_id_temp" id="'.$id.'_autofillform_id_temp"><input type="hidden" name="'.$id.'_enable_fieldsform_id_temp" id="'.$id.'_enable_fieldsform_id_temp" title="'.$w_name_fields[0].'" first="yes" last="yes" middle="'.$w_name_fields[1].'"><div id="'.$id.'_table_name" cellpadding="0" cellspacing="0" style="display: table;"><div id="'.$id.'_tr_name1" style="display: table-row;">'.$w_name_format.'</div><div id="'.$id.'_tr_name2" style="display: table-row;">'.$w_name_format_mini_labels.'</div></div></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_name" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_name" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><input type="hidden" value="'.$param['w_autofill'].'" name="'.$id.'_autofillform_id_temp" id="'.$id.'_autofillform_id_temp"><input type="hidden" name="'.$id.'_enable_fieldsform_id_temp" id="'.$id.'_enable_fieldsform_id_temp" title="'.$w_name_fields[0].'" first="yes" last="yes" middle="'.$w_name_fields[1].'"><div id="'.$id.'_table_name" cellpadding="0" cellspacing="0" style="display: table;"><div id="'.$id.'_tr_name1" style="display: table-row;">'.$w_name_format.'</div><div id="'.$id.'_tr_name2" style="display: table-row;">'.$w_name_format_mini_labels.'</div></div></div></div>';
               break;
             }
             case 'type_address': {
               $params_names = array('w_field_label_size', 'w_field_label_pos', 'w_size', 'w_mini_labels', 'w_disabled_fields', 'w_required', 'w_class');
               $temp = $params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names = array('w_field_label_size', 'w_field_label_pos', 'w_hide_label', 'w_size', 'w_mini_labels', 'w_disabled_fields', 'w_required', 'w_class');
+			  
+			  
+			  
               foreach ($params_names as $params_name) {
                 $temp = explode('*:*' . $params_name . '*:*', $temp);
                 $param[$params_name] = $temp[0];
@@ -414,6 +524,11 @@ class FMModelManage_fm {
               }
               $param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");
               $required_sym = ($param['w_required'] == "yes" ? " *" : "");
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
+			  
               $w_mini_labels = explode('***', $param['w_mini_labels']);
               $w_disabled_fields = explode('***', $param['w_disabled_fields']);
               $hidden_inputs = '';
@@ -466,10 +581,10 @@ class FMModelManage_fm {
 					$address_fields .= '<span style="float: '.(($g%2==0) ? 'right' : 'left').'; width: 48%; padding-bottom: 8px;"><select type="text" id="'.$id.'_countryform_id_temp" name="'.($id+5).'_countryform_id_temp" onchange="change_value(&quot;'.$id.'_countryform_id_temp&quot;)" style="width: 100%;" '.$param['attributes'].' disabled><option value=""></option><option value="Afghanistan">Afghanistan</option><option value="Albania">Albania</option><option value="Algeria">Algeria</option><option value="Andorra">Andorra</option><option value="Angola">Angola</option><option value="Antigua and Barbuda">Antigua and Barbuda</option><option value="Argentina">Argentina</option><option value="Armenia">Armenia</option><option value="Australia">Australia</option><option value="Austria">Austria</option><option value="Azerbaijan">Azerbaijan</option><option value="Bahamas">Bahamas</option><option value="Bahrain">Bahrain</option><option value="Bangladesh">Bangladesh</option><option value="Barbados">Barbados</option><option value="Belarus">Belarus</option><option value="Belgium">Belgium</option><option value="Belize">Belize</option><option value="Benin">Benin</option><option value="Bhutan">Bhutan</option><option value="Bolivia">Bolivia</option><option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option><option value="Botswana">Botswana</option><option value="Brazil">Brazil</option><option value="Brunei">Brunei</option><option value="Bulgaria">Bulgaria</option><option value="Burkina Faso">Burkina Faso</option><option value="Burundi">Burundi</option><option value="Cambodia">Cambodia</option><option value="Cameroon">Cameroon</option><option value="Canada">Canada</option><option value="Cape Verde">Cape Verde</option><option value="Central African Republic">Central African Republic</option><option value="Chad">Chad</option><option value="Chile">Chile</option><option value="China">China</option><option value="Colombia">Colombia</option><option value="Comoros">Comoros</option><option value="Congo (Brazzaville)">Congo (Brazzaville)</option><option value="Congo">Congo</option><option value="Costa Rica">Costa Rica</option><option value="Cote d\'Ivoire">Cote d\'Ivoire</option><option value="Croatia">Croatia</option><option value="Cuba">Cuba</option><option value="Cyprus">Cyprus</option><option value="Czech Republic">Czech Republic</option><option value="Denmark">Denmark</option><option value="Djibouti">Djibouti</option><option value="Dominica">Dominica</option><option value="Dominican Republic">Dominican Republic</option><option value="East Timor (Timor Timur)">East Timor (Timor Timur)</option><option value="Ecuador">Ecuador</option><option value="Egypt">Egypt</option><option value="El Salvador">El Salvador</option><option value="Equatorial Guinea">Equatorial Guinea</option><option value="Eritrea">Eritrea</option><option value="Estonia">Estonia</option><option value="Ethiopia">Ethiopia</option><option value="Fiji">Fiji</option><option value="Finland">Finland</option><option value="France">France</option><option value="Gabon">Gabon</option><option value="Gambia, The">Gambia, The</option><option value="Georgia">Georgia</option><option value="Germany">Germany</option><option value="Ghana">Ghana</option><option value="Greece">Greece</option><option value="Grenada">Grenada</option><option value="Guatemala">Guatemala</option><option value="Guinea">Guinea</option><option value="Guinea-Bissau">Guinea-Bissau</option><option value="Guyana">Guyana</option><option value="Haiti">Haiti</option><option value="Honduras">Honduras</option><option value="Hungary">Hungary</option><option value="Iceland">Iceland</option><option value="India">India</option><option value="Indonesia">Indonesia</option><option value="Iran">Iran</option><option value="Iraq">Iraq</option><option value="Ireland">Ireland</option><option value="Israel">Israel</option><option value="Italy">Italy</option><option value="Jamaica">Jamaica</option><option value="Japan">Japan</option><option value="Jordan">Jordan</option><option value="Kazakhstan">Kazakhstan</option><option value="Kenya">Kenya</option><option value="Kiribati">Kiribati</option><option value="Korea, North">Korea, North</option><option value="Korea, South">Korea, South</option><option value="Kuwait">Kuwait</option><option value="Kyrgyzstan">Kyrgyzstan</option><option value="Laos">Laos</option><option value="Latvia">Latvia</option><option value="Lebanon">Lebanon</option><option value="Lesotho">Lesotho</option><option value="Liberia">Liberia</option><option value="Libya">Libya</option><option value="Liechtenstein">Liechtenstein</option><option value="Lithuania">Lithuania</option><option value="Luxembourg">Luxembourg</option><option value="Macedonia">Macedonia</option><option value="Madagascar">Madagascar</option><option value="Malawi">Malawi</option><option value="Malaysia">Malaysia</option><option value="Maldives">Maldives</option><option value="Mali">Mali</option><option value="Malta">Malta</option><option value="Marshall Islands">Marshall Islands</option><option value="Mauritania">Mauritania</option><option value="Mauritius">Mauritius</option><option value="Mexico">Mexico</option><option value="Micronesia">Micronesia</option><option value="Moldova">Moldova</option><option value="Monaco">Monaco</option><option value="Mongolia">Mongolia</option><option value="Morocco">Morocco</option><option value="Mozambique">Mozambique</option><option value="Myanmar">Myanmar</option><option value="Namibia">Namibia</option><option value="Nauru">Nauru</option><option value="Nepal">Nepal</option><option value="Netherlands">Netherlands</option><option value="New Zealand">New Zealand</option><option value="Nicaragua">Nicaragua</option><option value="Niger">Niger</option><option value="Nigeria">Nigeria</option><option value="Norway">Norway</option><option value="Oman">Oman</option><option value="Pakistan">Pakistan</option><option value="Palau">Palau</option><option value="Panama">Panama</option><option value="Papua New Guinea">Papua New Guinea</option><option value="Paraguay">Paraguay</option><option value="Peru">Peru</option><option value="Philippines">Philippines</option><option value="Poland">Poland</option><option value="Portugal">Portugal</option><option value="Qatar">Qatar</option><option value="Romania">Romania</option><option value="Russia">Russia</option><option value="Rwanda">Rwanda</option><option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option><option value="Saint Lucia">Saint Lucia</option><option value="Saint Vincent">Saint Vincent</option><option value="Samoa">Samoa</option><option value="San Marino">San Marino</option><option value="Sao Tome and Principe">Sao Tome and Principe</option><option value="Saudi Arabia">Saudi Arabia</option><option value="Senegal">Senegal</option><option value="Serbia and Montenegro">Serbia and Montenegro</option><option value="Seychelles">Seychelles</option><option value="Sierra Leone">Sierra Leone</option><option value="Singapore">Singapore</option><option value="Slovakia">Slovakia</option><option value="Slovenia">Slovenia</option><option value="Solomon Islands">Solomon Islands</option><option value="Somalia">Somalia</option><option value="South Africa">South Africa</option><option value="Spain">Spain</option><option value="Sri Lanka">Sri Lanka</option><option value="Sudan">Sudan</option><option value="Suriname">Suriname</option><option value="Swaziland">Swaziland</option><option value="Sweden">Sweden</option><option value="Switzerland">Switzerland</option><option value="Syria">Syria</option><option value="Taiwan">Taiwan</option><option value="Tajikistan">Tajikistan</option><option value="Tanzania">Tanzania</option><option value="Thailand">Thailand</option><option value="Togo">Togo</option><option value="Tonga">Tonga</option><option value="Trinidad and Tobago">Trinidad and Tobago</option><option value="Tunisia">Tunisia</option><option value="Turkey">Turkey</option><option value="Turkmenistan">Turkmenistan</option><option value="Tuvalu">Tuvalu</option><option value="Uganda">Uganda</option><option value="Ukraine">Ukraine</option><option value="United Arab Emirates">United Arab Emirates</option><option value="United Kingdom">United Kingdom</option><option value="United States">United States</option><option value="Uruguay">Uruguay</option><option value="Uzbekistan">Uzbekistan</option><option value="Vanuatu">Vanuatu</option><option value="Vatican City">Vatican City</option><option value="Venezuela">Venezuela</option><option value="Vietnam">Vietnam</option><option value="Yemen">Yemen</option><option value="Zambia">Zambia</option><option value="Zimbabwe">Zimbabwe</option></select><label class="mini_label" style="display: block;" id="'.$id.'_mini_label_country">'.$w_mini_labels[5].'</span>';
 					}				
 				
-					$rep ='<div id="wdform_field'.$id.'" type="type_address" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px; vertical-align:top;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_address" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" name="'.$id.'_disable_fieldsform_id_temp" id="'.$id.'_disable_fieldsform_id_temp" street1="'.$w_disabled_fields[0].'" street2="'.$w_disabled_fields[1].'" city="'.$w_disabled_fields[2].'" state="'.$w_disabled_fields[3].'" postal="'.$w_disabled_fields[4].'" country="'.$w_disabled_fields[5].'" us_states="'.$w_disabled_fields[6].'"><div id="'.$id.'_div_address" style="width: '.$param['w_size'].'px;">'.$address_fields.$hidden_inputs.'</div></div></div>';
+					$rep ='<div id="wdform_field'.$id.'" type="type_address" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px; vertical-align:top;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_address" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" name="'.$id.'_disable_fieldsform_id_temp" id="'.$id.'_disable_fieldsform_id_temp" street1="'.$w_disabled_fields[0].'" street2="'.$w_disabled_fields[1].'" city="'.$w_disabled_fields[2].'" state="'.$w_disabled_fields[3].'" postal="'.$w_disabled_fields[4].'" country="'.$w_disabled_fields[5].'" us_states="'.$w_disabled_fields[6].'"><div id="'.$id.'_div_address" style="width: '.$param['w_size'].'px;">'.$address_fields.$hidden_inputs.'</div></div></div>';
 					break;
             }
-             case 'type_submitter_mail': {
+            case 'type_submitter_mail': {
               $params_names=array('w_field_label_size','w_field_label_pos','w_size','w_first_val','w_title','w_required','w_unique', 'w_class');
               $temp=$params;
 			  if(strpos($temp, 'w_autofill') > -1)
@@ -514,10 +629,10 @@ class FMModelManage_fm {
 				$display_element_confirm = "none";
 			  }
 				
+				
 				$param['w_verification'] = isset($param['w_verification']) ? $param['w_verification'] : "no";
 				$param['w_verification_label'] = isset($param['w_verification_label']) ? $param['w_verification_label'] : "E-mail confirmation:";
 				$param['w_verification_placeholder'] = isset($param['w_verification_placeholder']) ? $param['w_verification_placeholder'] : "";
-			
 			
 			  $confirm_emeil = '<br><div align="left" id="'.$id.'_1_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label_confirm.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_1_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$param['w_verification_label'].'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_1_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_element_confirm.';"><input type="hidden" value="'.$param['w_verification'].'" name="'.$id.'_verification_id_temp" id="'.$id.'_verification_id_temp"><input type="text" class="input_deactive" id="'.$id.'_1_elementform_id_temp" name="'.$id.'_1_elementform_id_temp" value="'.$param['w_verification_placeholder'].'" title="'.$param['w_verification_placeholder'].'" onfocus="delete_value(&quot;'.$id.'_elementform_id_temp&quot;)" onblur="return_value(&quot;'.$id.'_elementform_id_temp&quot;)" onchange="change_value(&quot;'.$id.'_elementform_id_temp&quot;)" style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled /></div>';
 			
@@ -525,13 +640,16 @@ class FMModelManage_fm {
               $rep ='<div id="wdform_field'.$id.'" type="type_submitter_mail" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_submitter_mail" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_unique'].'" name="'.$id.'_uniqueform_id_temp" id="'.$id.'_uniqueform_id_temp"><input type="hidden" value="'.$param['w_autofill'].'" name="'.$id.'_autofillform_id_temp" id="'.$id.'_autofillform_id_temp"><input type="hidden" value="'.$param['w_verification'].'" name="'.$id.'_verification_id_temp" id="'.$id.'_verification_id_temp"><input type="text" class="'.$input_active.'" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" value="'.$param['w_first_val'].'" title="'.$param['w_title'].'" onfocus="delete_value(&quot;'.$id.'_elementform_id_temp&quot;)" onblur="return_value(&quot;'.$id.'_elementform_id_temp&quot;)" onchange="change_value(&quot;'.$id.'_elementform_id_temp&quot;)" style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled /></div>'.$confirm_emeil.'</div>';
               break;
             }
-			
             case 'type_checkbox':
             {
-              $params_names=array('w_field_label_size','w_field_label_pos','w_flow','w_choices','w_choices_checked','w_rowcol', 'w_required','w_randomize','w_allow_other','w_allow_other_num','w_class');
+              $params_names=array('w_field_label_size','w_field_label_pos',  'w_flow','w_choices','w_choices_checked','w_rowcol', 'w_required','w_randomize','w_allow_other','w_allow_other_num','w_class');
               $temp=$params;
 			  if(strpos($temp, 'w_field_option_pos') > -1)
 						$params_names=array('w_field_label_size','w_field_label_pos','w_field_option_pos','w_flow','w_choices','w_choices_checked','w_rowcol', 'w_required','w_randomize','w_allow_other','w_allow_other_num', 'w_value_disabled','w_choices_value', 'w_choices_params', 'w_class');
+						
+			  if(strpos($temp, 'w_hide_label') > -1)
+						$params_names=array('w_field_label_size','w_field_label_pos','w_field_option_pos', 'w_hide_label', 'w_flow','w_choices','w_choices_checked','w_rowcol', 'w_required','w_randomize','w_allow_other','w_allow_other_num', 'w_value_disabled','w_choices_value', 'w_choices_params', 'w_class');			
+						
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -553,6 +671,10 @@ class FMModelManage_fm {
 						$param['w_field_option_pos'] = 'left';
 						
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_choices']	= explode('***',$param['w_choices']);
               $param['w_choices_checked']	= explode('***',$param['w_choices_checked']);
@@ -571,7 +693,7 @@ class FMModelManage_fm {
                   $param['w_choices_checked'][$key]='';
               }
               
-              $rep='<div id="wdform_field'.$id.'" type="type_checkbox" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_checkbox" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_rowcol'].'" name="'.$id.'_rowcol_numform_id_temp" id="'.$id.'_rowcol_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><input type="hidden" value="'.$param['w_value_disabled'].'" name="'.$id.'_value_disabledform_id_temp" id="'.$id.'_value_disabledform_id_temp"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;" '.($param['w_flow']=='hor' ? 'for_hor="'.$id.'_hor"' : '').'>';
+              $rep='<div id="wdform_field'.$id.'" type="type_checkbox" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_checkbox" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_rowcol'].'" name="'.$id.'_rowcol_numform_id_temp" id="'.$id.'_rowcol_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><input type="hidden" value="'.$param['w_value_disabled'].'" name="'.$id.'_value_disabledform_id_temp" id="'.$id.'_value_disabledform_id_temp"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;" '.($param['w_flow']=='hor' ? 'for_hor="'.$id.'_hor"' : '').'>';
 				
             if($param['w_flow']=='hor')
             {
@@ -728,6 +850,9 @@ class FMModelManage_fm {
               $temp=$params;
 			  if(strpos($temp, 'w_field_option_pos') > -1)
 						$params_names=array('w_field_label_size','w_field_label_pos','w_field_option_pos','w_flow','w_choices','w_choices_checked','w_rowcol', 'w_required','w_randomize','w_allow_other','w_allow_other_num', 'w_value_disabled', 'w_choices_value', 'w_choices_params','w_class');
+				
+			  if(strpos($temp, 'w_hide_label') > -1)
+						$params_names=array('w_field_label_size','w_field_label_pos','w_field_option_pos', 'w_hide_label', 'w_flow','w_choices','w_choices_checked','w_rowcol', 'w_required','w_randomize','w_allow_other','w_allow_other_num', 'w_value_disabled', 'w_choices_value', 'w_choices_params','w_class');
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -747,7 +872,11 @@ class FMModelManage_fm {
 					
 			  if(!isset($param['w_field_option_pos']))
 						$param['w_field_option_pos'] = 'left';
-              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_choices']	= explode('***',$param['w_choices']);
               $param['w_choices_checked']	= explode('***',$param['w_choices_checked']);
@@ -766,7 +895,7 @@ class FMModelManage_fm {
                   $param['w_choices_checked'][$key]='';
               }	
               
-              $rep='<div id="wdform_field'.$id.'" type="type_radio" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_radio" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_rowcol'].'" name="'.$id.'_rowcol_numform_id_temp" id="'.$id.'_rowcol_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><input type="hidden" value="'.$param['w_value_disabled'].'" name="'.$id.'_value_disabledform_id_temp" id="'.$id.'_value_disabledform_id_temp"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;" '.($param['w_flow']=='hor' ? 'for_hor="'.$id.'_hor"' : '').'>';
+              $rep='<div id="wdform_field'.$id.'" type="type_radio" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_radio" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_rowcol'].'" name="'.$id.'_rowcol_numform_id_temp" id="'.$id.'_rowcol_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><input type="hidden" value="'.$param['w_value_disabled'].'" name="'.$id.'_value_disabledform_id_temp" id="'.$id.'_value_disabledform_id_temp"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;" '.($param['w_flow']=='hor' ? 'for_hor="'.$id.'_hor"' : '').'>';
             
             
               if($param['w_flow']=='hor')
@@ -926,6 +1055,10 @@ class FMModelManage_fm {
               $temp=$params;
 			  if(strpos($temp, 'w_choices_value') > -1)
 						$params_names=array('w_field_label_size','w_field_label_pos','w_size','w_choices','w_choices_checked', 'w_choices_disabled', 'w_required', 'w_value_disabled', 'w_choices_value', 'w_choices_params', 'w_class');
+						
+			 if(strpos($temp, 'w_hide_label') > -1)
+						$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label',  'w_size','w_choices','w_choices_checked', 'w_choices_disabled', 'w_required', 'w_value_disabled', 'w_choices_value', 'w_choices_params', 'w_class');		
+						
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -942,6 +1075,10 @@ class FMModelManage_fm {
               }
 
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_choices']	= explode('***',$param['w_choices']);
               $param['w_choices_checked']	= explode('***',$param['w_choices_checked']);
@@ -964,7 +1101,7 @@ class FMModelManage_fm {
                   $param['w_choices_checked'][$key]='';
               }
               
-              $rep='<div id="wdform_field'.$id.'" type="type_own_select" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; "><input type="hidden" value="type_own_select" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_value_disabled'].'" name="'.$id.'_value_disabledform_id_temp" id="'.$id.'_value_disabledform_id_temp"><select id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" onchange="set_select(this)" style="width: '.$param['w_size'].'px;"  '.$param['attributes'].' disabled>';
+              $rep='<div id="wdform_field'.$id.'" type="type_own_select" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; "><input type="hidden" value="type_own_select" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_value_disabled'].'" name="'.$id.'_value_disabledform_id_temp" id="'.$id.'_value_disabledform_id_temp"><select id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" onchange="set_select(this)" style="width: '.$param['w_size'].'px;"  '.$param['attributes'].' disabled>';
               foreach($param['w_choices'] as $key => $choice)
               {
                         $where = '';
@@ -990,6 +1127,10 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_size','w_countries','w_required','w_class');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+					$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_size','w_countries','w_required','w_class');
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1006,10 +1147,13 @@ class FMModelManage_fm {
               }
 
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_countries']	= explode('***',$param['w_countries']);
             
-              $rep='<div id="wdform_field'.$id.'" type="type_country" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; "><input type="hidden" value="type_country" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><select id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" style="width: '.$param['w_size'].'px;"  '.$param['attributes'].' disabled>';
+              $rep='<div id="wdform_field'.$id.'" type="type_country" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; "><input type="hidden" value="type_country" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><select id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" style="width: '.$param['w_size'].'px;"  '.$param['attributes'].' disabled>';
               foreach($param['w_countries'] as $key => $choice)
               {
                 $choice_value=$choice;
@@ -1023,6 +1167,10 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_time_type','w_am_pm','w_sec','w_hh','w_mm','w_ss','w_mini_labels','w_required','w_class');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_time_type', 'w_am_pm','w_sec','w_hh','w_mm','w_ss','w_mini_labels','w_required','w_class');
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1039,6 +1187,9 @@ class FMModelManage_fm {
               }
 
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+		      $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
             
               $w_mini_labels = explode('***',$param['w_mini_labels']);
@@ -1081,7 +1232,7 @@ class FMModelManage_fm {
               }
 
               
-              $rep ='<div id="wdform_field'.$id.'" type="type_time" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_time" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><div id="'.$id.'_table_time" style="display: table;"><div id="'.$id.'_tr_time1" style="display: table-row;"><div id="'.$id.'_td_time_input1" style="width: 32px; display: table-cell;"><input type="text" value="'.$param['w_hh'].'" class="time_box" id="'.$id.'_hhform_id_temp" name="'.$id.'_hhform_id_temp" onkeypress="return check_hour(event, &quot;'.$id.'_hhform_id_temp&quot;, &quot;23&quot;)" onkeyup="change_hour(event, &quot;'.$id.'_hhform_id_temp&quot;,&quot;23&quot;)" onblur="add_0(&quot;'.$id.'_hhform_id_temp&quot;)" '.$param['attributes'].' disabled/></div><div align="center" style="display: table-cell;"><span class="wdform_colon" style="vertical-align: middle;">&nbsp;:&nbsp;</span></div><div id="'.$id.'_td_time_input2" style="width: 32px; display: table-cell;"><input type="text" value="'.$param['w_mm'].'" class="time_box" id="'.$id.'_mmform_id_temp" name="'.$id.'_mmform_id_temp" onkeypress="return check_minute(event, &quot;'.$id.'_mmform_id_temp&quot;)" onkeyup="change_minute(event, &quot;'.$id.'_mmform_id_temp&quot;)" onblur="add_0(&quot;'.$id.'_mmform_id_temp&quot;)" '.$param['attributes'].' disabled/></div>'.$w_sec.$w_time_type.'</div><div id="'.$id.'_tr_time2" style="display: table-row;"><div id="'.$id.'_td_time_label1" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_hh">'.$w_mini_labels[0].'</label></div><div style="display: table-cell;"></div><div id="'.$id.'_td_time_label2" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_mm">'.$w_mini_labels[1].'</label></div>'.$w_sec_label.$w_time_type_label.'</div></div></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_time" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_time" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><div id="'.$id.'_table_time" style="display: table;"><div id="'.$id.'_tr_time1" style="display: table-row;"><div id="'.$id.'_td_time_input1" style="width: 32px; display: table-cell;"><input type="text" value="'.$param['w_hh'].'" class="time_box" id="'.$id.'_hhform_id_temp" name="'.$id.'_hhform_id_temp" onkeypress="return check_hour(event, &quot;'.$id.'_hhform_id_temp&quot;, &quot;23&quot;)" onkeyup="change_hour(event, &quot;'.$id.'_hhform_id_temp&quot;,&quot;23&quot;)" onblur="add_0(&quot;'.$id.'_hhform_id_temp&quot;)" '.$param['attributes'].' disabled/></div><div align="center" style="display: table-cell;"><span class="wdform_colon" style="vertical-align: middle;">&nbsp;:&nbsp;</span></div><div id="'.$id.'_td_time_input2" style="width: 32px; display: table-cell;"><input type="text" value="'.$param['w_mm'].'" class="time_box" id="'.$id.'_mmform_id_temp" name="'.$id.'_mmform_id_temp" onkeypress="return check_minute(event, &quot;'.$id.'_mmform_id_temp&quot;)" onkeyup="change_minute(event, &quot;'.$id.'_mmform_id_temp&quot;)" onblur="add_0(&quot;'.$id.'_mmform_id_temp&quot;)" '.$param['attributes'].' disabled/></div>'.$w_sec.$w_time_type.'</div><div id="'.$id.'_tr_time2" style="display: table-row;"><div id="'.$id.'_td_time_label1" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_hh">'.$w_mini_labels[0].'</label></div><div style="display: table-cell;"></div><div id="'.$id.'_td_time_label2" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_mm">'.$w_mini_labels[1].'</label></div>'.$w_sec_label.$w_time_type_label.'</div></div></div></div>';
               
               break;
             }
@@ -1116,11 +1267,17 @@ class FMModelManage_fm {
               break;
             }
 			
+			/////////////////////////  type_date_new ////////////////////////////      
+			
 			case 'type_date_new':
             {
 
               $params_names=array('w_field_label_size','w_field_label_pos', 'w_size', 'w_date','w_required', 'w_show_image', 'w_class','w_format', 'w_start_day', 'w_default_date', 'w_min_date', 'w_max_date',  'w_invalid_dates', 'w_show_days', 'w_hide_time', 'w_but_val', 'w_disable_past_days');
               $temp = $params;
+				
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_size', 'w_date','w_required', 'w_show_image', 'w_class','w_format', 'w_start_day', 'w_default_date', 'w_min_date', 'w_max_date',  'w_invalid_dates', 'w_show_days', 'w_hide_time', 'w_but_val', 'w_disable_past_days');	
+				
 				
               foreach($params_names as $params_name )
               {	
@@ -1143,14 +1300,19 @@ class FMModelManage_fm {
 				
 			  
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_disable_past_days'] = isset($param['w_disable_past_days']) ? $param['w_disable_past_days'] : 'no';
 			  $disable_past_days = $param['w_disable_past_days'] == 'yes' ? 'true' : 'false';
 			  $display_image_date = $param['w_show_image'] == 'yes' ? 'inline' : 'none';
 				
 				
-              $rep ='<div id="wdform_field'.$id.'" type="type_date_new" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_date_new" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp">
+              $rep ='<div id="wdform_field'.$id.'" type="type_date_new" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_date_new" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp">
 			  <input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp">
+			  
+			  <input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/>
 			  
 			  <input type="hidden" value="'.$param['w_show_image'].'" name="'.$id.'_show_imageform_id_temp" id="'.$id.'_show_imageform_id_temp">
 			  
@@ -1185,6 +1347,9 @@ class FMModelManage_fm {
               $params_names=array('w_field_label_size','w_field_label_pos', 'w_size', 'w_date','w_required', 'w_show_image', 'w_class','w_format', 'w_start_day', 'w_default_date_start', 'w_default_date_end',  'w_min_date', 'w_max_date',  'w_invalid_dates', 'w_show_days', 'w_hide_time', 'w_but_val', 'w_disable_past_days');
               $temp = $params;
 
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_size', 'w_date','w_required', 'w_show_image', 'w_class','w_format', 'w_start_day', 'w_default_date_start', 'w_default_date_end',  'w_min_date', 'w_max_date',  'w_invalid_dates', 'w_show_days', 'w_hide_time', 'w_but_val', 'w_disable_past_days');	
+				
 				
               foreach($params_names as $params_name )
               {	
@@ -1208,16 +1373,22 @@ class FMModelManage_fm {
 			  $defaul_day_end = $defaul_day_array[1];
 	  
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_disable_past_days'] = isset($param['w_disable_past_days']) ? $param['w_disable_past_days'] : 'no';
 			  $disable_past_days = $param['w_disable_past_days'] == 'yes' ? 'true' : 'false';
 			  $display_image_date = $param['w_show_image'] == 'yes' ? 'inline' : 'none';
 			  
-              $rep ='<div id="wdform_field'.$id.'" type="type_date_range" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';">
+              $rep ='<div id="wdform_field'.$id.'" type="type_date_range" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';">
 			  
 			  <input type="hidden" value="type_date_range" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp">
 			  
 			  <input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp">
+			  
+			  <input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/>
 			  
 			  <input type="hidden" value="'.$param['w_show_image'].'" name="'.$id.'_show_imageform_id_temp" id="'.$id.'_show_imageform_id_temp">
 			  
@@ -1261,11 +1432,19 @@ class FMModelManage_fm {
             }
 			
 			
+			
+			
+			
             case 'type_date_fields':
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_day','w_month','w_year','w_day_type','w_month_type','w_year_type','w_day_label','w_month_label','w_year_label','w_day_size','w_month_size','w_year_size','w_required','w_class','w_from','w_to','w_divider');
               
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_day','w_month','w_year','w_day_type','w_month_type','w_year_type','w_day_label','w_month_label','w_year_label','w_day_size','w_month_size','w_year_size','w_required','w_class','w_from','w_to','w_divider');
+			  
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1282,6 +1461,9 @@ class FMModelManage_fm {
               }
 
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
             
       
@@ -1354,7 +1536,7 @@ class FMModelManage_fm {
               }
 
               
-              $rep ='<div id="wdform_field'.$id.'" type="type_date_fields" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_date_fields" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><div id="'.$id.'_table_date" style="display: table;"><div id="'.$id.'_tr_date1" style="display: table-row;"><div id="'.$id.'_td_date_input1" style="display: table-cell;">
+              $rep ='<div id="wdform_field'.$id.'" type="type_date_fields" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_date_fields" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><div id="'.$id.'_table_date" style="display: table;"><div id="'.$id.'_tr_date1" style="display: table-row;"><div id="'.$id.'_td_date_input1" style="display: table-cell;">
               '.$w_day_type.'
               
               </div><div id="'.$id.'_td_date_separator1" style="display: table-cell;"><span id="'.$id.'_separator1" class="wdform_separator">'.$param['w_divider'].'</span></div><div id="'.$id.'_td_date_input2" style="display: table-cell;">'.$w_month_type.'</div><div id="'.$id.'_td_date_separator2" style="display: table-cell;"><span id="'.$id.'_separator2" class="wdform_separator">'.$param['w_divider'].'</span></div><div id="'.$id.'_td_date_input3" style="display: table-cell;">'.$w_year_type.'</div></div><div id="'.$id.'_tr_date2" style="display: table-row;"><div id="'.$id.'_td_date_label1" style="display: table-cell;"><label class="mini_label" id="'.$id.'_day_label">'.$param['w_day_label'].'</label></div><div style="display: table-cell;"></div><div id="'.$id.'_td_date_label2" style="display: table-cell;"><label class="mini_label" id="'.$id.'_month_label">'.$param['w_month_label'].'</label></div><div style="display: table-cell;"></div><div id="'.$id.'_td_date_label3" style="display: table-cell;"><label class="mini_label" id="'.$id.'_year_label">'.$param['w_year_label'].'</label></div></div></div></div></div>';
@@ -1365,6 +1547,11 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_destination','w_extension','w_max_size','w_required','w_multiple','w_class');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_destination','w_extension','w_max_size','w_required','w_multiple','w_class');
+			  
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1386,10 +1573,13 @@ class FMModelManage_fm {
               }
 
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $multiple = ($param['w_multiple']=="yes" ? "multiple='multiple'" : "");	
 
-              $rep ='<div id="wdform_field'.$id.'" type="type_file_upload" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_file_upload" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="***max_sizeskizb'.$id.'***'.$param['w_max_size'].'***max_sizeverj'.$id.'***" id="'.$id.'_max_size" name="'.$id.'_max_size"><input type="hidden" value="***destinationskizb'.$id.'***'.$param['w_destination'].'***destinationverj'.$id.'***" id="'.$id.'_destination" name="'.$id.'_destination"><input type="hidden" value="***extensionskizb'.$id.'***'.$param['w_extension'].'***extensionverj'.$id.'***" id="'.$id.'_extension" name="'.$id.'_extension"><input type="file" class="file_upload" id="'.$id.'_elementform_id_temp" name="'.$id.'_fileform_id_temp"  '.$multiple.' '.$param['attributes'].' disabled/></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_file_upload" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_file_upload" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="***max_sizeskizb'.$id.'***'.$param['w_max_size'].'***max_sizeverj'.$id.'***" id="'.$id.'_max_size" name="'.$id.'_max_size"><input type="hidden" value="***destinationskizb'.$id.'***'.$param['w_destination'].'***destinationverj'.$id.'***" id="'.$id.'_destination" name="'.$id.'_destination"><input type="hidden" value="***extensionskizb'.$id.'***'.$param['w_extension'].'***extensionverj'.$id.'***" id="'.$id.'_extension" name="'.$id.'_extension"><input type="file" class="file_upload" id="'.$id.'_elementform_id_temp" name="'.$id.'_fileform_id_temp"  '.$multiple.' '.$param['attributes'].' disabled/></div></div>';
               
               break;
             }
@@ -1397,6 +1587,10 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_digit','w_class');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_digit','w_class');
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1413,8 +1607,11 @@ class FMModelManage_fm {
               }
 
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
-              
-              $rep ='<div id="wdform_field'.$id.'" type="type_captcha" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display:'.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_captcha" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><div style="display: table;"><div style="display: table-row;"><div valign="middle" style="display: table-cell;"><img type="captcha" digit="'.$param['w_digit'].'" src="' . add_query_arg(array('action' => 'formmakerwdcaptcha', 'digit' => $param['w_digit'], 'i' => 'form_id_temp'), admin_url('admin-ajax.php')) . '" id="_wd_captchaform_id_temp" class="captcha_img" onclick="captcha_refresh(&quot;_wd_captcha&quot;,&quot;form_id_temp&quot;)" '.$param['attributes'].'></div><div valign="middle" style="display: table-cell;"><div class="captcha_refresh" id="_element_refreshform_id_temp" onclick="captcha_refresh(&quot;_wd_captcha&quot;,&quot;form_id_temp&quot;)" '.$param['attributes'].'></div></div></div><div style="display: table-row;"><div style="display: table-cell;"><input type="text" class="captcha_input" id="_wd_captcha_inputform_id_temp" name="captcha_input" style="width: '.($param['w_digit']*10+15).'px;" '.$param['attributes'].' disabled/></div></div></div></div></div>';
+              $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
+			  
+              $rep ='<div id="wdform_field'.$id.'" type="type_captcha" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display:'.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_captcha" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><div style="display: table;"><div style="display: table-row;"><div valign="middle" style="display: table-cell;"><img type="captcha" digit="'.$param['w_digit'].'" src="' . add_query_arg(array('action' => 'formmakerwdcaptcha', 'digit' => $param['w_digit'], 'i' => 'form_id_temp'), admin_url('admin-ajax.php')) . '" id="_wd_captchaform_id_temp" class="captcha_img" onclick="captcha_refresh(&quot;_wd_captcha&quot;,&quot;form_id_temp&quot;)" '.$param['attributes'].'></div><div valign="middle" style="display: table-cell;"><div class="captcha_refresh" id="_element_refreshform_id_temp" onclick="captcha_refresh(&quot;_wd_captcha&quot;,&quot;form_id_temp&quot;)" '.$param['attributes'].'></div></div></div><div style="display: table-row;"><div style="display: table-cell;"><input type="text" class="captcha_input" id="_wd_captcha_inputform_id_temp" name="captcha_input" style="width: '.($param['w_digit']*10+15).'px;" '.$param['attributes'].' disabled/><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/></div></div></div></div></div>';
               
               break;
             }
@@ -1422,6 +1619,11 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos', 'w_count', 'w_operations','w_class', 'w_input_size');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_count', 'w_operations','w_class', 'w_input_size');
+			  
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1437,12 +1639,15 @@ class FMModelManage_fm {
                   $param['attributes'] = $param['attributes'].' add_'.$attr;
               }
 			 
-              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");
+
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
 			  $param['w_count'] = $param['w_count'] ? $param['w_count'] : 1;
               $param['w_operations'] = $param['w_operations'] ? $param['w_operations'] : '+, -, *, /';
               $param['w_input_size'] = $param['w_input_size'] ? $param['w_input_size'] : 60;
               
-              $rep ='<div id="wdform_field'.$id.'" type="type_arithmetic_captcha" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display:'.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_captcha" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><div style="display: table;"><div style="display: table-row;"><div style="display: table-cell;"><img type="captcha" operations_count="'.$param['w_count'].'" operations="'.$param['w_operations'].'" input_size="'.$param['w_input_size'].'" src="' . add_query_arg(array('action' => 'formmakerwdmathcaptcha', 'operations_count' => $param['w_count'], 'operations' => $param['w_operations'], 'i' => 'form_id_temp'), admin_url('admin-ajax.php')) . '" id="_wd_arithmetic_captchaform_id_temp" class="arithmetic_captcha_img" onclick="captcha_refresh(&quot;_wd_arithmetic_captcha&quot;,&quot;form_id_temp&quot;)" '.$param['attributes'].'></div><div style="display: table-cell;"><input type="text" class="arithmetic_captcha_input" id="_wd_arithmetic_captcha_inputform_id_temp" name="arithmetic_captcha_input" onkeypress="return check_isnum(event)" style="width: '.$param['w_input_size'].'px;" '.$param['attributes'].' disabled/></div><div style="display: table-cell; vertical-align: middle;"><div class="captcha_refresh" id="_element_refreshform_id_temp" onclick="captcha_refresh(&quot;_wd_arithmetic_captcha&quot;,&quot;form_id_temp&quot;)" '.$param['attributes'].'></div></div></div></div></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_arithmetic_captcha" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display:'.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_captcha" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><div style="display: table;"><div style="display: table-row;"><div style="display: table-cell;"><img type="captcha" operations_count="'.$param['w_count'].'" operations="'.$param['w_operations'].'" input_size="'.$param['w_input_size'].'" src="' . add_query_arg(array('action' => 'formmakerwdmathcaptcha', 'operations_count' => $param['w_count'], 'operations' => urlencode($param['w_operations']), 'i' => 'form_id_temp'), admin_url('admin-ajax.php')) . '" id="_wd_arithmetic_captchaform_id_temp" class="arithmetic_captcha_img" onclick="captcha_refresh(&quot;_wd_arithmetic_captcha&quot;,&quot;form_id_temp&quot;)" '.$param['attributes'].'></div><div style="display: table-cell;"><input type="text" class="arithmetic_captcha_input" id="_wd_arithmetic_captcha_inputform_id_temp" name="arithmetic_captcha_input" onkeypress="return check_isnum(event)" style="width: '.$param['w_input_size'].'px;" '.$param['attributes'].' disabled/><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/></div><div style="display: table-cell; vertical-align: middle;"><div class="captcha_refresh" id="_element_refreshform_id_temp" onclick="captcha_refresh(&quot;_wd_arithmetic_captcha&quot;,&quot;form_id_temp&quot;)" '.$param['attributes'].'></div></div></div></div></div></div>';
               
               break;
             }
@@ -1452,6 +1657,10 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_public','w_private','w_theme','w_class');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label',  'w_public','w_private','w_theme','w_class');
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1468,8 +1677,10 @@ class FMModelManage_fm {
               }
 
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
               
-              $rep ='<div id="wdform_field'.$id.'" type="type_recaptcha" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_recaptcha" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><div id="wd_recaptchaform_id_temp" public_key="'.$param['w_public'].'" private_key="'.$param['w_private'].'" theme="'.$param['w_theme'].'" '.$param['attributes'].'><span style="color: red; font-style: italic;">Recaptcha doesn\'t display in back end</span></div></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_recaptcha" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_recaptcha" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><div id="wd_recaptchaform_id_temp" public_key="'.$param['w_public'].'" private_key="'.$param['w_private'].'" theme="'.$param['w_theme'].'" '.$param['attributes'].'><span style="color: red; font-style: italic;">Recaptcha doesn\'t display in back end</span></div></div></div>';
               
               break;
             }
@@ -1501,6 +1712,11 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_center_x','w_center_y','w_long','w_lat','w_zoom','w_width','w_height','w_info','w_class');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names = array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_center_x','w_center_y','w_long','w_lat','w_zoom','w_width','w_height','w_info','w_class');
+			  
+
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1517,8 +1733,10 @@ class FMModelManage_fm {
               }
             
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
             
-              $rep ='<div id="wdform_field'.$id.'" type="type_mark_map" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_mark_map" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><div id="'.$id.'_elementform_id_temp" long0="'.$param['w_long'].'" lat0="'.$param['w_lat'].'" zoom="'.$param['w_zoom'].'" info0="'.$param['w_info'].'" center_x="'.$param['w_center_x'].'" center_y="'.$param['w_center_y'].'" style="width: '.$param['w_width'].'px; height: '.$param['w_height'].'px;" '.$param['attributes'].'></div></div></div>	';
+              $rep ='<div id="wdform_field'.$id.'" type="type_mark_map" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="type_mark_map" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><div id="'.$id.'_elementform_id_temp" long0="'.$param['w_long'].'" lat0="'.$param['w_lat'].'" zoom="'.$param['w_zoom'].'" info0="'.$param['w_info'].'" center_x="'.$param['w_center_x'].'" center_y="'.$param['w_center_y'].'" style="width: '.$param['w_width'].'px; height: '.$param['w_height'].'px;" '.$param['attributes'].'></div></div></div>	';
               
               break;
             }
@@ -1590,12 +1808,16 @@ class FMModelManage_fm {
               break;
             }
             
-            case 'type_paypal_select':
+			case 'type_paypal_price_new':
             {
-            $params_names=array('w_field_label_size','w_field_label_pos','w_size','w_choices','w_choices_price','w_choices_checked', 'w_choices_disabled','w_required','w_quantity', 'w_quantity_value','w_class','w_property','w_property_values');
+              $params_names=array('w_field_label_size','w_field_label_pos','w_first_val','w_title', 'w_size','w_required', 'w_class','w_range_min','w_range_max', 'w_readonly', 'w_currency');
+
               $temp=$params;
-			  if(strpos($temp, 'w_choices_params') > -1)
-						$params_names=array('w_field_label_size','w_field_label_pos','w_size','w_choices','w_choices_price','w_choices_checked', 'w_choices_disabled','w_required','w_quantity', 'w_quantity_value', 'w_choices_params', 'w_class', 'w_property', 'w_property_values');	
+			  
+			   if(strpos($temp, 'w_hide_label') > -1)
+				$params_names = array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_first_val','w_title', 'w_size','w_required', 'w_class','w_range_min','w_range_max', 'w_readonly', 'w_currency');
+			  
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1612,6 +1834,53 @@ class FMModelManage_fm {
               }
 
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+			  
+              $input_active = ($param['w_first_val']==$param['w_title'] ? "input_deactive" : "input_active");	
+              $required_sym = ($param['w_required']=="yes" ? " *" : "");	
+			  $currency_sumbol = ($param['w_currency']=="yes" ? "display:none;" : "display: table-cell;");	
+			  $param['w_readonly'] = (isset($param['w_readonly']) ? $param['w_readonly'] : "no");
+
+              $rep ='<div id="wdform_field'.$id.'" type="type_paypal_price_new" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required"style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_paypal_price_new" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_readonly'].'" name="'.$id.'_readonlyform_id_temp" id="'.$id.'_readonlyform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_range_min'].'" name="'.$id.'_range_minform_id_temp" id="'.$id.'_range_minform_id_temp"><input type="hidden" value="'.$param['w_range_max'].'" name="'.$id.'_range_maxform_id_temp" id="'.$id.'_range_maxform_id_temp"><div id="'.$id.'_table_price" style="display: table;"><div id="'.$id.'_tr_price1" style="display: table-row;"><div id="'.$id.'_td_name_currency" style="'.$currency_sumbol.'"><span class="wdform_colon" style="vertical-align: middle;"><!--repstart-->&nbsp;$&nbsp;<!--repend--></span></div><div id="'.$id.'_td_name_dollars" style="display: table-cell;"><input type="text" class="'.$input_active.'" id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" value="'.$param['w_first_val'].'" title="'.$param['w_title'].'"onfocus="delete_value(&quot;'.$id.'_elementform_id_temp&quot;)" onblur="return_value(&quot;'.$id.'_elementform_id_temp&quot;)"onchange="change_value(&quot;'.$id.'_elementform_id_temp&quot;)" onkeypress="return check_isnum(event)" style="width: '.$param['w_size'].'px;" '.$param['attributes'].' disabled/></div></div></div></div></div>';
+              break;
+            }
+			
+			
+			
+			
+			
+            case 'type_paypal_select':
+            {
+            $params_names=array('w_field_label_size','w_field_label_pos','w_size','w_choices','w_choices_price','w_choices_checked', 'w_choices_disabled','w_required','w_quantity', 'w_quantity_value','w_class','w_property','w_property_values');
+              $temp=$params;
+			  if(strpos($temp, 'w_choices_params') > -1)
+						$params_names=array('w_field_label_size','w_field_label_pos','w_size','w_choices','w_choices_price','w_choices_checked', 'w_choices_disabled','w_required','w_quantity', 'w_quantity_value', 'w_choices_params', 'w_class', 'w_property', 'w_property_values');	
+						
+			  if(strpos($temp, 'w_hide_label') > -1)
+					   $params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_size','w_choices','w_choices_price','w_choices_checked', 'w_choices_disabled','w_required','w_quantity', 'w_quantity_value', 'w_choices_params', 'w_class', 'w_property', 'w_property_values');			
+						
+              foreach($params_names as $params_name )
+              {	
+                $temp=explode('*:*'.$params_name.'*:*',$temp);
+                $param[$params_name] = $temp[0];
+                $temp=$temp[1];
+              }
+
+              if($temp)
+              {	
+                $temp	=explode('*:*w_attr_name*:*',$temp);
+                $attrs	= array_slice($temp,0, count($temp)-1);   
+                foreach($attrs as $attr)
+                  $param['attributes'] = $param['attributes'].' add_'.$attr;
+              }
+
+              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_choices']	= explode('***',$param['w_choices']);
                  
@@ -1633,7 +1902,7 @@ class FMModelManage_fm {
               }
 
               
-              $rep='<div id="wdform_field'.$id.'" type="type_paypal_select" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; "><input type="hidden" value="type_paypal_select" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><select id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" onchange="set_select(this)" style="width: '.$param['w_size'].'px;"  '.$param['attributes'].' disabled>';
+              $rep='<div id="wdform_field'.$id.'" type="type_paypal_select" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; "><input type="hidden" value="type_paypal_select" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><select id="'.$id.'_elementform_id_temp" name="'.$id.'_elementform_id_temp" onchange="set_select(this)" style="width: '.$param['w_size'].'px;"  '.$param['attributes'].' disabled>';
 					foreach($param['w_choices'] as $key => $choice)
 					{
 						$where = '';
@@ -1683,6 +1952,9 @@ class FMModelManage_fm {
               $temp=$params;
 			  if(strpos($temp, 'w_field_option_pos') > -1)
 						$params_names=array('w_field_label_size','w_field_label_pos', 'w_field_option_pos', 'w_flow','w_choices','w_choices_price','w_choices_checked','w_required','w_randomize','w_allow_other','w_allow_other_num', 'w_choices_params', 'w_class','w_property','w_property_values','w_quantity','w_quantity_value');
+						
+			  if(strpos($temp, 'w_hide_label') > -1)
+						$params_names=array('w_field_label_size','w_field_label_pos', 'w_field_option_pos', 'w_hide_label', 'w_flow','w_choices','w_choices_price','w_choices_checked','w_required','w_randomize','w_allow_other','w_allow_other_num', 'w_choices_params', 'w_class','w_property','w_property_values','w_quantity','w_quantity_value');
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1700,7 +1972,10 @@ class FMModelManage_fm {
               if(!isset($param['w_field_option_pos']))
 						$param['w_field_option_pos'] = 'left';
 						
-              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");
+
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_choices']	= explode('***',$param['w_choices']);				   
               $param['w_choices_price']	= explode('***',$param['w_choices_price']);					
@@ -1719,7 +1994,7 @@ class FMModelManage_fm {
                   $param['w_choices_checked'][$key]='';
               }
               
-              $rep='<div id="wdform_field'.$id.'" type="type_paypal_checkbox" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="wd_form_label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_paypal_checkbox" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;">';
+              $rep='<div id="wdform_field'.$id.'" type="type_paypal_checkbox" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="wd_form_label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_paypal_checkbox" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;">';
 				
 					if($param['w_flow']=='hor')
 					{
@@ -1795,6 +2070,8 @@ class FMModelManage_fm {
               $temp=$params;
 			  if(strpos($temp, 'w_field_option_pos') > -1)
 						$params_names=array('w_field_label_size','w_field_label_pos', 'w_field_option_pos', 'w_flow','w_choices','w_choices_price','w_choices_checked','w_required','w_randomize','w_allow_other','w_allow_other_num', 'w_choices_params', 'w_class','w_property','w_property_values','w_quantity','w_quantity_value');
+			  if(strpos($temp, 'w_hide_label') > -1)
+						$params_names=array('w_field_label_size','w_field_label_pos', 'w_field_option_pos', 'w_hide_label', 'w_flow','w_choices','w_choices_price','w_choices_checked','w_required','w_randomize','w_allow_other','w_allow_other_num', 'w_choices_params', 'w_class','w_property','w_property_values','w_quantity','w_quantity_value');
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1812,6 +2089,10 @@ class FMModelManage_fm {
              if(!isset($param['w_field_option_pos']))
 						$param['w_field_option_pos'] = 'left';
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_choices']	= explode('***',$param['w_choices']);
                  
@@ -1833,7 +2114,7 @@ class FMModelManage_fm {
                   $param['w_choices_checked'][$key]='';
               }
               
-              $rep='<div id="wdform_field'.$id.'" type="type_paypal_radio" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="wd_form_label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_paypal_radio" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;">';
+              $rep='<div id="wdform_field'.$id.'" type="type_paypal_radio" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="wd_form_label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_paypal_radio" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;">';
 				
 				if($param['w_flow']=='hor')
 				{
@@ -1907,10 +2188,15 @@ class FMModelManage_fm {
             case 'type_paypal_shipping':
             {
               
-              $params_names=array('w_field_label_size','w_field_label_pos', 'w_field_option_pos', 'w_flow','w_choices','w_choices_price','w_choices_checked','w_required','w_randomize','w_allow_other','w_allow_other_num','w_class');
+              $params_names=array('w_field_label_size','w_field_label_pos',  'w_flow','w_choices','w_choices_price','w_choices_checked','w_required','w_randomize','w_allow_other','w_allow_other_num','w_class');
               $temp=$params;
+			  
 			  if(strpos($temp, 'w_field_option_pos') > -1)
-				$params_names=array('w_field_label_size','w_field_label_pos', 'w_flow','w_choices','w_choices_price','w_choices_checked','w_required','w_randomize','w_allow_other','w_allow_other_num','w_choices_params','w_class');
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_field_option_pos', 'w_flow','w_choices','w_choices_price','w_choices_checked','w_required','w_randomize','w_allow_other','w_allow_other_num','w_choices_params','w_class');
+				
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_field_option_pos', 'w_hide_label', 'w_flow','w_choices','w_choices_price','w_choices_checked','w_required','w_randomize','w_allow_other','w_allow_other_num','w_choices_params','w_class');
+				
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -1929,6 +2215,13 @@ class FMModelManage_fm {
 						$param['w_field_option_pos'] = 'left';
 						
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
+			  
+			  
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");	
               $param['w_choices']	= explode('***',$param['w_choices']);
                  
@@ -1947,7 +2240,7 @@ class FMModelManage_fm {
                   $param['w_choices_checked'][$key]='';
               }
               
-              $rep='<div id="wdform_field'.$id.'" type="type_paypal_shipping" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="wd_form_label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; vertical-align:top;"><input type="hidden" value="type_paypal_shipping" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;">';
+              $rep='<div id="wdform_field'.$id.'" type="type_paypal_shipping" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="wd_form_label" style="vertical-align: top;">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required" style="vertical-align: top;">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; vertical-align:top;"><input type="hidden" value="type_paypal_shipping" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_randomize'].'" name="'.$id.'_randomizeform_id_temp" id="'.$id.'_randomizeform_id_temp"><input type="hidden" value="'.$param['w_allow_other'].'" name="'.$id.'_allow_otherform_id_temp" id="'.$id.'_allow_otherform_id_temp"><input type="hidden" value="'.$param['w_allow_other_num'].'" name="'.$id.'_allow_other_numform_id_temp" id="'.$id.'_allow_other_numform_id_temp"><input type="hidden" value="'.$param['w_field_option_pos'].'" id="'.$id.'_option_left_right"><div style="display: table;"><div id="'.$id.'_table_little" style="display: table-row-group;">';
 				
 				if($param['w_flow']=='hor')
 				{
@@ -1999,7 +2292,44 @@ class FMModelManage_fm {
             }
             case 'type_paypal_total':
             {
-              $params_names=array('w_field_label_size','w_field_label_pos','w_class');
+				$params_names=array('w_field_label_size','w_field_label_pos','w_class');
+				$temp=$params;
+				if(strpos($temp, 'w_size') > -1)
+					$params_names=array('w_field_label_size','w_field_label_pos','w_class', 'w_size');
+			 
+				if(strpos($temp, 'w_hide_label') > -1)
+					$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_class', 'w_size');
+			 
+				foreach($params_names as $params_name )
+				{	
+					$temp=explode('*:*'.$params_name.'*:*',$temp);
+					$param[$params_name] = $temp[0];
+					$temp=$temp[1];
+				}
+
+				if($temp)
+				{	
+					$temp = explode('*:*w_attr_name*:*',$temp);
+					$attrs = array_slice($temp,0, count($temp)-1);   
+					foreach($attrs as $attr)
+						$param['attributes'] = $param['attributes'].' add_'.$attr;
+				}
+              
+				$param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");
+
+				$param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+				$display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+				$param['w_size'] = isset($param['w_size']) ? $param['w_size'] : '300';	
+            
+				$rep='<div id="wdform_field'.$id.'" type="type_paypal_total" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_paypal_total" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><div id="'.$id.'paypal_totalform_id_temp" class="wdform_paypal_total paypal_totalform_id_temp" style="width:'.$param['w_size'].'px;"><input type="hidden" value="" name="'.$id.'_paypal_totalform_id_temp" class="input_paypal_totalform_id_temp"><div id="'.$id.'div_totalform_id_temp" class="div_totalform_id_temp" style="margin-bottom: 10px;"><!--repstart-->$300<!--repend--></div><div id="'.$id.'paypal_productsform_id_temp" class="paypal_productsform_id_temp" style="border-spacing: 2px;"><div style="border-spacing: 2px;"><!--repstart-->product 1 $100<!--repend--></div><div style="border-spacing: 2px;"><!--repstart-->product 2 $200<!--repend--></div></div><div id="'.$id.'paypal_taxform_id_temp" class="paypal_taxform_id_temp" style="border-spacing: 2px; margin-top: 7px;"></div></div></div></div>';
+            
+				break;
+            }
+            
+
+            
+            case 'type_stripe': {
+              $params_names=array('w_field_size', 'w_field_label_size','w_field_label_pos','w_class');
               $temp=$params;
               foreach($params_names as $params_name )
               {	
@@ -2017,12 +2347,8 @@ class FMModelManage_fm {
               }
               
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
-            
-                    
-                      
-              $rep='<div id="wdform_field'.$id.'" type="type_paypal_total" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_paypal_total" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><div id="'.$id.'paypal_totalform_id_temp" class="wdform_paypal_total paypal_totalform_id_temp"><input type="hidden" value="" name="'.$id.'_paypal_totalform_id_temp" class="input_paypal_totalform_id_temp"><div id="'.$id.'div_totalform_id_temp" class="div_totalform_id_temp" style="margin-bottom: 10px;"><!--repstart-->$300<!--repend--></div><div id="'.$id.'paypal_productsform_id_temp" class="paypal_productsform_id_temp" style="border-spacing: 2px;"><div style="border-spacing: 2px;"><!--repstart-->product 1 $100<!--repend--></div><div style="border-spacing: 2px;"><!--repstart-->product 2 $200<!--repend--></div></div><div id="'.$id.'paypal_taxform_id_temp" class="paypal_taxform_id_temp" style="border-spacing: 2px; margin-top: 7px;"></div></div></div></div>';
-            
-            
+              $rep='<div id="wdform_field'.$id.'" type="type_stripe" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';  width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label" style="display: none;">stripe</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><div id="'.$id.'_elementform_id_temp" style="width:'.$param['w_field_size'].'px; margin:10px; border: 1px solid #000; min-width:80px;text-align:center;"> Stripe Section</div><input type="hidden" id="is_stripe" /><input type="hidden" value="type_stripe" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"></div></div>';
+        
               break;
             }
 
@@ -2030,6 +2356,10 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_field_label_col','w_star_amount','w_required','w_class');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_field_label_col','w_star_amount','w_required','w_class');
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -2044,7 +2374,10 @@ class FMModelManage_fm {
                 foreach($attrs as $attr)
                   $param['attributes'] = $param['attributes'].' add_'.$attr;
               }
-              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");
               
       
@@ -2054,7 +2387,7 @@ class FMModelManage_fm {
                 $images .= '<img id="'.$id.'_star_'.$i.'" src="' . WD_FM_URL . '/images/star.png?ver='. get_option("wd_form_maker_version").'" onmouseover="change_src('.$i.','.$id.',&quot;form_id_temp&quot;)" onmouseout="reset_src('.$i.','.$id.')" onclick="select_star_rating('.$i.','.$id.', &quot;form_id_temp&quot;)">';
               }
               
-              $rep ='<div id="wdform_field'.$id.'" type="type_star_rating" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_star_rating" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_star_amount'].'" id="'.$id.'_star_amountform_id_temp" name="'.$id.'_star_amountform_id_temp"><input type="hidden" value="'.$param['w_field_label_col'].'" name="'.$id.'_star_colorform_id_temp" id="'.$id.'_star_colorform_id_temp"><div id="'.$id.'_elementform_id_temp" class="wdform_stars" '.$param['attributes'].'>'.$images.'</div></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_star_rating" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_star_rating" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_star_amount'].'" id="'.$id.'_star_amountform_id_temp" name="'.$id.'_star_amountform_id_temp"><input type="hidden" value="'.$param['w_field_label_col'].'" name="'.$id.'_star_colorform_id_temp" id="'.$id.'_star_colorform_id_temp"><div id="'.$id.'_elementform_id_temp" class="wdform_stars" '.$param['attributes'].'>'.$images.'</div></div></div>';
               
               
               break;
@@ -2063,6 +2396,10 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_mini_labels','w_scale_amount','w_required','w_class');
               $temp=$params;
+			  
+			   if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_mini_labels','w_scale_amount','w_required','w_class');
+			  
               foreach($params_names as $params_name )
               {	
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
@@ -2078,6 +2415,10 @@ class FMModelManage_fm {
                   $param['attributes'] = $param['attributes'].' add_'.$attr;
               }
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");
               
               $w_mini_labels = explode('***',$param['w_mini_labels']);
@@ -2095,7 +2436,7 @@ class FMModelManage_fm {
                 $radio_buttons .= '<div id="'.$id.'_scale_td2_'.$k.'form_id_temp" style="display: table-cell;"><input id="'.$id.'_scale_radioform_id_temp_'.$k.'" name="'.$id.'_scale_radioform_id_temp" value="'.$k.'" type="radio"></div>';
               }
               
-              $rep ='<div id="wdform_field'.$id.'" type="type_scale_rating" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; vertical-align: top; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_scale_rating" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_scale_amount'].'" id="'.$id.'_scale_amountform_id_temp" name="'.$id.'_scale_amountform_id_temp"><div id="'.$id.'_elementform_id_temp" style="float: left;" '.$param['attributes'].'><label class="mini_label" id="'.$id.'_mini_label_worst" style="position: relative; top: 6px; font-size: 11px; display: inline-table;">'.$w_mini_labels[0].'</label><div id="'.$id.'_scale_tableform_id_temp" style="display: inline-table;"><div id="'.$id.'_scale_tr1form_id_temp" style="display: table-row;">'.$numbers.'</div><div id="'.$id.'_scale_tr2form_id_temp" style="display: table-row;">'.$radio_buttons.'</div></div><label class="mini_label" id="'.$id.'_mini_label_best" style="position: relative; top: 6px; font-size: 11px; display: inline-table;">'.$w_mini_labels[1].'</label></div></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_scale_rating" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; vertical-align: top; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_scale_rating" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_scale_amount'].'" id="'.$id.'_scale_amountform_id_temp" name="'.$id.'_scale_amountform_id_temp"><div id="'.$id.'_elementform_id_temp" style="float: left;" '.$param['attributes'].'><label class="mini_label" id="'.$id.'_mini_label_worst" style="position: relative; top: 6px; font-size: 11px; display: inline-table;">'.$w_mini_labels[0].'</label><div id="'.$id.'_scale_tableform_id_temp" style="display: inline-table;"><div id="'.$id.'_scale_tr1form_id_temp" style="display: table-row;">'.$numbers.'</div><div id="'.$id.'_scale_tr2form_id_temp" style="display: table-row;">'.$radio_buttons.'</div></div><label class="mini_label" id="'.$id.'_mini_label_best" style="position: relative; top: 6px; font-size: 11px; display: inline-table;">'.$w_mini_labels[1].'</label></div></div></div>';
                   
               break;
             }
@@ -2103,6 +2444,11 @@ class FMModelManage_fm {
             {
               $params_names=array('w_field_label_size','w_field_label_pos','w_field_width','w_field_min_value','w_field_max_value', 'w_field_step', 'w_field_value', 'w_required','w_class');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_field_width','w_field_min_value','w_field_max_value', 'w_field_step', 'w_field_value', 'w_required','w_class');
+			  
+			  
               foreach($params_names as $params_name ) {
                 $temp=explode('*:*'.$params_name.'*:*',$temp);
                 $param[$params_name] = $temp[0];
@@ -2114,14 +2460,22 @@ class FMModelManage_fm {
                 foreach($attrs as $attr)
                   $param['attributes'] = $param['attributes'].' add_'.$attr;
               }
-              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+              $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");
+
+				$param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+				$display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";
               $required_sym = ($param['w_required']=="yes" ? " *" : "");
-              $rep ='<div id="wdform_field'.$id.'" type="type_spinner" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_spinner" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_field_width'].'" name="'.$id.'_spinner_widthform_id_temp" id="'.$id.'_spinner_widthform_id_temp"><input type="hidden" value="'.$param['w_field_min_value'].'" id="'.$id.'_min_valueform_id_temp" name="'.$id.'_min_valueform_id_temp"><input type="hidden" value="'.$param['w_field_max_value'].'" name="'.$id.'_max_valueform_id_temp" id="'.$id.'_max_valueform_id_temp"><input type="hidden" value="'.$param['w_field_step'].'" name="'.$id.'_stepform_id_temp" id="'.$id.'_stepform_id_temp"><input type="" value="'.($param['w_field_value']!= 'null' ? $param['w_field_value'] : '').'" name="'.$id.'_elementform_id_temp" id="'.$id.'_elementform_id_temp" onkeypress="return check_isnum_or_minus(event)" style="width: '.$param['w_field_width'].'px;" '.$param['attributes'].' disabled/></div></div>';
+			  
+              $rep ='<div id="wdform_field'.$id.'" type="type_spinner" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_spinner" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_field_width'].'" name="'.$id.'_spinner_widthform_id_temp" id="'.$id.'_spinner_widthform_id_temp"><input type="hidden" value="'.$param['w_field_min_value'].'" id="'.$id.'_min_valueform_id_temp" name="'.$id.'_min_valueform_id_temp"><input type="hidden" value="'.$param['w_field_max_value'].'" name="'.$id.'_max_valueform_id_temp" id="'.$id.'_max_valueform_id_temp"><input type="hidden" value="'.$param['w_field_step'].'" name="'.$id.'_stepform_id_temp" id="'.$id.'_stepform_id_temp"><input type="" value="'.($param['w_field_value']!= 'null' ? $param['w_field_value'] : '').'" name="'.$id.'_elementform_id_temp" id="'.$id.'_elementform_id_temp" onkeypress="return check_isnum_or_minus(event)" style="width: '.$param['w_field_width'].'px;" '.$param['attributes'].' disabled/></div></div>';
               break;
             }
             case 'type_slider': {
               $params_names=array('w_field_label_size','w_field_label_pos','w_field_width','w_field_min_value','w_field_max_value', 'w_field_value', 'w_required','w_class');
               $temp=$params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_field_width','w_field_min_value','w_field_max_value', 'w_field_value', 'w_required','w_class');
+			  
               foreach($params_names as $params_name ) {	
                 $temp = explode('*:*'.$params_name.'*:*',$temp);
                 $param[$params_name] = $temp[0];
@@ -2135,13 +2489,21 @@ class FMModelManage_fm {
                 }
               }
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+		      $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");
-              $rep ='<div id="wdform_field'.$id.'" type="type_slider" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; vertical-align: top; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_slider" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_field_width'].'" name="'.$id.'_slider_widthform_id_temp" id="'.$id.'_slider_widthform_id_temp"><input type="hidden" value="'.$param['w_field_min_value'].'" id="'.$id.'_slider_min_valueform_id_temp" name="'.$id.'_slider_min_valueform_id_temp"><input type="hidden" value="'.$param['w_field_max_value'].'" id="'.$id.'_slider_max_valueform_id_temp" name="'.$id.'_slider_max_valueform_id_temp"><input type="hidden" value="'.$param['w_field_value'].'" id="'.$id.'_slider_valueform_id_temp" name="'.$id.'_slider_valueform_id_temp"><div id="'.$id.'_slider_tableform_id_temp"><div><div id="'.$id.'_slider_td1form_id_temp"><div name="'.$id.'_elementform_id_temp" id="'.$id.'_elementform_id_temp" style="width: '.$param['w_field_width'].'px;" '.$param['attributes'].'"></div></div></div><div><div align="left" id="'.$id.'_slider_td2form_id_temp" style="display: inline-table; width: 33.3%; text-align: left;"><span id="'.$id.'_element_minform_id_temp" class="label">'.$param['w_field_min_value'].'</span></div><div align="right" id="'.$id.'_slider_td3form_id_temp" style="display: inline-table; width: 33.3%; text-align: center;"><span id="'.$id.'_element_valueform_id_temp" class="label">'.$param['w_field_value'].'</span></div><div align="right" id="'.$id.'_slider_td4form_id_temp" style="display: inline-table; width: 33.3%; text-align: right;"><span id="'.$id.'_element_maxform_id_temp" class="label">'.$param['w_field_max_value'].'</span></div></div></div></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_slider" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; vertical-align: top; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_slider" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_field_width'].'" name="'.$id.'_slider_widthform_id_temp" id="'.$id.'_slider_widthform_id_temp"><input type="hidden" value="'.$param['w_field_min_value'].'" id="'.$id.'_slider_min_valueform_id_temp" name="'.$id.'_slider_min_valueform_id_temp"><input type="hidden" value="'.$param['w_field_max_value'].'" id="'.$id.'_slider_max_valueform_id_temp" name="'.$id.'_slider_max_valueform_id_temp"><input type="hidden" value="'.$param['w_field_value'].'" id="'.$id.'_slider_valueform_id_temp" name="'.$id.'_slider_valueform_id_temp"><div id="'.$id.'_slider_tableform_id_temp"><div><div id="'.$id.'_slider_td1form_id_temp"><div name="'.$id.'_elementform_id_temp" id="'.$id.'_elementform_id_temp" style="width: '.$param['w_field_width'].'px;" '.$param['attributes'].'"></div></div></div><div><div align="left" id="'.$id.'_slider_td2form_id_temp" style="display: inline-table; width: 33.3%; text-align: left;"><span id="'.$id.'_element_minform_id_temp" class="label">'.$param['w_field_min_value'].'</span></div><div align="right" id="'.$id.'_slider_td3form_id_temp" style="display: inline-table; width: 33.3%; text-align: center;"><span id="'.$id.'_element_valueform_id_temp" class="label">'.$param['w_field_value'].'</span></div><div align="right" id="'.$id.'_slider_td4form_id_temp" style="display: inline-table; width: 33.3%; text-align: right;"><span id="'.$id.'_element_maxform_id_temp" class="label">'.$param['w_field_max_value'].'</span></div></div></div></div></div>';
               break;
             }
             case 'type_range': {
               $params_names = array('w_field_label_size','w_field_label_pos','w_field_range_width','w_field_range_step','w_field_value1', 'w_field_value2', 'w_mini_labels', 'w_required','w_class');
               $temp = $params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_field_range_width','w_field_range_step','w_field_value1', 'w_field_value2', 'w_mini_labels', 'w_required','w_class');
+			  
               foreach ($params_names as $params_name ) {
                 $temp = explode('*:*' . $params_name . '*:*', $temp);
                 $param[$params_name] = $temp[0];
@@ -2155,14 +2517,22 @@ class FMModelManage_fm {
                 }
               }
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");
               $w_mini_labels = explode('***',$param['w_mini_labels']);
-              $rep ='<div id="wdform_field'.$id.'" type="type_range" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_range" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_field_range_width'].'" name="'.$id.'_range_widthform_id_temp" id="'.$id.'_range_widthform_id_temp"><input type="hidden" value="'.$param['w_field_range_step'].'" name="'.$id.'_range_stepform_id_temp" id="'.$id.'_range_stepform_id_temp"><div id="'.$id.'_elemet_table_littleform_id_temp" style="display: table;"><div style="display: table-row;"><div valign="middle" align="left" style="display: table-cell;"><input type="" value="'.($param['w_field_value1']!= 'null' ? $param['w_field_value1'] : '').'" name="'.$id.'_elementform_id_temp0" id="'.$id.'_elementform_id_temp0" onkeypress="return check_isnum_or_minus(event)" style="width: '.$param['w_field_range_width'].'px;"  '.$param['attributes'].' disabled/></div><div valign="middle" align="left" style="display: table-cell; padding-left: 4px;"><input type="" value="'.($param['w_field_value2']!= 'null' ? $param['w_field_value2'] : '').'" name="'.$id.'_elementform_id_temp1" id="'.$id.'_elementform_id_temp1" onkeypress="return check_isnum_or_minus(event)" style="width: '.$param['w_field_range_width'].'px;" '.$param['attributes'].' disabled/></div></div><div style="display: table-row;"><div valign="top" align="left" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_from">'.$w_mini_labels[0].'</label></div><div valign="top" align="left" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_to">'.$w_mini_labels[1].'</label></div></div></div></div></div>';
+              $rep ='<div id="wdform_field'.$id.'" type="type_range" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_range" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_field_range_width'].'" name="'.$id.'_range_widthform_id_temp" id="'.$id.'_range_widthform_id_temp"><input type="hidden" value="'.$param['w_field_range_step'].'" name="'.$id.'_range_stepform_id_temp" id="'.$id.'_range_stepform_id_temp"><div id="'.$id.'_elemet_table_littleform_id_temp" style="display: table;"><div style="display: table-row;"><div valign="middle" align="left" style="display: table-cell;"><input type="" value="'.($param['w_field_value1']!= 'null' ? $param['w_field_value1'] : '').'" name="'.$id.'_elementform_id_temp0" id="'.$id.'_elementform_id_temp0" onkeypress="return check_isnum_or_minus(event)" style="width: '.$param['w_field_range_width'].'px;"  '.$param['attributes'].' disabled/></div><div valign="middle" align="left" style="display: table-cell; padding-left: 4px;"><input type="" value="'.($param['w_field_value2']!= 'null' ? $param['w_field_value2'] : '').'" name="'.$id.'_elementform_id_temp1" id="'.$id.'_elementform_id_temp1" onkeypress="return check_isnum_or_minus(event)" style="width: '.$param['w_field_range_width'].'px;" '.$param['attributes'].' disabled/></div></div><div style="display: table-row;"><div valign="top" align="left" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_from">'.$w_mini_labels[0].'</label></div><div valign="top" align="left" style="display: table-cell;"><label class="mini_label" id="'.$id.'_mini_label_to">'.$w_mini_labels[1].'</label></div></div></div></div></div>';
               break;
             }
             case 'type_grading': {
               $params_names = array('w_field_label_size', 'w_field_label_pos', 'w_items', 'w_total', 'w_required', 'w_class');
               $temp = $params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size', 'w_field_label_pos', 'w_hide_label', 'w_items', 'w_total', 'w_required', 'w_class');
+			  
+			  
               foreach($params_names as $params_name) {
                 $temp = explode('*:*' . $params_name . '*:*', $temp);
                 $param[$params_name] = $temp[0];
@@ -2176,6 +2546,10 @@ class FMModelManage_fm {
                 }
               }
               $param['w_field_label_pos'] = ($param['w_field_label_pos'] == "left" ? "table-cell" : "block");
+			  
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+			  $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";	
+			  
               $required_sym = ($param['w_required'] == "yes" ? " *" : "");
               $w_items = explode('***', $param['w_items']);
               $grading_items = '';
@@ -2184,13 +2558,18 @@ class FMModelManage_fm {
 						$grading_items .= '<div id="'.$id.'_element_div'.$i.'" class="grading"><input id="'.$id.'_elementform_id_temp_'.$i.'" name="'.$id.'_elementform_id_temp_'.$i.'" onkeypress="return check_isnum_or_minus(event)" value="" size="5" onkeyup="sum_grading_values('.$id.',&quot;form_id_temp&quot;)" onchange="sum_grading_values('.$id.',&quot;form_id_temp&quot;)" '.$param['attributes'].' disabled/><label id="'.$id.'_label_elementform_id_temp'.$i.'" class="ch-rad-label">'.$w_items[$i].'</label></div>';
 					}
 									
-					$rep ='<div id="wdform_field'.$id.'" type="type_grading" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; vertical-align: top; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_grading" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_total'].'" name="'.$id.'_grading_totalform_id_temp" id="'.$id.'_grading_totalform_id_temp"><div id="'.$id.'_elementform_id_temp">'.$grading_items.'<div id="'.$id.'_element_total_divform_id_temp" class="grading_div">Total:<span id="'.$id.'_sum_elementform_id_temp" name="'.$id.'_sum_elementform_id_temp">0</span>/<span id="'.$id.'_total_elementform_id_temp" name="'.$id.'_total_elementform_id_temp">'.$param['w_total'].'</span><span id="'.$id.'_text_elementform_id_temp" name="'.$id.'_text_elementform_id_temp"></span></div></div></div></div>';
+					$rep ='<div id="wdform_field'.$id.'" type="type_grading" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; vertical-align: top; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_grading" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_total'].'" name="'.$id.'_grading_totalform_id_temp" id="'.$id.'_grading_totalform_id_temp"><div id="'.$id.'_elementform_id_temp">'.$grading_items.'<div id="'.$id.'_element_total_divform_id_temp" class="grading_div">Total:<span id="'.$id.'_sum_elementform_id_temp" name="'.$id.'_sum_elementform_id_temp">0</span>/<span id="'.$id.'_total_elementform_id_temp" name="'.$id.'_total_elementform_id_temp">'.$param['w_total'].'</span><span id="'.$id.'_text_elementform_id_temp" name="'.$id.'_text_elementform_id_temp"></span></div></div></div></div>';
 											
 					break;
             }
             case 'type_matrix': {
               $params_names=array('w_field_label_size','w_field_label_pos', 'w_field_input_type', 'w_rows', 'w_columns', 'w_required','w_class','w_textbox_size');
               $temp = $params;
+			  
+			  if(strpos($temp, 'w_hide_label') > -1)
+				$params_names=array('w_field_label_size','w_field_label_pos', 'w_hide_label', 'w_field_input_type', 'w_rows', 'w_columns', 'w_required','w_class','w_textbox_size');
+			  
+
               foreach ($params_names as $params_name) {
                 $temp = explode('*:*'.$params_name.'*:*',$temp);
                 $param[$params_name] = $temp[0];
@@ -2204,6 +2583,9 @@ class FMModelManage_fm {
                 }
               }
               $param['w_field_label_pos'] = ($param['w_field_label_pos']=="left" ? "table-cell" : "block");	
+			  $param['w_hide_label'] = (isset($param['w_hide_label']) ? $param['w_hide_label'] : "no");
+		      $display_label = $param['w_hide_label'] == "no" ? $param['w_field_label_pos'] : "none";		
+			  
               $required_sym = ($param['w_required']=="yes" ? " *" : "");
 			  $param['w_textbox_size'] = isset($param['w_textbox_size']) ? $param['w_textbox_size'] : '100';
               $w_rows = explode('***',$param['w_rows']);
@@ -2240,7 +2622,7 @@ class FMModelManage_fm {
 						
 					
 						
-					$rep ='<div id="wdform_field'.$id.'" type="type_matrix" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_matrix" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_field_input_type'].'" name="'.$id.'_input_typeform_id_temp" id="'.$id.'_input_typeform_id_temp"><input type="hidden" value="'.$param['w_textbox_size'].'" name="'.$id.'_textbox_sizeform_id_temp" id="'.$id.'_textbox_sizeform_id_temp"><div id="'.$id.'_elementform_id_temp" style="display: table;" '.$param['attributes'].'><div id="'.$id.'_table_little" style="display: table-row-group;"><div id="'.$id.'_element_tr0" style="display: table-row;"><div id="'.$id.'_element_td0_0" style="display: table-cell;"></div>'.$column_labels.'</div>'.$rows_columns.'</div></div></div></div>';
+					$rep ='<div id="wdform_field'.$id.'" type="type_matrix" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$display_label.'; width: '.$param['w_field_label_size'].'px;"><span id="'.$id.'_element_labelform_id_temp" class="label">'.$label.'</span><span id="'.$id.'_required_elementform_id_temp" class="required">'.$required_sym.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: '.$param['w_field_label_pos'].';"><input type="hidden" value="type_matrix" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><input type="hidden" value="'.$param['w_required'].'" name="'.$id.'_requiredform_id_temp" id="'.$id.'_requiredform_id_temp"><input type="hidden" value="'.$param['w_hide_label'].'" name="'.$id.'_hide_labelform_id_temp" id="'.$id.'_hide_labelform_id_temp"/><input type="hidden" value="'.$param['w_field_input_type'].'" name="'.$id.'_input_typeform_id_temp" id="'.$id.'_input_typeform_id_temp"><input type="hidden" value="'.$param['w_textbox_size'].'" name="'.$id.'_textbox_sizeform_id_temp" id="'.$id.'_textbox_sizeform_id_temp"><div id="'.$id.'_elementform_id_temp" style="display: table;" '.$param['attributes'].'><div id="'.$id.'_table_little" style="display: table-row-group;"><div id="'.$id.'_element_tr0" style="display: table-row;"><div id="'.$id.'_element_td0_0" style="display: table-cell;"></div>'.$column_labels.'</div>'.$rows_columns.'</div></div></div></div>';
 											
 					break;
             }
@@ -2260,7 +2642,7 @@ class FMModelManage_fm {
                 }
               }
               $param['w_act'] = ($param['w_act']=="false" ? 'style="display: none;"' : "");	
-              $rep='<div id="wdform_field'.$id.'" type="type_submit_reset" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: table-cell;"><span id="'.$id.'_element_labelform_id_temp" style="display: none;">type_submit_reset_'.$id.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: table-cell;"><input type="hidden" value="type_submit_reset" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><button type="button" class="button-submit" id="'.$id.'_element_submitform_id_temp" value="'.$param['w_submit_title'].'" onclick="check_required(&quot;submit&quot;, &quot;form_id_temp&quot;);" '.$param['attributes'].'>'.$param['w_submit_title'].'</button><button type="button" class="button-reset" id="'.$id.'_element_resetform_id_temp" value="'.$param['w_reset_title'].'" onclick="check_required(&quot;reset&quot;);" '.$param['w_act'].' '.$param['attributes'].'>'.$param['w_reset_title'].'</button></div></div>';
+              $rep='<div id="wdform_field'.$id.'" type="type_submit_reset" class="wdform_field" style="display: table-cell;">'.$arrows.'<div align="left" id="'.$id.'_label_sectionform_id_temp" class="'.$param['w_class'].'" style="display: table-cell;"><span id="'.$id.'_element_labelform_id_temp" style="display: none;">type_submit_reset_'.$id.'</span></div><div align="left" id="'.$id.'_element_sectionform_id_temp" class="'.$param['w_class'].'" style="display: table-cell;"><input type="hidden" value="type_submit_reset" name="'.$id.'_typeform_id_temp" id="'.$id.'_typeform_id_temp"><button type="button" class="button-submit" id="'.$id.'_element_submitform_id_temp" value="'.$param['w_submit_title'].'" disabled '.$param['attributes'].'>'.$param['w_submit_title'].'</button><button type="button" class="button-reset" id="'.$id.'_element_resetform_id_temp" value="'.$param['w_reset_title'].'" disabled '.$param['w_act'].' '.$param['attributes'].'>'.$param['w_reset_title'].'</button></div></div>';
               break;
             }
             case 'type_button': {
@@ -2346,6 +2728,12 @@ class FMModelManage_fm {
       $row->reply_to_user = '';
       $row->save_uploads = 1;
 
+      $row->header_title = '';
+      $row->header_description = '';
+      $row->header_image_url = '';
+      $row->header_image_animation = '';
+      $row->header_hide_image = '';
+
       $row->condition = '';
       $row->mail_cc = '';
       $row->mail_cc_user = '';
@@ -2368,7 +2756,7 @@ class FMModelManage_fm {
 
   public function get_theme_rows_data($old = '') {
     global $wpdb;
-    $rows = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "formmaker_themes WHERE css " . ($old ? 'NOT' : '') . " LIKE '%.wdform_section%' ORDER BY title");
+    $rows = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "formmaker_themes ORDER BY `version` DESC, `id` ASC");
     return $rows;
   }
   
@@ -2392,7 +2780,7 @@ class FMModelManage_fm {
 
   public function page_nav() {
     global $wpdb;
-	$where = 'WHERE `id` NOT IN (' . (get_option('contact_form_forms', '') != '' ? get_option('contact_form_forms') : 0) . ')';
+    $where = 'WHERE `id` NOT IN (' . (get_option('contact_form_forms', '') != '' ? get_option('contact_form_forms') : 0) . ')';
     $where .= ((isset($_POST['search_value']) && (esc_html($_POST['search_value']) != '')) ? ' AND title LIKE "%' . esc_html($_POST['search_value']) . '%"'  : '');
     $query = "SELECT COUNT(*) FROM " . $wpdb->prefix . "formmaker " . $where;
     $total = $wpdb->get_var($query);
@@ -2406,6 +2794,87 @@ class FMModelManage_fm {
     $page_nav['limit'] = (int) ($limit / 20 + 1);
     return $page_nav;
   }
+
+  public function get_display_options($id) {
+		global $wpdb;
+		$row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'formmaker_display_options WHERE form_id="%d"', $id));
+    if (!$row) {
+      $row = new stdClass();
+      $row->form_id = $id;
+      $row->type = 'embedded';
+      $row->scrollbox_loading_delay = 0;
+      $row->popover_animate_effect = '';
+      $row->popover_loading_delay = 0;
+      $row->popover_frequency = 0;
+      $row->topbar_position = 1;
+      $row->topbar_remain_top = 1;
+      $row->topbar_closing = 1;
+      $row->topbar_hide_duration = 0;
+      $row->scrollbox_position = 1;
+      $row->scrollbox_trigger_point = 20;
+      $row->scrollbox_hide_duration = 0;
+      $row->scrollbox_auto_hide = 1;
+      $row->hide_mobile = 0;
+      $row->scrollbox_closing = 1;
+      $row->scrollbox_minimize = 1;
+      $row->scrollbox_minimize_text = '';
+      $row->display_on = 'everything';
+      $row->posts_include = '';
+      $row->pages_include = '';
+      $row->display_on_categories = '';
+      $row->current_categories = '';
+      $row->show_for_admin = 0;
+    }
+		return $row;
+	}
+
+  public function fm_posts_query() {
+		$default_post_types = array( 'post', 'page' );
+		$custom_post_types = get_post_types( array(
+			'public'   => true,
+			'_builtin' => false,
+		) );
+
+		$post_types = array_merge($default_post_types, $custom_post_types);
+		$pt_names = array_values($post_types);
+
+		$query = array(
+			'post_type' => $pt_names,
+			'suppress_filters' => true,
+			'update_post_term_cache' => false,
+			'update_post_meta_cache' => false,
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+		);
+
+		$get_posts = new WP_Query;
+		$posts = $get_posts->query( $query );
+		if ( ! $get_posts->post_count ) {
+			return false;
+		}
+
+		$results = array();
+		foreach ($posts as $post) {
+			$results[(int)$post->ID] = array(
+				'title' => trim( esc_html( strip_tags( get_the_title( $post ) ) ) ),
+				'post_type' => $post->post_type,
+			);
+		}
+
+		wp_reset_postdata();
+		return $results;
+	}
+
+	public function fm_categories_query() {
+		$categories = get_categories( array(
+			'hide_empty' => 0,
+		) );
+		$final_categories = array();
+		foreach ( $categories as $key => $value ) {
+			$final_categories[$value->term_id] = $value->name;
+		}
+		return $final_categories;
+	}
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////

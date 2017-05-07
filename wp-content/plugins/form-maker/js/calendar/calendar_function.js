@@ -169,6 +169,7 @@ function getSelectedOption( frmName, srcListName ) {
 }
 
 function setSelectedValue( frmName, srcListName, value ) {
+alert();
 	var form = eval( 'document.' + frmName );
 	var srcList = eval( 'form.' + srcListName );
 
@@ -336,6 +337,7 @@ var calendar = null; // remember the calendar object so that we reuse
 // This function gets called when an end-user clicks on some date
 function selected(cal, date) {
 	cal.sel.value = date; // just update the value of the input field
+	cal.sel.focus();
 }
 
 // And this gets called when the end-user clicks on the _selected_ date,
@@ -367,6 +369,8 @@ function checkCalendar(ev) {
 // This function shows the calendar under the element having the given id.
 // It takes care of catching "mousedown" signals on document and hiding the
 // calendar if the click was outside.
+
+
 function showCalendar(id, dateFormat, dis_past_days) {
 	var el = document.getElementById(id);
 	if (calendar != null) {
@@ -374,36 +378,42 @@ function showCalendar(id, dateFormat, dis_past_days) {
 		{
 			calendar.setDateFormat(dateFormat);
 		}
-		// we already have one created, so just update it.
-		calendar.hide();		// hide the existing calendar
-		calendar.parseDate(el.value); // set it to a new date
-		if(dis_past_days)
-			calendar.getDateStatus = getDisabledDates; // disable past days
-		else
-			calendar.getDateStatus = null; // disable past days
-		calendar.refresh();
+// we already have one created, so just update it.
+	calendar.hide();	// hide the existing calendar
+	calendar.parseDate(el.value); // set it to a new date
+	if(dis_past_days)
+		calendar.getDateStatus = getDisabledDates; // disable past days
+	else
+		calendar.getDateStatus = null; // disable past days
+	calendar.refresh();
 	} else {
-		// first-time call, create the calendar
-		var cal = new Calendar(true, null, selected, closeHandler);
-		calendar = cal;		// remember the calendar in the global
-		cal.setRange(1900, 2070);	// min/max year allowed
+// first-time call, create the calendar
+	var cal = new Calendar(true, null, selected, closeHandler);
+	calendar = cal;	// remember the calendar in the global
+	cal.setRange(1900, 2070);	// min/max year allowed
 
-		if ( dateFormat )	// optional date format
-		{
-			cal.setDateFormat(dateFormat);
-		}
-		if(dis_past_days)
-			cal.getDateStatus = getDisabledDates; // disable past days
-		calendar.create();		// create a popup calendar
-		calendar.parseDate(el.value); // set it to a new date
+	if ( dateFormat )	// optional date format
+	{
+		cal.setDateFormat(dateFormat);
 	}
-	calendar.sel = el;		// inform it about the input field in use
+	if(dis_past_days)
+	cal.getDateStatus = getDisabledDates; // disable past days
+	calendar.create();	// create a popup calendar
+	calendar.parseDate(el.value); // set it to a new date
+	}
+	calendar.sel = el;	// inform it about the input field in use
 	calendar.showAtElement(el);	// show the calendar next to the input field
 
 	// catch mousedown on the document
 	Calendar.addEvent(document, "mousedown", checkCalendar);
 	return false;
 }
+
+
+
+
+
+
 
 
 function getDisabledDates(date) {

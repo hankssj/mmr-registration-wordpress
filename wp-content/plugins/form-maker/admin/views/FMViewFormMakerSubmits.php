@@ -95,7 +95,7 @@ class FMViewFormMakerSubmits {
             ?>
             <tr>
               <td class="field_label"><?php echo $labels_name[$key]; ?></td>
-              <td class="field_value"><?php echo str_replace("***br***", '<br>', $element_value); ?></td>
+              <td class="field_value"><?php echo str_replace("***br***", '<br>', wpautop(esc_html($element_value))); ?></td>
             </tr>
             <?php
           }

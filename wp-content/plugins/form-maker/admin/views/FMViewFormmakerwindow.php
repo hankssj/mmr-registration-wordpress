@@ -32,7 +32,6 @@ class FMViewFormmakerwindow {
         <script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
         <script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/utils/mctabs.js"></script>
         <script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/utils/form_utils.js"></script>
-        
         <?php
         wp_print_scripts('jquery');
         ?>
@@ -91,8 +90,7 @@ class FMViewFormmakerwindow {
           </div>
           <div id="submissions_panel" class="panel">
             <div class="error" style="position: relative; padding: 5px; font-size: 20px; color: red; opacity: 1; font-weight: bolder;">Front end submissions are disabled in free version.</div>
-            <div style="position: absolute; background: gray; width: 92%; height: 65%; opacity: 0.3;">
-            </div>
+            <div style="position: absolute; background: gray; width: 92%; height: 65%; opacity: 0.3;"></div>
             <table>
               <tr>
                 <td class="smaller_font">Select a Form:</td>

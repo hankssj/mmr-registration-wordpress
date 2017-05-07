@@ -91,12 +91,16 @@ class WDW_FM_Library {
 
         }
       }
-      return '<div style="width:99%"><div class="' . $type . '"><p><strong>' . $message . '</strong></p></div></div>';
+      return '<div class="wd_' . $type . ' wrap"><strong>' . $message . '</strong></div>';
     }
   }
 
   public static function message($message, $type, $form_id = 0) {
-    return '<div style="width: 100%;"  class="form' . $form_id . '"><div class="' . $type . '"><p><strong>' . $message . '</strong></p></div></div>';
+    return '<div style="width: 100%;" class="fm-form-message ' . $type . '"><div><strong>' . $message . '</strong></div></div>';
+  }
+  
+  public static function fm_container($theme_id, $form_body) {
+    return '<div class="fm-form-container fm-theme' . $theme_id . '">' . $form_body . '</div>';
   }
 
   public static function search($search_by, $search_value, $form_id) {
@@ -172,7 +176,7 @@ class WDW_FM_Library {
     ?>
     <script type="text/javascript">
       var items_county = <?php echo $items_county; ?>;
-      function fm_page(x, y) {       
+      function fm_page(x, y) {   
         switch (y) {
           case 1:
             if (x >= items_county) {
@@ -199,9 +203,11 @@ class WDW_FM_Library {
           default:
             document.getElementById('page_number').value = 1;
         }
+		
 		jQuery('#pagination_clicked').val('1');
         document.getElementById('<?php echo $form_id; ?>').submit();
       }
+
       function check_enter_key(e) {
         var key_code = (e.keyCode ? e.keyCode : e.which);
         if (key_code == 13) { /*Enter keycode*/
@@ -349,6 +355,7 @@ class WDW_FM_Library {
           else {
            document.getElementById('page_number').value = jQuery('#current_page').val();
           }
+		  
           fm_ajax_save('<?php echo $form_id; ?>');
           return false;
         }
@@ -414,6 +421,11 @@ class WDW_FM_Library {
     <?php
     exit();
   }
+
+  public static function get_google_fonts() {
+		$google_fonts = array( 'Open Sans' => 'Open Sans', 'Oswald' => 'Oswald', 'Droid Sans' => 'Droid Sans', 'Lato' => 'Lato', 'Open Sans Condensed' => 'Open Sans Condensed', 'PT Sans' => 'PT Sans', 'Ubuntu' => 'Ubuntu', 'PT Sans Narrow' => 'PT Sans Narrow', 'Yanone Kaffeesatz' => 'Yanone Kaffeesatz', 'Roboto Condensed' => 'Roboto Condensed', 'Source Sans Pro' => 'Source Sans Pro', 'Nunito' => 'Nunito', 'Francois One' => 'Francois One', 'Roboto' => 'Roboto', 'Raleway' => 'Raleway', 'Arimo' => 'Arimo', 'Cuprum' => 'Cuprum', 'Play' => 'Play', 'Dosis' => 'Dosis', 'Abel' => 'Abel', 'Droid Serif' => 'Droid Serif', 'Arvo' => 'Arvo', 'Lora' => 'Lora', 'Rokkitt' => 'Rokkitt', 'PT Serif' => 'PT Serif', 'Bitter' => 'Bitter', 'Merriweather' => 'Merriweather', 'Vollkorn' => 'Vollkorn', 'Cantata One' => 'Cantata One', 'Kreon' => 'Kreon', 'Josefin Slab' => 'Josefin Slab', 'Playfair Display' => 'Playfair Display', 'Bree Serif' => 'Bree Serif', 'Crimson Text' => 'Crimson Text', 'Old Standard TT' => 'Old Standard TT', 'Sanchez' => 'Sanchez', 'Crete Round' => 'Crete Round', 'Cardo' => 'Cardo', 'Noticia Text' => 'Noticia Text', 'Judson' => 'Judson', 'Lobster' => 'Lobster', 'Unkempt' => 'Unkempt', 'Changa One' => 'Changa One', 'Special Elite' => 'Special Elite', 'Chewy' => 'Chewy', 'Comfortaa' => 'Comfortaa', 'Boogaloo' => 'Boogaloo', 'Fredoka One' => 'Fredoka One', 'Luckiest Guy' => 'Luckiest Guy', 'Cherry Cream Soda' => 'Cherry Cream Soda', 'Lobster Two' => 'Lobster Two', 'Righteous' => 'Righteous', 'Squada One' => 'Squada One', 'Black Ops One' => 'Black Ops One', 'Happy Monkey' => 'Happy Monkey', 'Passion One' => 'Passion One', 'Nova Square' => 'Nova Square', 'Metamorphous' => 'Metamorphous', 'Poiret One' => 'Poiret One', 'Bevan' => 'Bevan', 'Shadows Into Light' => 'Shadows Into Light', 'The Girl Next Door' => 'The Girl Next Door', 'Coming Soon' => 'Coming Soon', 'Dancing Script' => 'Dancing Script', 'Pacifico' => 'Pacifico', 'Crafty Girls' => 'Crafty Girls', 'Calligraffitti' => 'Calligraffitti', 'Rock Salt' => 'Rock Salt', 'Amatic SC' => 'Amatic SC', 'Leckerli One' => 'Leckerli One', 'Tangerine' => 'Tangerine', 'Reenie Beanie' => 'Reenie Beanie', 'Satisfy' => 'Satisfy', 'Gloria Hallelujah' => 'Gloria Hallelujah', 'Permanent Marker' => 'Permanent Marker', 'Covered By Your Grace' => 'Covered By Your Grace', 'Walter Turncoat' => 'Walter Turncoat', 'Patrick Hand' => 'Patrick Hand', 'Schoolbell' => 'Schoolbell', 'Indie Flower' => 'Indie Flower' );
+		return $google_fonts;
+	}
   ////////////////////////////////////////////////////////////////////////////////////////
   // Private Methods                                                                    //
   ////////////////////////////////////////////////////////////////////////////////////////

@@ -24,7 +24,7 @@ $updates=$upd->updates;
 
 
 			<div class="main-plugin_desc-cont">
-				You can download the latest version of your plugins from your  <a href="https://web-dorado.com" target="_blank"> Web-Dorado.com</a>  account.
+				You can download the latest version of your plugins from your  <a href="https://web-dorado.com/subscriptions.html" target="_blank"> Web-Dorado.com</a>  account.
 				After deactivate and
 				delete the current version.
 				Install the downloaded latest version of the plugin.
@@ -48,7 +48,7 @@ $updates=$upd->updates;
 						<div class="fm-add-on">
 								<?php if ( $project['fm_data']['image'] ) { ?>
 									<div class="fm-figure-img">
-										<a href="<?php echo $project['fm_data']['url'] ?>" target="_blank">
+										<a href="https://web-dorado.com/subscriptions.html" target="_blank">
 											<img src="<?php echo $project['fm_data']['image'] ?>"/>
 										</a>
 									</div>
@@ -57,19 +57,19 @@ $updates=$upd->updates;
 						</div>
 						<div class="main-plugin-info">
 							<h2>
-								<a href="<?php echo $project['fm_data']['url'] ?>" target="_blank"><?php echo $project['Title'] ?></a>
+								<a href="https://web-dorado.com/subscriptions.html" target="_blank"><?php echo $project['Title'] ?></a>
 							</h2>
 							<div class="main-plugin_desc-cont">
 								<div class="main-plugin-desc"><?php echo $project['fm_data']['description'] ?></div>
 								<div class="main-plugin-desc main-plugin-desc-info">
-									<p><a href="<?php echo $project['fm_data']['url'] ?>" target="_blank">Version <?php echo $project['Version']?></a></p>
+									<p><a href="https://web-dorado.com/subscriptions.html" target="_blank">Version <?php echo $project['Version']?></a></p>
 								</div>
 
 								<?php if ( isset( $updates[31][0] ) ) { ?>
-									<span class="update-info">There is a new  <?php echo $updates[31][0]['version'] ?> version available.</span>
+									<span class="update-info">There is a new  <?php echo $updates[31][0]['version']; ?> version available.</span>
 									<p><span>What's new:</span></p>
 									<div class="fm_last_update"><?php echo $updates[31][0]['version'] ?>
-										- <?php echo  str_replace('important', '', $updates[31][0]['note'])  ?></div>
+										- <?php echo  str_replace('important', '', $updates[31][0]['note']); ?></div>
 									<?php unset( $updates[31][0] ); ?>
 									<?php if ( count( $updates[31] ) > 0 ) { ?>
 
@@ -103,7 +103,7 @@ $updates=$upd->updates;
 						<div class="fm-add-on">
 							<figure class="fm-figure">
 								<div class="fm-figure-img">
-									<a href="<?php echo $project['fm_data']['url'] ?>" target="_blank">
+									<a href="https://web-dorado.com/subscriptions.html" target="_blank">
 										<?php if ( $project['fm_data']['image'] ) { ?>
 											<img src="<?php echo $project['fm_data']['image'] ?>"/>
 										<?php } ?>
@@ -112,21 +112,21 @@ $updates=$upd->updates;
 								<figcaption class="fm-addon-descr fm-figcaption">
 									<?php if ( isset( $updates[ $id ][0] ) ) { ?>
 										<p>What's new:</p>
-										<?php echo  $updates[ $id ][0]['note'] ?>
+										<?php echo $updates[ $id ][0]['note']; ?>
 									<?php } else { ?><?php echo $project['Title'] ?> is up to date
 									<?php } ?>
 								</figcaption>
 							</figure>
 							<h2><?php echo $project['Title'] ?></h2>
 							<div class="main-plugin-desc-info">
-								<p><a href="<?php echo $project['fm_data']['url'] ?>"
+								<p><a href="https://web-dorado.com/subscriptions.html"
 								      target="_blank"><?php echo $project['Version'] ?></a> | Web-Dorado</p>
 							</div>
-							<?php if ( isset( $updates[ $id ] ) ) { ?>
+							<?php if ( isset( $updates[ $id ] ) && $updates[ $id ][0]['version'] != $project['Version']){  ?>
 								<div class="fm-addon-descr-update">
 									<span
-										class="update-info">There is an new  <?php echo $updates[ $id ][0]['version'] ?>
-										version</span><br/>
+										class="update-info">There is a new  <?php echo $updates[ $id ][0]['version'] ?>
+										version available.</span><br/>
 								</div>
 							<?php } ?>
 						</div>

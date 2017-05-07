@@ -180,291 +180,6 @@ function refresh_() {
 	document.getElementById('form_front').value = document.getElementById('take').innerHTML;
 }
 
-function refresh_old() {
-  document.getElementById('form').value = document.getElementById('take').innerHTML;
-  document.getElementById('counter').value = gen;
-  n = gen;
-  for (i = 0; i < n; i++) {
-    if (document.getElementById(i)) {
-      for (z = 0; z < document.getElementById(i).childNodes.length; z++) {
-        if (document.getElementById(i).childNodes[z].nodeType == 3) {
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[z]);
-        }
-      }
-      if (document.getElementById(i).getAttribute('type') == "type_captcha" || document.getElementById(i).getAttribute('type') == "type_recaptcha") {
-        if (document.getElementById(i).childNodes[10]) {
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-        }
-        else {
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-          document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        }
-        continue;
-      }
-
-      if (document.getElementById(i).getAttribute('type') == "type_section_break") {
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        continue;
-      }
-
-      if (document.getElementById(i).childNodes[10]) {
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[2]);
-      }
-      else {
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-        document.getElementById(i).removeChild(document.getElementById(i).childNodes[1]);
-      }
-    }
-  }
-
-  for (i = 0; i <= n; i++) {
-    if (document.getElementById(i)) {
-      type = document.getElementById(i).getAttribute("type");
-      switch (type) {
-        case "type_text":
-        case "type_number":
-        case "type_password":
-        case "type_submitter_mail":
-        case "type_own_select":
-        case "type_country":
-        case "type_hidden":
-        case "type_map":
-        case "type_mark_map":
-        case "type_paypal_select": {
-          remove_add_(i + "_elementform_id_temp");
-          break;
-        }
-        case "type_submit_reset": {
-          remove_add_(i + "_element_submitform_id_temp");
-          if (document.getElementById(i + "_element_resetform_id_temp"))
-            remove_add_(i + "_element_resetform_id_temp");
-          break;
-        }
-        case "type_captcha": {
-          remove_add_("_wd_captchaform_id_temp");
-          remove_add_("_element_refreshform_id_temp");
-          remove_add_("_wd_captcha_inputform_id_temp");
-          break;
-        }
-        case "type_recaptcha": {
-          document.getElementById("public_key").value = document.getElementById("wd_recaptchaform_id_temp").getAttribute("public_key");
-          document.getElementById("private_key").value = document.getElementById("wd_recaptchaform_id_temp").getAttribute("private_key");
-          document.getElementById("recaptcha_theme").value = document.getElementById("wd_recaptchaform_id_temp").getAttribute("theme");
-          document.getElementById('wd_recaptchaform_id_temp').innerHTML = '';
-          remove_add_("wd_recaptchaform_id_temp");
-          break;
-        }
-        case "type_file_upload": {
-          remove_add_(i + "_elementform_id_temp");
-          break;
-        }
-        case "type_textarea": {
-          remove_add_(i + "_elementform_id_temp");
-          break;
-        }
-        case "type_name": {
-          if (document.getElementById(i + "_element_titleform_id_temp")) {
-            remove_add_(i + "_element_titleform_id_temp");
-            remove_add_(i + "_element_firstform_id_temp");
-            remove_add_(i + "_element_lastform_id_temp");
-            remove_add_(i + "_element_middleform_id_temp");
-          }
-          else {
-            remove_add_(i + "_element_firstform_id_temp");
-            remove_add_(i + "_element_lastform_id_temp");
-          }
-          break;
-        }
-        case "type_phone": {
-          remove_add_(i + "_element_firstform_id_temp");
-          remove_add_(i + "_element_lastform_id_temp");
-          break;
-        }
-        case "type_paypal_price": {
-          remove_add_(i + "_element_dollarsform_id_temp");
-          remove_add_(i + "_element_centsform_id_temp");
-          break;
-        }
-        case "type_address": {
-          if (document.getElementById(id_for_country+"_disable_fieldsform_id_temp")) {
-            if (document.getElementById(id_for_country+"_disable_fieldsform_id_temp").getAttribute('street1') == 'no') {
-              remove_add_(i+"_street1form_id_temp");
-            }
-            if (document.getElementById(id_for_country+"_disable_fieldsform_id_temp").getAttribute('street2') == 'no')	{
-              remove_add_(i+"_street2form_id_temp");
-            }
-            if (document.getElementById(id_for_country+"_disable_fieldsform_id_temp").getAttribute('city') == 'no') {
-              remove_add_(i+"_cityform_id_temp");
-            }
-            if (document.getElementById(id_for_country+"_disable_fieldsform_id_temp").getAttribute('state') == 'no') {
-              remove_add_(i+"_stateform_id_temp");
-            }
-            if (document.getElementById(id_for_country+"_disable_fieldsform_id_temp").getAttribute('postal') == 'no') {
-              remove_add_(i+"_postalform_id_temp");
-            }
-            if (document.getElementById(id_for_country+"_disable_fieldsform_id_temp").getAttribute('country') == 'no') {
-              remove_add_(i+"_countryform_id_temp");
-            }
-          }
-          break;
-        }
-        case "type_checkbox":
-        case "type_radio":
-        case "type_paypal_checkbox":
-        case "type_paypal_radio":
-        case "type_paypal_shipping": {
-          is = true;
-          for (j = 0; j < 100; j++) {
-            if (document.getElementById(i + "_elementform_id_temp" + j)) {
-              remove_add_(i + "_elementform_id_temp" + j);
-            }
-          }
-          break;
-        }
-        case "type_star_rating": {
-          remove_add_(i+"_elementform_id_temp");
-          break;
-        }
-        case "type_scale_rating": {
-          remove_add_(i+"_elementform_id_temp");
-          break;
-        }
-        case "type_spinner": {
-          remove_add_(i+"_elementform_id_temp");
-          break;
-        }
-        case "type_slider": {
-          remove_add_(i+"_elementform_id_temp");
-          break;
-        }
-        case "type_range": {
-          remove_add_(i+"_elementform_id_temp0");
-          remove_add_(i+"_elementform_id_temp1");
-          break;
-        }
-        case "type_grading": {
-          for (k = 0; k < 100; k++) {
-            if (document.getElementById(i+"_elementform_id_temp"+k)) {
-              remove_add_(i+"_elementform_id_temp"+k);
-            }
-          }
-          break;
-        }
-        case "type_matrix": {
-          remove_add_(i+"_elementform_id_temp");
-          break;
-        }
-        case "type_button": {
-          for (j = 0; j < 100; j++) {
-            if (document.getElementById(i + "_elementform_id_temp" + j)) {
-              remove_add_(i + "_elementform_id_temp" + j);
-            }
-          }
-          break;
-        }
-        case "type_time": {
-          if (document.getElementById(i + "_ssform_id_temp")) {
-            remove_add_(i + "_ssform_id_temp");
-            remove_add_(i + "_mmform_id_temp");
-            remove_add_(i + "_hhform_id_temp");
-          }
-          else {
-            remove_add_(i + "_mmform_id_temp");
-            remove_add_(i + "_hhform_id_temp");
-          }
-          break;
-        }
-        case "type_date": {
-          remove_add_(i + "_elementform_id_temp");
-          remove_add_(i + "_buttonform_id_temp");
-          break;
-        }
-        case "type_date_fields": {
-          remove_add_(i + "_dayform_id_temp");
-          remove_add_(i + "_monthform_id_temp");
-          remove_add_(i + "_yearform_id_temp");
-          break;
-        }
-      }
-    }
-  }
-
-  for (i = 1; i <= form_view_max; i++) {
-    if (document.getElementById('form_id_tempform_view' + i)) {
-      if (document.getElementById('page_next_' + i)) {
-        document.getElementById('page_next_' + i).removeAttribute('src');
-      }
-      if (document.getElementById('page_previous_' + i)) {
-        document.getElementById('page_previous_' + i).removeAttribute('src');
-      }
-      document.getElementById('form_id_tempform_view' + i).parentNode.removeChild(document.getElementById('form_id_tempform_view_img' + i));
-      document.getElementById('form_id_tempform_view' + i).removeAttribute('style');
-    }
-  }
-
-  for (t = 1; t <= form_view_max; t++) {
-    if (document.getElementById('form_id_tempform_view' + t)) {
-      form_view_element = document.getElementById('form_id_tempform_view' + t);
-      remove_whitespace(form_view_element);
-      n = form_view_element.childNodes.length - 2;
-      for (q = 0; q <= n; q++) {
-        if (form_view_element.childNodes[q]) {
-          if (form_view_element.childNodes[q].nodeType != 3) {
-            if (!form_view_element.childNodes[q].id) {
-              del = true;
-              GLOBAL_tr = form_view_element.childNodes[q];
-              for (x = 0; x < GLOBAL_tr.firstChild.childNodes.length; x++) {
-                table = GLOBAL_tr.firstChild.childNodes[x];
-                tbody = table.firstChild;
-                if (tbody.childNodes.length) {
-                  del = false;
-                }
-              }
-              if (del) {
-                form_view_element.removeChild(form_view_element.childNodes[q]);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  document.getElementById('form_front').value = document.getElementById('take').innerHTML;
-}
-
-
 function cfm_create_input(toAdd_id, value_id, parent_id, cfm_url) {
   var value = jQuery("#" + value_id).val();
   if (value) {
@@ -650,11 +365,14 @@ function change_choices(value, ids, types, params) {
 		case "type_number":
 		case "type_phone":
 		case "type_paypal_price":
+		case "type_paypal_price_new":
 		case "type_spinner":
+		case "type_date_new":
+		case "type_phone_new":
 			if(types_array[id]=="type_number" || types_array[id]=="type_phone")
 				var keypress_function = "return check_isnum_space(event)";
 			else
-				if(types_array[id]=="type_paypal_price")
+				if(types_array[id]=="type_paypal_price" || types_array[id]=="type_paypal_price_new")
 					var keypress_function = "return check_isnum_point(event)";
 				else
 					var keypress_function = "";
@@ -687,7 +405,6 @@ function change_choices(value, ids, types, params) {
 		
 			w_choices = w_size[1].split('*:*w_choices*:*');
 			w_choices_array = w_choices[0].split('***');
-
 			if(w_size[1].indexOf('*:*w_value_disabled*:*') !== -1){
 				w_value_disabled = w_size[1].split('*:*w_value_disabled*:*');
 				w_choices_value = w_value_disabled[1].split('*:*w_choices_value*:*');
@@ -879,11 +596,14 @@ function add_condition_fields(num, ids1, labels1, types1, params1) {
 		case "type_phone":
 		case "type_number":
 		case "type_paypal_price":
+		case "type_paypal_price_new":
 		case "type_spinner":
+		case "type_date_new":
+		case "type_phone_new":
 		if(types[index_of_field]=="type_number" || types[index_of_field]=="type_phone")
 				var keypress_function = "return check_isnum_space(event)";
 			else
-				if(types[index_of_field]=="type_paypal_price")
+				if(types[index_of_field]=="type_paypal_price" || types[index_of_field]=="type_paypal_price_new")
 					var keypress_function = "return check_isnum_point(event)";
 				else
 					var keypress_function = "";
@@ -933,7 +653,7 @@ function add_condition_fields(num, ids1, labels1, types1, params1) {
 					choise_option.setAttribute("value", w_choices_value_array[k]);
 					choise_option.innerHTML = w_choices_array[k];	
 					
-				if(w_choices_array[k].indexOf('[') === -1 && w_choices_array[k].indexOf(']') === -1 ) {
+				if(w_choices_array[k].indexOf('[') === -1 && w_choices_array[k].indexOf(']') === -1) {
 					choise_select.appendChild(choise_option);
 				}
 			}
@@ -970,7 +690,7 @@ function add_condition_fields(num, ids1, labels1, types1, params1) {
 					choise_option.setAttribute("value", w_choices_array[k]+'*:*value*:*'+w_choices_price_array[k]);
 					choise_option.innerHTML = w_choices_array[k];	
 					
-				if(w_choices_array[k].indexOf('[') === -1 && w_choices_array[k].indexOf(']') === -1) {
+				if(w_choices_array[k].indexOf('[') === -1 && w_choices_array[k].indexOf(']') === -1 ) {
 					choise_select.appendChild(choise_option);
 				}
 			}
@@ -1140,3 +860,46 @@ function check_isnum_point(e) {
   }
 	return true;
 }
+
+function check_stripe_required_fields() {
+  if (jQuery('#paypal_mode2').prop('checked')) {
+    if (jQuery('#stripemode').val() == '1') {
+      fields = ['live_sec', 'live_pub'];
+      fields_titles = ['Live secret key', 'Live publishable key'];
+    }
+    else {
+      fields = ['test_sec', 'test_pub'];
+      fields_titles = ['Test secret key', 'Test publishable key'];
+    }
+    for (i=0; i < fields.length; i++) {
+      if (!jQuery('#' + fields[i]).val()) {
+        form_maker_options_tabs('payment');
+        jQuery('#' + fields[i]).focus();
+        alert(fields_titles[i] + ' is required.');
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function check_calculator_required_fields() {
+	var empty_textarea = 0;
+	jQuery(jQuery('#wd_calculated_field_table').find('[id^="wdc_equation_"]')).each(function() {
+		if(jQuery( this ).val() == ''){
+			var field_id = jQuery( this ).attr('id').replace('wdc_equation_','');
+			var label_name = jQuery(jQuery('#wd_calculated_field_table').find("[data-field='" + field_id + "']")).html();
+			empty_textarea = 1;
+			jQuery( this ).focus();
+			alert('Set equation for the field ' + label_name);
+		}
+		if(empty_textarea == 1)
+			return false;
+		});
+	if(empty_textarea == 1)
+		return true;
+		
+	return false;
+}
+
+

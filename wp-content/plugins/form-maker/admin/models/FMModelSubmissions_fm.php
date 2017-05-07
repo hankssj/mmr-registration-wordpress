@@ -25,7 +25,7 @@ class FMModelSubmissions_fm {
 
 	public function get_form_titles() {
 		global $wpdb;
-		$query = "SELECT id, title FROM " . $wpdb->prefix . "formmaker WHERE `id` NOT IN(" . (get_option('contact_form_forms', '') != '' ? get_option('contact_form_forms') : 0) . ") order by title";
+    $query = "SELECT id, title FROM " . $wpdb->prefix . "formmaker WHERE `id` NOT IN(" . (get_option('contact_form_forms', '') != '' ? get_option('contact_form_forms') : 0) . ") order by title";
 		$forms = $wpdb->get_results($query);
 		return $forms;
 	}
@@ -58,7 +58,7 @@ class FMModelSubmissions_fm {
     $labels_parameters = array();
     $join_query = array();
     $join_where = array();
-	$join_verified = array();
+    $join_verified = array();
     $rows_ord = array();
     $join = '';
 	
@@ -77,7 +77,6 @@ class FMModelSubmissions_fm {
 				$ver_emails_array[$elem_label][] = $wpdb->get_var($query);
 		}
 	}
-	
     for ($i = 0; $i < 9; $i++) {
       array_push($labels_parameters, NULL);
     }
@@ -85,9 +84,7 @@ class FMModelSubmissions_fm {
     $sorted_label_names_original = array();
     $where_labels = array();
     $where2 = array();
-	
 	$pagination_clicked = (isset($_POST['pagination_clicked']) && $_POST['pagination_clicked'] == '1' ? '1' : '0');
-	
 	$order_by = ((isset($_POST['order_by']) && esc_html(stripslashes($_POST['order_by'])) != '') ? esc_html(stripslashes($_POST['order_by'])) : 'group_id');
     $asc_or_desc = ((isset($_POST['asc_or_desc']) && $_POST['asc_or_desc'] == 'asc') ? 'asc' : 'desc');
     $limit = ((isset($_POST['page_number'])) ? ((int) $_POST['page_number'] - 1) * 20 : 0);
@@ -99,7 +96,7 @@ class FMModelSubmissions_fm {
 	$lists['username_search'] = ((isset($_POST['username_search'])) ? esc_html(stripslashes($_POST['username_search'])) : '');
 	$lists['useremail_search'] = ((isset($_POST['useremail_search'])) ? esc_html(stripslashes($_POST['useremail_search'])) : '');
 	$lists['id_search'] = ((isset($_POST['id_search'])) ? esc_html(stripslashes($_POST['id_search'])) : '');
-	
+
     if ($lists['ip_search']) {
       $where[] = 'ip LIKE "%' . $lists['ip_search'] . '%"';
     }
@@ -175,9 +172,9 @@ class FMModelSubmissions_fm {
           else {
             $search_temp = '';
           }
-          $search_temp = strtolower($search_temp);
+		  $search_temp = strtolower($search_temp);
+		 
           $lists[$form_id . '_' . $label_id . '_search'] = $search_temp;
-		  
           if ($search_temp) {
             $join_query[] = 'search';
             $join_where[] = array('label' => $label_id, 'search' => $search_temp);
@@ -198,7 +195,6 @@ class FMModelSubmissions_fm {
         }
       }
 	  
-	  
       if (strpos($order_by, "_field")) { 	  
         if (in_array(str_replace("_field", "", $order_by), $labels)) {
           $join_query[]	= 'sort';
@@ -209,7 +205,7 @@ class FMModelSubmissions_fm {
       if ($order_by == 'date' or $order_by == 'ip') {
         $cols = 'group_id, date, ip';
       }
-    
+	  
 	  $ver_where = '';
 	  if( !empty($join_verified) ) {
 		foreach( $join_verified as $key_ver => $join_ver) {
@@ -217,7 +213,7 @@ class FMModelSubmissions_fm {
 		}
 	  }
 	
-	  switch (count($join_query)) {
+      switch (count($join_query)) {
         case 0:
           $join = 'SELECT distinct group_id FROM ' . $wpdb->prefix . 'formmaker_submits WHERE '. $where;
 		  
@@ -263,10 +259,7 @@ class FMModelSubmissions_fm {
             }
           }
           break;
-      }	
-	  
-  
-  
+      }			  	  
       $pos = strpos($join, 'SELECT t.group_id');
       if ($pos === FALSE) {
         $query = str_replace(array('SELECT group_id','SELECT distinct group_id'), array('SELECT count(distinct group_id)','SELECT count(distinct group_id)'), $join);
@@ -275,12 +268,11 @@ class FMModelSubmissions_fm {
         $query = str_replace('SELECT t.group_id', 'SELECT count(t.group_id)', $join);
       }
       $total = $wpdb->get_var($query);
-	  
+
 	  $query_sub_count = "SELECT count(distinct group_id) from ".$wpdb->prefix."formmaker_submits";
       $sub_count = (int)$wpdb->get_var($query_sub_count);
 
 	  $limit1 = (int)$total < $sub_count && !$pagination_clicked ? 0 : $limit; 
-	  
       $query = $join . ' ' . $orderby . ' limit ' . $limit1 . ', 20 ';
       $results = $wpdb->get_results($query);
       for ($i = 0; $i < count($results); $i++) {
@@ -294,6 +286,7 @@ class FMModelSubmissions_fm {
         array_push($searched_ids, $searched_group_ids[$i]->group_id); 
       }
 	  
+	  
       $where2 = array();
       $where2[] = "group_id='0'";
       foreach ($rows_ord as $rows_ordd) { 
@@ -305,6 +298,7 @@ class FMModelSubmissions_fm {
       $group_ids = $rows_ord;
       $lists['total'] = $total;
       $lists['limit'] = (int) ($limit1 / 20 + 1);
+
       $where_choices = $where;
       array_push($labels_parameters, $sorted_labels_id);
       array_push($labels_parameters, $sorted_label_types);
@@ -314,7 +308,7 @@ class FMModelSubmissions_fm {
       array_push($labels_parameters, $rows);
       array_push($labels_parameters, $group_ids);
       array_push($labels_parameters, $where_choices);
-      array_push($labels_parameters, $searched_ids);
+	  array_push($labels_parameters, $searched_ids);
     }
     return $labels_parameters;
   }
@@ -465,7 +459,7 @@ class FMModelSubmissions_fm {
       array_push($label_type, $label_oder_each[1]);
     }
     /*$theme_id = $wpdb->get_var("SELECT theme FROM " . $wpdb->prefix . "formmaker WHERE id='" . $form->id . "'");*/
-    $css = $wpdb->get_var("SELECT css FROM " . $wpdb->prefix . "formmaker_themes");
+    $css = $wpdb->get_var("SELECT params FROM " . $wpdb->prefix . "formmaker_themes");
     array_push($params, $rows);
     array_push($params, $label_id);
     array_push($params, $label_order_original);

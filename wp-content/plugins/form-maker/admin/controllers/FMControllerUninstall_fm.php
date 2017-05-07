@@ -14,6 +14,14 @@ class FMControllerUninstall_fm {
   // Constructor & Destructor                                                           //
   ////////////////////////////////////////////////////////////////////////////////////////
   public function __construct() {
+    global $fm_options;
+    if (!class_exists("DoradoWebConfig")) {
+      include_once(WD_FM_DIR . "/wd/config.php");
+    }
+    $config = new DoradoWebConfig();
+    $config->set_options($fm_options);
+    $deactivate_reasons = new DoradoWebDeactivate($config);
+    $deactivate_reasons->submit_and_deactivate();
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Public Methods                                                                     //

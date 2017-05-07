@@ -1,34 +1,37 @@
-=== Form ===
-Contributors: webdorado
+=== Form Maker by WD - user-friendly drag & drop Form Builder plugin ===
+Contributors: webdorado,wdsupport,formmakersupport
 Donate link: https://web-dorado.com/products/wordpress-form.html
-Tags:  captcha, contact, contact form, contact forms, custom form, email, feedback, form, form builder, form manager, forms, survey
+Tags:  form, form builder, contact form, custom form, feedback, contact, contact forms, captcha, email, form manager, forms, survey
 Requires at least: 3.4
 Tested up to: 4.7
-Stable tag: 1.10.6
+Stable tag: 1.11.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WordPress Form Maker is a fresh and innovative form builder. This form builder is for generating various kinds of forms.
+Form Maker is a user-friendly form builder plugin. This form builder lets you create contact forms and other questionnaires.
 
 == Description ==
 
+https://www.youtube.com/watch?v=tN3_c6MhqFk
+
 Form Maker is a FREE and user-friendly plugin to create highly customizable and responsive forms in a few minutes with simple drag and drop interface.
 
-
+= Useful Links: =  
 
 [WordPress Form Maker](https://web-dorado.com/products/wordpress-form.html)  
 [Demo](http://wpdemo.web-dorado.com/)  
 [Demo Admin](http://wpdemo.web-dorado.com/wp-admin/admin.php?page=Form_maker)  
-[User Manual](https://web-dorado.com/wordpress-form-maker-guide-1.html)  
-[Frequently Asked Questions](https://web-dorado.com/forum/form-maker/316-form-maker-faq.html)  
+[User Guide](https://web-dorado.com/wordpress-form-maker-guide-1.html)  
+[Frequently Asked Questions](https://web-dorado.com/blog/wordpress-themes-and-plugins/wordpress-form-maker-plugin-faq/)  
 
 = Form Maker Add-ons: =  
+
 [Import/Export Add-on](https://web-dorado.com/products/wordpress-form/add-ons/export-import.html)     
 [Save Progress Add-on](https://web-dorado.com/products/wordpress-form/add-ons/save-progress.html)    
 [Stripe Integration Add-on](https://web-dorado.com/products/wordpress-form/add-ons/stripe.html)       
 [Google PDF Integration Add-on](https://web-dorado.com/products/wordpress-form/add-ons/pdf.html)  
 [Mailchimp Integration Add-on](https://web-dorado.com/products/wordpress-form/add-ons/mailchimp.html)  
-[User Registration Add-on](https://web-dorado.com/products/wordpress-form/add-ons/registration.html)  
+[WordPress Registration Add-on](https://web-dorado.com/products/wordpress-form/add-ons/registration.html)  
 [Post Generation Add-on](https://web-dorado.com/products/wordpress-form/add-ons/post-generation.html)      
 [Conditional Emails Add-on](https://web-dorado.com/products/wordpress-form/add-ons/conditional-emails.html)      
 [Dropbox Integration Add-on](https://web-dorado.com/products/wordpress-form/add-ons/dropbox.html)     
@@ -36,127 +39,86 @@ Form Maker is a FREE and user-friendly plugin to create highly customizable and 
 [Pushover Integration Add-on](https://web-dorado.com/products/wordpress-form/add-ons/pushover.html)       
 [Calculator Add-on](https://web-dorado.com/products/wordpress-form/add-ons/calculator.html)       
 
-https://www.youtube.com/watch?v=QelKxyW7M98
 
-The Form Maker is one of the best responsive form builders in WordPress Plugin Directory. WordPress Form Builder allows you to set all the parameters such as colors, fonts and dimensions to best fit all form standards. If you want to make minimalistic forms, you can build forms with pre-filled texts, avoiding long form field labels. If want to build simple contact forms with unlimited number of fields, then you can use  [WordPress Contact Form](http://wordpress.org/extend/plugins/contact-form-maker/).  
-
-Form Maker is a fresh and innovative form builder for generating various kinds of forms. The back end of the Form Maker is essential and easy to use, with no need of advanced programming skills.
-
-The Form Maker uses a number of customizable themes.  You can choose the design of the form to fit your website/webpage. Moreover, the Form Maker theme CSS is open for editing and making necessary changes, for creating a custom form design. To choose the best fitting form design, you can first preview the created forms changing the form theme and pressing preview button. 
-
-WordPress Form Maker can be used both for simple and multipart forms. That is why this form builder is a perfect choice for the beginners, who are just starting with forms and also meets the needs of experts (with advanced themes and multiple form customization possibilities). This form builder can be used for creating simple forms, survey forms and questionnaires, registration and application forms and etc.  
+This free form builder plugin with its multi-functional features is one of the most intuitive and modern form creator plugins for WordPress. It takes just a few clicks to construct complex HTML forms, and configure their structure with easy-to-use drag and drop interface.   
 
 
-The commercial version of the Form Maker has Google Map integration for the geolocation as well as pre-filled address demonstration in the forms. The details of the longitude and latitude can be provided in the back end of the form. 
+Form Maker plugin is the best choice both for WordPress beginners and advanced users. It provides exceptional and clean visual form editor toolbox, which does not require any programming skills to create a contact form.   
 
-To make the process of creating forms easier, the package includes a list of forms for different purposes pre-installed. There is a possibility of saving those forms as copies and editing them to fit your needs.
+This form creator is developed to build unlimited number of simple forms, surveys and questionnaires, registrations, online applications, and more. Make your responsive web forms using the following field types:   
 
-PayPal integration of the Form Maker (commercial version) allows you to add PayPal features into the form, thus making it possible to use the Form Maker as a great tool for creating donation forms, whereas Survey Tools form field allows creating manageable questionnaire forms.  
+*   Text Input (Name, Email, Phone fields and more)   
+*   Multiple and Single Choice   
+*   Time and Date   
+*   Select Box   
+*   Survey Tools (Star Rating, Matrix, Spinner and more)   
+*   Custom HTML   
+*   Section Break and Page Break   
+*   Simple and Arithmetic Captcha   
+*   Google ReCaptcha   
+*   Submit and Reset Buttons   
+*   Custom Buttons   
 
-This form builder has a Captcha field to protect you from receiving spam with the forms. The form Captcha field comes with two options: a simple Captcha and ReCaptcha (the famous Captcha by Google).
+This WordPress form creator plugin provides a number of classy themes and display options to apply to your contact forms. Besides the drag and drop easy forms builder, Form Maker themes come with various user-friendly settings, as well as custom CSS editor, to let you fully personalize the display of your form.   
 
-CSV/XML export possibility allows using the submitted data for data analysis and data presentation creating charts, diagrams and other visual forms.
+Moreover, Display Options of Form Maker lets you showcase your forms with 4 outstanding appearance types:   
 
-To make larger forms fit and look great on your pages and posts, you can use pagination option, cutting the form into multiple pages.
-
-Possibility of sending submitted form to various emails, providing them in Email to Field and separating by comma.
-
-Survey tools are also very convenient for adding rating systems for the posts, e.g. for contests. 
-
+*   Embedded   
+*   Popup   
+*   Topbar   
+*   Scrollbox   
 
 
+To choose the best fitting form design, preview your custom form to quickly check the look and feel of it before publishing.   
+
+Form Maker package includes a list of pre-installed template forms, which you can quickly edit and publish on your WordPress website.   Furthermore, the plugin lets you save copies these forms and customize them to fit your needs.   
+
+Spambot protection for online contact forms is high priority. Therefore, Form Maker plugin provides these 3 types of validation to avoid spam on your contact me forms: Simple Captcha, Arithmetic Captcha and Google ReCaptcha. Also, with Block IP feature of the plugin, your HTML forms can be secured from certain IP addresses.   
+
+Save your contact form submissions on MySQL database of your website, or send them to multiple recipient email addresses with Email Options of your custom forms. Additionally, Submissions page of the forms creator plugin lets you export submitted information with CSV or XML files. You can use CSV files of this WordPress free form builder for data analysis and presentation by creating charts and diagrams.   
+
+Advanced Javascript editor of Form Maker lets you expand the functionality of your online form by writing supplementary custom script for its fields. In addition, Conditional Fields of the plugin will let you dynamically hide or show form fields based on selected field values.   
+
+Use MySQL Mapping options of this free responsive form builder plugin to store submitted information on a different local or remote database table of your choice. You can set up insert, update or delete queries, which will run upon form submission. Therefore, technically, you will be able to develop advanced functionality for your custom forms.    
 
 
+Upgrade to [WordPress Form Maker Pro](https://web-dorado.com/products/wordpress-form.html) to access even more form creator features!   
 
-###IMPORTANT:    
-If you think you found a bug in Form Maker or have any problem/question concerning the plugin, please check out [Support Forum](https://web-dorado.com/forum/26-form-maker.html) in our website. If you do not find a solution here, do not hesitate to [click here to contact us](https://web-dorado.com/support/contact-us.html).
+It lets you add unlimited WP form fields. In addition, Form Maker Pro comes with the following premium field types:   
+
+*   File Upload, allowing users to add single or multiple documents,   
+*   Payment fields, with automatic PayPal integration,   
+*   Google Maps.   
 
 
+Form Maker Pro lets you have ultimately secure responsive donation forms, online order forms and other payment forms by integrating it with PayPal. All you need to do to monetize your form, is just to add Payment Fields to it, and configure Payment Options.   
 
-###Features of Form Maker  
+Also, you can publish the submitted information for each feedback form with **Frontend Submissions** feature of Form Maker Pro. It lets you choose which fields to display to users, and present the information with a personalized look.   
 
-*   WordPress 3.0+  
-*   Multiple pre-installed sample forms 
-*   Responsive layout and design  
-*   Limited up to 7 fields to add   
-*   Twelve form fields with detailed parameters for creating forms
-	*   Custom HTML with standard editor  
-	*   Text Input form fields (included 10 different types)   
-		*   Simple text to add a limited input field into the form
-		*   Password(protected input type form field) for signup forms
-		*   Text area allowing to shrunk the text form field wherever the text is longer than the field itself
-		*   Name form field with customizable field labels (this form field includes two formats: Normal (only first and last name included) and extended (with a possibility of adding up to four sections within a single form field)
-		*   Address form field with a chance to remove some of the fields from the form and possibility of editing field labels
-		*   Address (Mark on Map) to create an address form field using Google API integration
-		*   E-mail for providing emails (gets validated for the type during the form submission)
-		*   Number for numerical form field
-		*   Phone form field with a possibility to edit the field labels in the backend
-		*   Hidden fields
-	*   Time and Date form fields with a possibility of adding date pickers and time pickers for registration forms, booking and similar forms 
-	*   Custom select and country select (drop-down lists)  
-	*   Checkbox for multiple choices questions in the form  
-	*   Radio button for single choice questions in the form 
-	*   Captcha/ReCaptcha for using safer forms  
-	*   Page break for form pagination  
-	*   Section break for creating multi-section forms 
-	*   Map for inserting Google Map into the form 
-	*   Submit, Reset and Custom Button  
-*   41 editable themes for different form designs  
-*   Up to seven field forms for free version   
-*   Form Layout changing possibility   
-*   IP blocking possibility    
-*   Possibility to include required field option to receive specific information from the form submitter  
-*   Possibility to edit the form CSS or add custom Javascript into the form  
-*   Includes additional attributes for each form field for adding properties with Java Script (for more advanced form users)  
-*   Possibility to receive the filled forms to the admin and form submitter (if applicable) emails
-*   Possibility to add custom text in the emails sent to the administrators and form submitter  
-*   Possibility to edit and change the Email and the Name, which are displayed with the form submission sent to the form submitter, thus allowing to have a feedback to a specific email
-*   Form Maker Shortcode button in WordPress standard editor to make the form inserting process easier, whereas it is also possible to change the form in the page/post just changing the ID of the form in the shortcode   
-*   Data validation for all form fields while submitting the form
-*   Possibility to preview the form, as well as form themes
-*   Detailed Form Maker User Manual describing form installation process, detailed form field descriptions, the process of inserting created form into your site and other details for the Form Users     
-*   Required  and hidden form fields 
-*   Possibility to customize button styles used in the form
-*   Form Pagination possibility
-*   Customizable themes to edit the design of the forms
-*   Possibility to edit the form titles whenever required
-*   Possibility to create forms based on the default forms with the “Save as Copy” button
-*   This form builder supports multiple languages allowing you to create forms in user-native languages
-*   Page redirect possibility after the form is submitted, allowing to navigate not only to specific pages (e.g. including other forms) or to another site (providing URL)
-*   Functional and easy to use back end; you can use navigation arrows to move the created form fields in the same page and even to move the form field from one form page to another
-*   Filled information is kept in database section of the form
-*   Detailed submissions field providing the ID of the submitter, the submission date, form submitter’s IP address and all of the form fields
-*   Searchable Submissions field to find relevant submitted forms in the database
-*   One form based submissions allowing to get separate data for each form    
-*   Submissions section includes simple statistical data for the choice-based entries    
-*   Possibility to use Export CSV/XML feature to download the submitted forms and to analyze the data with advanced tools    
-*   Possibility to edit form submissions, deleting the columns of irrelevant form submissions or for sorting the data   
-*   Possibility to hide and unhide specific form fields from demonstrating in the Submissions    
-*   There is a possibility to add custom text which will be displayed when the field is empty to give the users samples or instruction when filling the specific field.    
-*   Possibility to have pre-filled texts serving as instructions for the textarea and other text fields.   
-*   Date picker in the form of drop-down menu for easier date selection.   
-*   Submissions section displays the amount of entries, as well as views and conversion rate for each separate form.  
-*   CC and BCC mail options for sending out the submitted form  
-*   41 responsive theme with customizable design   
-*   Displaying the country, country code and other date in the Submissions section IP pop-up   
-*   MySQL Mapping possibility for storing entered data to another tables.   
-*   Possibility to choose whether to save the data to database or just have the information emailed to the Administrator.   
-*   Possibility to insert separate Country select list for the custom fields rather than address.   
-*   Conditional fields, which can be used for hiding/displaying a list of questions based on the selection of specific answers.   
-*   Option of displaying form pages using tabs or percentage.   
+Power-up the functionality of Form Maker Pro by enhancing its features with 12 add-ons:   
 
-Upgrade to [WordPress Form Maker Pro](https://web-dorado.com/products/wordpress-form.html) to add features: 
-   
-*   Unlimited number of form fields.   
-*   Add ons support.           
-*   PayPal form field with currency change possibility.   
-*   Upload file field.    
-*   Possibility to choose the desired file extension types for the file upload form field.        
-*   Fully integrated with PayPal: two checkout modes (Test Mode and Production) and five form field types (Amount, Select, Checkbox, Radio, and Shipping)(commercial version of the Form Maker), possibility to use the form as a payment/donation form .    
-*   Google Maps API Integration, possibility to use the maps in two different form fields of the Form Maker.     
-*   Possibility to include tax percentage within PayPal options for the localization of the payment.     
-   
- *If you need language of Form Maker which is not included, please contact us and we will do the translation of Form Maker within 3 days. If you find any mistakes in the translation, please contact us and we will make relevant corrections within 3 days.*  
+*   **Import/Export**. Lets you transfer your web forms from one WordPress website to another, as well as export existing submission information.   
+
+*   **Save Progress**. Allow logged in users to save incomplete forms as draft, come back later and continue where they have left off.   
+
+*   **Stripe Integration**. Integrate Stripe to your custom forms as their extra payment gateway. This allows you to create an advanced stripe form and let users to pay with credit cards.   
+
+*   **PDF Integration**. Automatically generate a printable PDF file containing each form submission. In addition to being kept on Submissions page, this file can be forwarded to site administrators and the form submitter.   
+
+*   **MailChimp Integration**.  Incorporate your Form Maker with MailChimp using this add-on. It lets you create MailChimp forms and collect email addresses of subscribers on your MailChimp account using Form Maker forms. For instance, you can have a MailChimp popup form after a blog page is opened.   
+
+*   **WordPress Registration**. Let users to sign up on your WordPress site by filling out their profile information with a user registration form built with Form Maker. They will be able to sign in to your site with WordPress login form afterwards.   
+
+*   **Post Generation**. Set up a form with this form builder plugin to automatically create WordPress posts or pages upon submission.   
+
+*   **Conditional Emails**. Configure conditional emails to dynamically change the recipients of form submissions based on selected field values users make on your forms.   
+
+*   **Dropbox Integration**. Save uploaded documents, images and other files on your Dropbox account by tuning up your web form with this add-on.   
+
+*   **Google Drive Integration**. Save your website storage space. Easily transfer the attachments of your custom form to your Google Drive account.   
+*   **Pushover Integration**. Receive real-time notifications about new form submissions directly to your tablet or smartphone through Pushover application.   
+*   **Calculator**. Set up complex and dynamic calculations using your web form. It can used as a price calculator by setting up an equation with payment fields. Integrate this add-on to run date calculations, mathematical operations and functions on your HTML form.   
+
 
 == Installation ==    
 
@@ -198,492 +160,540 @@ In case you are upgrading your Form Maker to paid version, but still want to pre
 
 == Frequently Asked Questions ==
 
-= 1. What are the most common usage cases for the Form Maker? =
-The Form Maker can be used for creating multiple types of forms, including contact, evaluation, application forms, quizzes/tests or surveys, online order forms and etc. The Form Maker includes various types of fields which can be modified and edited.  
 
-= 2. Where are the forms submitted entries stored? =
+= 1. What can Form Maker plugin help me achieve? =
 
-There is a Submissions section, where you will find the submitted entries. The entries can also be emailed to the Administrator. For this you should provide an email in Email Options section (located within Form Options). You can also fill in the data into a custom table using MySQL Mapping possibility, which makes it possible to store the data into another MySQL database.
+Form Maker plugin is developed to make form creation process much easier! With its advanced drag and drop forms editor, this user-friendly contact form builder WordPress plugin can be used for constructing multiple types of responsive forms. Forms creation includes contact forms, quizzes, subscribe form, MailChimp form, feedback form, quote form, email subscription, survey form, opt-in forms or tests. This contact form plugin includes various types of fields which can be fully modified.
 
-= 3. Are there any limitations on the number of forms or entries to be used within a single website? =
-There are no limitations on the number of entries per form. You can use unlimited number of forms within each website.   
+Pro version of Form Maker plugin will also let you create any kind of advanced forms; order form, multi-step form, evaluation or online application form, donation or payment form and more.
 
-= 4. What can I use to avoid Spam entries? =
+= 2. Is Form Maker mobile-friendly? =
 
-The Form Maker has two type of word verifications- Standard Captcha and Google ReCaptcha protection. If you are receiving spam entries from a single or a few IPs, you can use Blocking IPs option.
+The design and layout of this advanced forms builder plugin is mobile-friendly. You can create perfectly responsive forms using highly intuitive form editor of the plugin. Your custom forms will function elegantly and properly on smartphones and tablets.
 
-= 5. Is it possible to translate the Form Maker into another language? =
+= 3. How can I publish the forms I created? =
 
-It is only possible to translate the front end of the plugin. To do so, you should set define('WPLANG','[lang_code]') to the desired language code in wp_config.php file of your website. This way the plugin should be translated automatically. Please be informed, that you can modify the translations from wp-content/plugins/form_maker/languages/ (you will need POEdit http://www.poedit.net/download.php). 
+Open or edit the WordPress page where you need to have your form, then click **Insert Form Maker** button to open the shortcode toolbox. Choose a form using **Select a Form** dropdown menu, afterwards press **Insert.**
 
-= 6. What to do if Administrator and/or user do not receive submissions by email? =
+Alternatively, you can copy the shortcode from **Forms Manager** page. Make sure to publish (or update) the page after making these changes.
 
-There are a few options to try out first: 
-Check whether the entries are filtered into spam/junk folders or not.
-Try using standard emails (Gmail/Yahoo/Hotmail and etc.) or an email which uses the same domain as the website.
-Check with your hosting provider whether you have your PHP mail activated or not.
-If these options do not work, please install STMP plugin (e.g. http://wordpress.org/plugins/webriti-smtp-mail/). The authentication details for the Gmail are the following:
-Mailer: smtp
-SMTP Authentication: yes
-SMTP Security: SSL
-SMTP Port: 465
-SMTP Username: your gmail full address
-SMTP Password: your gmail password
-SMTP Host: smtp.gmail.com 
+Furthermore, this forms creator plugin provides PHP functions for each form. You can use them to add your forms into a template file.
 
-After installation please use the test option. If the test email doesn’t get send out contact your hosting provider to fix the issue. 
+= 4. Where are form submissions stored? =
 
-= 7. Is the Form Maker fully responsive? =
+Form Maker provides **Submissions** page on WordPress administrative dashboard. You will find the submitted information of your custom contact form on this page.
 
-Yes, the WordPress Form Maker is fully responsive and works with various smartphones and tablets.
+You can also email form submissions to administrator email addresses. You can configure these settings and provide email recipients on **Form Options > Email Options** page of your contact form.
 
-= 8. How can I analyze the submitted data? =
+= 5. Does the number of submissions for each web form have a limitation? =
 
-The Form Maker has separate section for the Statistical type of entries (Select fields, checkboxes and radio buttons). In addition there are two export options- into CSV or XML format.  You can import CSV into Excel for data processing. 
+This WordPress free form builder plugin does not set any limitations on the number of entries per form. You can also create and use unlimited number of secure forms from Forms Manager page of the plugin.
 
-= 9. How can I hide specific form fields/make them appear depending on another field value? =
+= 6. How can I export the submitted data of the forms? =
 
-The Form Maker has support for the Conditional fields. The option can be found in the Form Options. The structure of the conditional fields is the following:  You can specify to show/hide a field, when the condition is true and provide the condition below, e.g. Show “How many visitors will you have” if “Will you have visitors” is “Yes”.
+This form builder tool provides **CSV** and **XML export** options. Go to **Form Maker > Submissions** page and select a form from the top. Press CSV or XML buttons to download corresponding file, which contains all submissions.
 
-= 10. What payment options does Form Maker support? =
+= 7. What can I do to avoid spam entries through Form Maker? =
 
-The Form Maker (Pro version) has simple PayPal integration. This allows the user to select specific items and upon hitting submit button get redirected to PayPal. After making the payment, the user gets back to the website.
+Form Maker has three types of word verification fields, **Simple Captcha, Arithmetic Captcha** and **Google ReCaptcha.** These protect your email submit form from getting spam submissions.
 
-= 11. Can the email be sent to a specific email based on the selected field? =
-Unfortunately we do not have support for this feature. But we [Conditional Emails Add-on](https://web-dorado.com/products/wordpress-form/add-ons/conditional-emails.html).Using this add-on the user will be able to connect the fields with the administrator email. The field entry will serve as a condition for selecting the relevant administrator email.
+However, if you have received a few spam entries already, you can use **Blocking IPs** option from Submissions page and blacklist corresponding IP addresses. Search forms submissions and select the entries with spammy content. Select them and press **Block IP** button.
 
-= 12. Are there any limitations on the number of forms or entries to be used within a single website? =
-There are no limitations on the number of entries per form. You can create unlimited number of forms within each website.   
+= 8. Are there any custom validations for form fields? =
 
-= 13. There is a code appearing instead of the contact form. =
-Please make sure you have installed the latest version of the Form Maker. Try to deactivate the plugins and/or the theme. In this way you’ll find out the conflicts. If unable to resolve the issues, please contact us using this [form](https://web-dorado.com/support/contact-us.html).
+Beside default field validations, such as Email or Phone, this form creator plugin supports **Regular Expressions.** You can write any RegEx patterns with this option of Simple Text field.
 
-= 14. Where are Form Maker stored submitted entries?
-You may find submitted entries in your plugin. Go to your plugins list in WordPress toolbar > select Form Maker > Submission. The entries can also be emailed to Administrator. For this you should provide an email in Email Options section (located within Form Options). You can also fill in data into a custom table using Form Options->MySQL Mapping, which makes it possible to store the data into another MySQL database.
+Activate **Validation (Regular Exp.)** option from the field editor and use Regular Expression option to add the pattern. There are also various Common Regular Expressions provided, which you can select.
 
-= 15. Can I skip submitting form data to the database and still receive emails? =
-Yes, it is possible to have data emailed instead of being saved to database. The option should be selected from Form Options > General Options page.
+= 9. How can I skip storing form data to MySQL database, but receive administrator email? =
 
-= 16. Can submissions be visible to submitters? =
-The front-end submissions functionality allows to display submissions on a page/post via shortcode. You could set the level of users, who can view submissions from; go to General Options > Form Options. In addition you may select the fields entries you want to be visible.
+Go to **Form Options > General Options** of your form builder plugin WordPress, and make sure **Save data(to database)** setting is switched off. The submitted information will not be kept on your website database this way.
 
-= 17. How can I export/import the submitted data of the forms? =
-Form Maker has export CSV/XML options, which allow to export submitted data in corresponding form. Go to your plugins list in WordPress toolbar > select Form Maker > Submissions > Select form > Click Export to button > Save the file. 
+= 10. Can submissions be published on the website? =
 
-= 18. What verification methods does Form Maker use? =
-Form Maker uses Simple Captcha, Arithmetical Capcha and Google v. 2.0 ReCaptcha options. Simple captcha uses standard word verification. Arithmetical Captcha requires the user to solve simple arithmetical expression. Captcha is the standard Google verification option.   
+**Front-end Submissions** pro feature of this forms creator plugin allows to display submissions on a page or post by inserting their shortcode.
 
-= 19. What to do if I am receiving spam from some IPs? =
-If you are receiving spam entries from a single or few IPs, you can use Blocking IPs option. In this way the stated IP user will no longer be able to submit a form. Go to your plugins list in WordPress toolbar > select Form Maker > Blocking IPs.
+You can select user roles, which have access to view form submissions of this form builder WordPress. Go to **Form Options > General Options.** In addition, you can use shortcode options to select field values of your drag and drop forms, which you want show to users.
 
-= 20. Can I email submissions to multiple recipients? = 
-Yes, Form Options->Email Options includes fields for adding CC and BCC email addresses.
+= 11. Can I save the submitted information on a custom MySQL table? =
 
-= 21. Can the email be sent to a specific email based on the selected field? =
-Unfortunately at the moment Form Maker do not have support for this feature. But we plan to include it as a separate Form Maker add-on. Using this add-on the user will be able to connect the fields with the administrator email. The field entry will serve as a condition for selecting the relevant administrator email.   
+MySQL Mapping feature of Form Maker plugin lets you store submissions on any local or remote database table. Go to **Form Options > MySQL Mapping** tab to set up the queries. You can choose to **Insert, Update** or **Delete** the data. The queries will run after the form is submitted.
 
-= 22. Does Form Maker use auto-respondent feature? =
-You can use Email Options of Form Maker to send a fully customizable letter to the submitter. The entries can be included within the email. Go to your plugins list in WordPress toolbar > select Form Maker > Select the form you want to edit > Form Options > Email Options.
+= 12. How can I analyze the submitted information of my contact forms? =
 
-= 23. an I have custom message sent to a user after submissions? =
-Yes, you can include custom content within the email using the standard editor. Go to your plugins list in WordPress toolbar > select Form Maker > Select the form you want to edit > Form Options > Actions after Submission.
+Among all form administration tools of this easy forms builder plugin, Form Maker has separate section of **Statistics** for Select Boxes, Multiple and Single choice fields. It is available below each form submission.
 
-= 24. Can user be redirected to another page after submitting the form?
-Users can be redirected to another page, and/or recieve custom message. Go to your plugins list in WordPress toolbar > select Form Maker > Select the form you want to edit > Form Options > Actions after Submission.
+= 13. Can I email form submissions to multiple recipients? =
 
-= 25. CWhat payment gateways does Form Maker support? =
-Form Maker has simple PayPal integration. This allows users to select specific items and upon hitting submit button be redirected to PayPal. After making the payment, the user gets back to his/her website. We plan to include more payment options in future. The next release will include Stripe integration.
+**Email to send submissions to** setting allows you to add multiple emails as recipients. Write the email address and press the small plus button next to the input.
 
-= 26. How to set up payment options? =
-Firstly, you should go to Form Options > Payments. There you can provide a PayPal email, set up a currency and a mode. After saving the options you may add PayPal fields using standard Add fields functionality.
-IMPORTANT: standard (none-PayPal) field values cannot be transferred to PayPal, so please add PayPal fields for payment purposes.
+Furthermore, you can use **CC** and **BCC** options to provide extra email addresses.
 
-= 27. Does Form Maker have support for conditional logic? =
-Yes, Form Maker uses conditional fields using which you can display/hide certain form fields.
+= 14. Does Form Maker provide email auto-responder? =
 
-= 28. How can I use Conditional Fields? =
-Form Maker supports Conditional fields option. Users may find this feature in Form Options menu. The structure of conditional fields is the following: You can specify and/or show/hide a field, when condition is true and provide conditions below, e.g. Show “How many visitors will you have” if “Will you have visitors” is “Yes”.
+You can use **Email Options** from **Form Options** of your form to configure custom message and send it to the submitter. Make sure to make the changes from **Email to User** section of this page.
 
-= 29. What stylings do the forms include? =
-Form Maker includes 20 editable themes.The forms use open CSS stylesheet, where you can modify CSS to change the font family, font sizes, margins, colors and etc. CSS changes can be directly made within a specific theme keeping the rest of the properties.
+Filled in form field values can be included within the email. Click on field indicators above text editor to add them to custom email content.
 
-= 30. How to validate the entries to numbers? =
-Form Maker uses phone and number field types, which are verified and do not accept text entries when entered. 
+= 15. Can I configure custom actions after submission? =
 
-= 31 Why should I use email type form field instead of standard text option? =
-Email field should be used since it verifies that an entry format fulfills example@example.com format.
+**Actions after Submission** feature of this form manager plugin allows you to configure different actions after users submit your message form.
+
+Edit your form and go to **Form Options > Actions after Submission** tab of this WordPress forms builder to start the setup. You can set it to **Stay on Form,** redirect to **Post, Page** or **URL,** as well as show **Custom Text.**
+
+= 16. Can the frontend of this form builder WordPress plugin be translated into another language? =
+
+Change **Site Language** from **WordPress Settings > General** page to translate warnings, notices and other text on your custom contact form.
+
+You can modify the translation files of this form creator plugin from **/wp-content/plugins/form-maker/languages/** folder of your WordPress site (you will need POEdit: http://www.poedit.net/download.php).
+
+= 17. How can I hide or show specific form fields based on selected values on my custom form? =
+
+This WordPress forms builder plugin supports **Conditional Fields,** which can be found in Form Options page. The steps to set up conditions for your advanced forms are the following.
+
+Add all necessary fields to your form, then specify whether to show or hide them from Conditional Fields of this contact form builder WordPress. Afterwards provide the condition, which should follow this logic:
+
+*Show [How many visitors will you have?] if any of the following match:*
+
+*[Will you have visitors?] is [Yes]*
+
+= 18. What payment options does Form Maker support? =
+
+The Pro version of this forms creator plugin incorporates two payment gateways, PayPal and Stripe. PayPal is already integrated in Form Maker Pro, and the plugin is ready to create PayPal forms with its default state.
+
+Whereas Stripe form can be configured on this contact form plugin with its [Stripe Integration add-on](https://web-dorado.com/products/wordpress-form/add-ons/stripe.html).
+
+= 19. How can I integrate PayPal with my form? =
+
+Form Maker has simple PayPal integration, which you can use to create a PayPal form. This allows the submitter to select products from PayPal checkboxes, select boxes or radios, and be redirected to PayPal to finish the payment.
+
+= 20. How do I set up payment options for my PayPal form? =
+
+Edit your form and go to **Form Options > Payments** tab. Provide a PayPal email address here, and set up a currency. If PayPal form Checkout Mode is set to **Test,** you can try out the form without actually making a payment. When you are ready to let users make purchases, set it to **Production.**
+
+After configuring these settings, you need to add **payment fields** to your form, and users will be redirected to PayPal after hitting submit.
+
+= 21. How can I set up a Stripe form with Form Maker? =
+
+Install [Stripe Integration add-on](https://web-dorado.com/products/wordpress-form/add-ons/stripe.html) on your Form Maker Pro plugin and build a credit card form with it. You can let users make payments with their credit cards, and you will receive their payments to your Stripe account.
+
+= 22. Can the email be sent to specific email based on form field values? =
+
+[Conditional Emails add-on](https://web-dorado.com/products/wordpress-form/add-ons/conditional-emails.html) of Form Maker Pro lets you email form submission to different email addresses in case of different form field selections. Submitter is able to connect form fields with administrator email. The field value will serve as a condition for selecting the relevant recipient.
+
+= 23. How can I create a MailChimp form with Form Maker? =
+
+[MailChimp Integrations add-on](https://web-dorado.com/products/wordpress-form/add-ons/mailchimp.html) of Form Maker lets you integrate MailChimp and create subscription forms for your mailing lists. The email addresses of users will be automatically added to your MailChimp lists after they submit your form.
+
+MailChimp form add-on of Form Maker lets you build up a customer database on your MailChimp account with the help of this awesome plugin. For example, you can use **Popup Display Option** and set up a MailChimp popup form. This is a very popular and elegant way of collecting new subscribers.
+
 
 == Changelog ==
 
+= 1.11.2 =
+*  Added: Overview page   
+*  Removed: Featured Plugins, Featured Themes pages   
+*  Fixed: Security issue   
+*  Fixed: Themes - bug on save as copy   
+
+
+= 1.11.1 =
+*  Removed: Old forms support (created with Form Maker versions < 1.7.0)   
+*  Added: Form Header   
+*  Added: New Themes   
+*  Added: New Theme Editor   
+*  Added: Form Display Options (Embedded, Popup, Topbar, Scrollbox)   
+*  Fixed: Database creation on some versions of MySQL   
+*  Fixed: Removed html tags from csv and xml   
+
+= 1.10.11 =
+*  Added: Support forum links.   
+
+= 1.10.10 =
+*  Fixed: Bug on arithmetic captcha   
+
+= 1.10.9 =
+*  Changed: New logo   
+
+= 1.10.8 =
+*  Added: New field type: Phone with flag   
+*  Fixed: Bug on captcha reset   
+
+= 1.10.7 =
+*  Changed: Improved captcha security   
+*  Fixed: Bug on matrix field   
+*  Fixed: Bug on conditional fields (for date field)   
+*  Added: Notification about old forms   
+
 = 1.10.6 =
-Fixed: Bug on spinner field   
-Fixed: Bug on matrix field   
+*  Fixed: Bug on spinner field   
+*  Fixed: Bug on matrix field   
 
 = 1.10.5 =
-Fixed: JS conflict on Form submission   
+*  Fixed: JS conflict on Form submission   
 
 = 1.10.4 =
-Fixed: Conflict with Yoast SEO plugin    
-Fixed: Line breaks in textarea after incorrect captcha    
+*  Fixed: Conflict with Yoast SEO plugin    
+*  Fixed: Line breaks in textarea after incorrect captcha    
 
 = 1.10.3 =
-Fixed: Bug on PHP 5.3   
+*  Fixed: Bug on PHP 5.3   
 
 = 1.10.2 =
-Added: New Global option "Use an alternative version of JS code on front-end:". Checking this box fixes JS conflicts with some themes, that alter inline JS.   
+*  Added: New Global option "Use an alternative version of JS code on front-end:". Checking this box fixes JS conflicts with some themes, that alter inline JS.   
 
 = 1.10.1 =
-Added: Verified emails list in csv, xml files   
+*  Added: Verified emails list in csv, xml files   
 
 = 1.10 =
-Changed: Field validation errors and notifications   
-Added: Realtime field validation   
-Changed: Improved NL translation   
-Fixed: Bug on verified emails   
+*  Changed: Field validation errors and notifications   
+*  Added: Realtime field validation   
+*  Changed: Improved NL translation   
+*  Fixed: Bug on verified emails   
 
 = 1.9.18 =
-Added: Filter verified emails and Export submissions with verified emails   
+*  Added: Filter verified emails and Export submissions with verified emails   
 
 = 1.9.17 =
-Fixed: Bug with search by ID in Submissions    
-Fixed: Bug with Validation (Regular Exp.)    
+*  Fixed: Bug with search by ID in Submissions    
+*  Fixed: Bug with Validation (Regular Exp.)    
 
 = 1.9.16 =
-Fixed: Bug with Hidden field in custom text in Email   
-Fixed: Bug on email verification custom post   
-Added: Field type in field edit page   
+*  Fixed: Bug with Hidden field in custom text in Email   
+*  Fixed: Bug on email verification custom post   
+*  Added: Field type in field edit page   
 
 = 1.9.15 =
-Added: Password Confirmation field   
+*  Added: Password Confirmation field   
 
 = 1.9.14 =
-Fixed: Bug on CSV and XML export   
+*  Fixed: Bug on CSV and XML export   
 
 = 1.9.13 =
-Fixed: Bug on Field label position (Left/Top)   
-Fixed: JS error on IE 11 and Microsoft Edge   
+*  Fixed: Bug on Field label position (Left/Top)   
+*  Fixed: JS error on IE 11 and Microsoft Edge   
 
 = 1.9.12 =
-Added: Email Confirmation field   
-Fixed: Bug on CSV and XML export   
+*  Added: Email Confirmation field   
+*  Fixed: Bug on CSV and XML export   
 
 = 1.9.11 =
-Changed: Filters now apply to CSV and XML export   
+*  Changed: Filters now apply to CSV and XML export   
 
 = 1.9.10 =
-Fixed: Bug on "Advanced Layout"   
+*  Fixed: Bug on "Advanced Layout"   
 
 = 1.9.9 =
-Changed: Featured plugins page   
+*  Changed: Featured plugins page   
 
 = 1.9.8 =
-Fixed: Unexpected behavior on pressing "Enter" key on back end   
+*  Fixed: Unexpected behavior on pressing "Enter" key on back end   
 
 = 1.9.7 =
-Fixed: JS error on incorrect Google Maps API key   
-Added: Alert about incorrect Google Maps API key   
+*  Fixed: JS error on incorrect Google Maps API key   
+*  Added: Alert about incorrect Google Maps API key   
 
 = 1.9.6 =
-Added: Global option for Google Maps API key   
-Fixed: Google Maps API key warning in browser      
+*  Added: Global option for Google Maps API key   
+*  Fixed: Google Maps API key warning in browser      
 
 = 1.9.5 =
-Changed: Improvements in "Select options from database" pop-up window for Select box, single and multiple choices    
-Fixed: Back end minor style issues   
+*  Changed: Improvements in "Select options from database" pop-up window for Select box, single and multiple choices    
+*  Fixed: Back end minor style issues   
 
 = 1.9.3 =
-Fixed: Bug with Date field in custom text in Email   
-Fixed: Bug on editing submissions with checkbox and radio fields with customized values    
+*  Fixed: Bug with Date field in custom text in Email   
+*  Fixed: Bug on editing submissions with checkbox and radio fields with customized values    
 
 = 1.9.2 =
-Added: "View" button on submissions to open a sigle submission in a separate pop-up window   
-Fixed: Minor bugs on editing submissions   
+*  Added: "View" button on submissions to open a sigle submission in a separate pop-up window   
+*  Fixed: Minor bugs on editing submissions   
 
 = 1.9.1 =
-Fixed: bug on date field on some browsers (Safari, Edge)   
+*  Fixed: bug on date field on some browsers (Safari, Edge)   
 
 = 1.9 =
-Changed: Improved Date picker functionality (new options: Dates to exclude, Default, Minimum, Maximum dates)   
-Added: New field type: Date Range   
+*  Changed: Improved Date picker functionality (new options: Dates to exclude, Default, Minimum, Maximum dates)   
+*  Added: New field type: Date Range   
 
 = 1.8.41 =
-Fixed: Bug on conditional fields (for multiple forms on the same page)   
+*  Fixed: Bug on conditional fields (for multiple forms on the same page)   
 
 = 1.8.40 =
-Changed: Style of required field asterisk   
-Changed: Display the correct IDs and Names of the fields in the back end (Add/Edit field interface) to use in js/css   
+*  Changed: Style of required field asterisk   
+*  Changed: Display the correct IDs and Names of the fields in the back end (Add/Edit field interface) to use in js/css   
 
 = 1.8.39 =
-Fixed: Bug on Matrix field (additional attributes)   
+*  Fixed: Bug on Matrix field (additional attributes)   
 
 = 1.8.38 =
-Fixed: Bug on Matrix field (special characters in row/column labels)   
+*  Fixed: Bug on Matrix field (special characters in row/column labels)   
 
 = 1.8.36 =
-Fixed: Bug on long content in textarea fields   
+*  Fixed: Bug on long content in textarea fields   
 
 = 1.8.35 =
-Fixed: Browser warning on Google Maps API version   
-Fixed: Phone field style issue on Mac OS    
+*  Fixed: Browser warning on Google Maps API version   
+*  Fixed: Phone field style issue on Mac OS    
 
 = 1.8.34 =
-Fixed: Some minor style issues   
+*  Fixed: Some minor style issues   
 
 = 1.8.33 =
-Fixed: Bug in Address field
-Fixed: Bug with Additional Attributes in Email field
-Changed: before_submit() function functionality
+*  Fixed: Bug in Address field
+*  Fixed: Bug with Additional Attributes in Email field
+*  Changed: before_submit() function functionality
 
 = 1.8.32 =
-New Add-on: Calculator    
+*  New Add-on: Calculator    
 Removed: deprecated Number field    
 
 = 1.8.31 =
-Fixed: Issue with search in Submissions page   
+*  Fixed: Issue with search in Submissions page   
 
 = 1.8.30 =
-Added: Submission ID in csv export   
+*  Added: Submission ID in csv export   
 
 = 1.8.29 =
-Changed: Featured Plugins, Featured Themes pages design.    
+*  Changed: Featured Plugins, Featured Themes pages design.    
 
 = 1.8.28 =
-Fixed: Bug in Email Options     
-Fixed: Bug in Conditional Fields      
-Fixed: Bug in date field   
+*  Fixed: Bug in Email Options     
+*  Fixed: Bug in Conditional Fields      
+*  Fixed: Bug in date field   
 
 = 1.8.27 =
-Fixed: Bug in Conditional Fields    
-Fixed: Bug with Additional Attributs in Multiple Choice   
+*  Fixed: Bug in Conditional Fields    
+*  Fixed: Bug with Additional Attributs in Multiple Choice   
 
 = 1.8.26 =
-Fixed: Submissions page styles    
-Fixed: Issue with IPv6     
+*  Fixed: Submissions page styles    
+*  Fixed: Issue with IPv6     
 
 = 1.8.25 =
-Fixed: Bug in conditional fields.    
-Changed: Featured Plugins, Featured Themes pages design.    
+*  Fixed: Bug in conditional fields.    
+*  Changed: Featured Plugins, Featured Themes pages design.    
 
 = 1.8.24 =
-Added: File upload as a link in email   
+*  Added: File upload as a link in email   
 
 = 1.8.23 =
-Fixed: Bug in textarea field with line breaks     
+*  Fixed: Bug in textarea field with line breaks     
 
 = 1.8.22 =
-Fixed: Conflict with some plugins
+*  Fixed: Conflict with some plugins
 
 = 1.8.21 =
-Fixed: Bug in selectbox   
+*  Fixed: Bug in selectbox   
 
 = 1.8.20 =
-Added: Autofill with user data for email address and name fields 
+*  Added: Autofill with user data for email address and name fields 
 
 = 1.8.19 =
-Changed: Back End design     
+*  Changed: Back End design     
 
 = 1.8.18 =
-Added: Date format validation    
-Fixed: Recaptcha Validation bug    
+*  Added: Date format validation    
+*  Fixed: Recaptcha Validation bug    
 
 = 1.8.17 =
-Added: Global Options   
+*  Added: Global Options   
 
 = 1.8.16 =
-Fixed: User guide links   
+*  Fixed: User guide links   
 
 = 1.8.15 =
-Changed: Back End Design for old forms   
+*  Changed: Back End Design for old forms   
 
 = 1.8.14 =
-Fixed: Bug in PayPal field   
-Changed: Matrix field display in email    
+*  Fixed: Bug in PayPal field   
+*  Changed: Matrix field display in email    
 
 = 1.8.13 =
-Fixed: Style in form edit page    
-Fixed: Bug in PayPal options     
+*  Fixed: Style in form edit page    
+*  Fixed: Bug in PayPal options     
 
 = 1.8.12 =
-Changed: Submissions page styles
+*  Changed: Submissions page styles
 
 = 1.8.11 =
-New Add-on: Stripe Integration      
+*  New Add-on: Stripe Integration      
 
 = 1.8.10 =
-Fixed: Bug in name field   
-Fixed: Bug in captcha   
+*  Fixed: Bug in name field   
+*  Fixed: Bug in captcha   
 
 = 1.8.9 =
-New Add-on: Save Progress     
+*  New Add-on: Save Progress     
 
 = 1.8.8 =
-Fixed: Minor bug   
+*  Fixed: Minor bug   
 
 = 1.8.7 =
-New: New year promo
+*  New: New year promo
 
 = 1.8.6 =
-Changed: Reset button       
-Fixed: Bug with scrolling in new field pop up      
-Fixed: Bug in MySql mapping on firefox browser    
+*  Changed: Reset button       
+*  Fixed: Bug with scrolling in new field pop up      
+*  Fixed: Bug in MySql mapping on firefox browser    
 
 = 1.8.5 =
-Fixed: Bug in mysql mapping.             
-Changed: Featured themes page.      
+*  Fixed: Bug in mysql mapping.             
+*  Changed: Featured themes page.      
 
 = 1.8.4 =
-Fixed: Bug in submissions    
+*  Fixed: Bug in submissions    
 
 = 1.8.3 =
-Changed: Backend design    
+*  Changed: Backend design    
 
 = 1.8.2 =
-New Add-on: Pushover Integration         
+*  New Add-on: Pushover Integration         
 
 = 1.8.1 =
-Fixed: Bug in email options     
-Changed: Backend design     
+*  Fixed: Bug in email options     
+*  Changed: Backend design     
 
 = 1.8.0 =
-Changed: Backend design    
+*  Changed: Backend design    
 
 = 1.7.97 =
-Fixed: Bug in CSV/XML export     
+*  Fixed: Bug in CSV/XML export     
 
 = 1.7.96 =
-Added: Preview button      
-Changed: Conditional fields limitation     
+*  Added: Preview button      
+*  Changed: Conditional fields limitation     
 
 = 1.7.95 =
-Changed: csv/xml export file directory
+*  Changed: csv/xml export file directory
 
 = 1.7.94 =
-Add: Progress bar for csv/xml export 
+*  Added: Progress bar for csv/xml export 
 
 = 1.7.93 =
-Fixed: Bug in mailing     
-Changed: Calendar styles     
+*  Fixed: Bug in mailing     
+*  Changed: Calendar styles     
 
 = 1.7.92 =
-Fixed: Bug in mailing      
+*  Fixed: Bug in mailing      
 
 = 1.7.91 =
-Changed: Themes        
-Fixed: Bug in block ip     
+*  Changed: Themes        
+*  Fixed: Bug in block ip     
 
 = 1.7.90 =
-Fixed: Bug in CSV/XML export       
+*  Fixed: Bug in CSV/XML export       
 
 = 1.7.89 =
-Fixed: Conflict with some plugins      
-Changed: Styles        
+*  Fixed: Conflict with some plugins      
+*  Changed: Styles        
 
 = 1.7.88 =
-New: Doublescroll in submissions page      
-New: Delete confirmation        
-Fixed: Bug in mysql mapping for conditional fields     
+*  New: Doublescroll in submissions page      
+*  New: Delete confirmation        
+*  Fixed: Bug in mysql mapping for conditional fields     
 
 = 1.7.87 =
-Fixed: Bug in CSV/XML export   
+*  Fixed: Bug in CSV/XML export   
 
 = 1.7.86 =
-Changed: CSV/XML export
+*  Changed: CSV/XML export
 
 = 1.7.85 =
-Fixed: Bug in conditional fields   
+*  Fixed: Bug in conditional fields   
  
 = 1.7.84 =
-New Add-on: PDF Integration   
+*  New Add-on: PDF Integration   
 
 = 1.7.83 =
-New: Google Drive Integration Add-on 
+*  New: Google Drive Integration Add-on 
 
 = 1.7.82 =
-Fixed: Bug in demo forms
+*  Fixed: Bug in demo forms
 
 = 1.7.81 =
-Fixed: Bug in update
+*  Fixed: Bug in update
 
 = 1.7.80 =
-Changed: Notices  
+*  Changed: Notices  
 
 = 1.7.79 =
-Fixed: Bug in update
+*  Fixed: Bug in update
 
 = 1.7.78 =
-Changed: Themes  
+*  Changed: Themes  
 
 = 1.7.77 =
-New: Dropbox Integration Add-on 
+*  New: Dropbox Integration Add-on 
 
 = 1.7.76 =
-Changed: Licensing/Donation page   
-Changed: Notices   
+*  Changed: Licensing/Donation page   
+*  Changed: Notices   
 
 = 1.7.75 =
-Changed: Submissions default ordering   
-Changed: Featured Plugins page
+*  Changed: Submissions default ordering   
+*  Changed: Featured Plugins page
 
 = 1.7.74 =
-Fixed: Minor bugs
+*  Fixed: Minor bugs
 
 = 1.7.73 =
-New: Notices
+*  New: Notices
 
 = 1.7.71 =
-New Add-on: Conditional Emails
+*  New Add-on: Conditional Emails
 
 = 1.7.70 =
-Changed: Styles
+*  Changed: Styles
 
 = 1.7.69 =
 Minor bug fixed  
 
 = 1.7.68 =
-Changed: Compability with WordPress 4.3
+*  Changed: Compability with WordPress 4.3
 
 = 1.7.67 =
-Fixed: Bug in slider field  
-Fixed: Bug in address field  
-Fixed: Bug in mysql mapping
+*  Fixed: Bug in slider field  
+*  Fixed: Bug in address field  
+*  Fixed: Bug in mysql mapping
 
 = 1.7.66 =
-Fixed: Bug in Undo/Rendo
+*  Fixed: Bug in Undo/Rendo
 
 = 1.7.65 =
-New: Post Generation Add-on 
+*  New: Post Generation Add-on 
 
 = 1.7.64 =
-Fixed: Minor bug
+*  Fixed: Minor bug
 
 = 1.7.63 =
-New: Add-ons page logo
+*  New: Add-ons page logo
 
 = 1.7.62 =
-New Add-on: User Registration
+*  New Add-on: User Registration
 
 = 1.7.61 =
-New: Form Maker Add-ons page
+*  New: Form Maker Add-ons page
 
 = 1.7.60 =
-Fixed: Minor bug
+*  Fixed: Minor bug
 
 = 1.7.59 =
-Fixed: Bug in csv/xml export
+*  Fixed: Bug in csv/xml export
 
 = 1.7.58 =
-Fixed: Minor bugs   
-Added: Email verification custom post   
+*  Fixed: Minor bugs   
+*  Added: Email verification custom post   
 
 = 1.7.57 =
-Fixed: Security issue
+*  Fixed: Security issue
 
 = 1.7.56 =
-New: ReCaptcha version 2.0
-New: Arithmetic Captcha
+*  New: ReCaptcha version 2.0
+*  New: Arithmetic Captcha
 
 = 1.7.55 =
-New: Undo/Rendo form
+*  New: Undo/Rendo form
 
 = 1.7.54 =
 bug in conditional fields fixed
@@ -695,8 +705,8 @@ bug in select field fixed
 minor bugs fixed
 
 = 1.7.51 =
-Changed: Featured plugins page.  
-New: Featured themes page.  
+*  Changed: Featured plugins page.  
+*  New: Featured themes page.  
 
 = 1.7.50 =
 minor bugs fixed
@@ -713,16 +723,16 @@ Show custom html and section break id
 
 = 1.7.46 =
 Limited up to 9 fields to add
-New: Enable/Disable Title and Middle Name for Name field
+*  New: Enable/Disable Title and Middle Name for Name field
 
 = 1.7.45 =
-New: Option to disable past days in date picker
+*  New: Option to disable past days in date picker
 
 = 1.7.44 =
 security issue fixed
 
 = 1.7.43 =
-New: Email verification
+*  New: Email verification
 
 = 1.7.42 =
 bug in recaprcha fixed
@@ -732,8 +742,8 @@ change links
 Allow to use entry values in "Custom text after submission"
 
 = 1.7.39 =
-New: User informetion in mysql mapping
-Fixed: Country names
+*  New: User informetion in mysql mapping
+*  Fixed: Country names
 
 = 1.7.38 =
 bug fixed in stats
@@ -743,11 +753,11 @@ change field value type to longtext
 Optimize csv/xml export
 
 = 1.7.35 =
-New: Email empty fields option
+*  New: Email empty fields option
 
 = 1.7.34 =
-New: Validation (Regular Exp.)
-Fixed: Select field duplication
+*  New: Validation (Regular Exp.)
+*  Fixed: Select field duplication
 
 = 1.7.33 =
 bug in address field fixed 
@@ -757,12 +767,12 @@ bug fixed
 
 = 1.7.31 =
 Bug fixed: Hidden field save to DB.    
-New: Drag and drop options in multiple, single choices and select box.   
-New: Select options from database.   
-New: Add image in email as image.   
-New: Additional clauses within conditional fields.   
-New: Search submissions by ID.   
-New: Submission ID in email.   
+*  New: Drag and drop options in multiple, single choices and select box.   
+*  New: Select options from database.   
+*  New: Add image in email as image.   
+*  New: Additional clauses within conditional fields.   
+*  New: Search submissions by ID.   
+*  New: Submission ID in email.   
 
 = 1.7.30 =
 Cache issue fixed
@@ -889,263 +899,271 @@ New themes
 = 1.0.0 =
 Initial version
 
-==Wordpress Form Maker Step by step guide==    
-### Step 1: Installing the [Wordpress Form](http://wordpress.org/plugins/form-maker/) Maker    
+==WordPress Form Maker Step by step guide==    
 
-1.1 Minimum requirements.  
-Wordpress 3.4+  
-PHP 5.x  
-MySQL 5.x  
+### Step 1: Installing the [WordPress Form](http://wordpress.org/plugins/form-maker/) Maker    
 
-1.2 Perform a new installation.  
-Log in to the administrator panel.  
-Go to Plugins Add > New > Upload.  
-Click “Choose file” (“Browse”) and select the Form Maker zip file.  
-*For Mac Users*  
-*Go to your Downloads folder and locate the folder with the plugin (form-maker.zip). Right-click on the folder and select Compress. Now you have a newly created .zip file which can be installed as described here.*  
-Click “Install Now” button.  
+
+1.1 Minimum requirements.   
+Wordpress 3.4+   
+PHP 5.x   
+MySQL 5.x   
+
+1.2 Perform a new installation.   
+Log in to the administrator panel.   
+Go to Plugins Add > New > Upload.   
+Click “Choose file” (“Browse”) and select the Form Maker zip file.   
+*For Mac Users*   
+*Go to your Downloads folder and locate the folder with the plugin (form-maker.zip). Right-click on the folder and select Compress. Now you have a newly created .zip file which can be installed as described here.*   
+Click “Install Now” button.   
 If the installation succeeded you will see the message in the picture.   
-Click “Activate Plugin” button for activating the plugin.  
-If any problem occurs, please [click here to contact us](https://web-dorado.com/support/contact-us.html).
- 
-
-1.3 Updating the form.  
-
-If you want to update the form builder plugin while preserving your existing forms, you need to deactivate and delete the Form Maker from the list of installed plugins (Do not uninstall it using the Uninstall Form Maker option of the plugin, otherwise you will lose your initial data) and install the new plugin. 
+Click “Activate Plugin” button for activating the plugin.   
+If any problem occurs, please [click here to contact us](https://web-dorado.com/support/contact-us.html).   
 
 
-= Step 2: Creating a new form =    
+1.3 Updating the form.   
 
-2.1 On the left menu select Form Maker > Manager  
-2.2 In the upper left corner click on the “Add a form” button.  
-2.3 Form Title. Specify a title for the form (Try to use unique titles).
+If you want to update the form builder plugin WordPress while preserving your existing forms, you need to deactivate and delete the Form Maker from the list of installed plugins (Do not uninstall it using the Uninstall Form Maker option of the plugin, otherwise you will lose your initial data) and install the new plugin.   
 
 
-= Step 3: Configuring Form Builder Options =    
+### Step 2: Creating a new form    
+
+2.1 On the left menu select Form Maker > Manager   
+2.2 In the upper left corner click on the “Add a form” button.   
+2.3 Form Title. Specify a title for the form (Try to use unique titles).   
+
+
+### Step 3: Configuring Form Builder Options   
 
 3.1 Form General Options   
-Published. Choose whether to publish the form or leave it as a draft.    
+Published. Choose whether to publish the form or leave it as a draft.   
 Save data (to database). Choose whether to have the submitted forms in the form submissions section or have them only sent to the Admin’s email (this should be done in Email Options section).   
-Theme. A distinct form theme can be applied to each new form. The themes can be accessed by selecting Form Maker > Themes on the top menu. A large number of form themes is available for selection. You can preview the theme as well as make changes in the CSS of the theme to make desired changes with the button right next to it.   
+Theme. A distinct form theme can be applied to each new form of this WordPress builder plugin. The themes can be accessed by selecting Form Maker > Themes on the top menu. A large number of form themes is available for selection. You can preview the theme as well as make changes in the CSS of the theme to make desired changes with the button right next to it.   
 Required fields mark. The required fields mark can be customized and changes from the default asterisk symbol.   
-      
+
 3.2 Form Email Options.   
-3.2.1 Send Email. Choose whether to send out emails based on the submitted forms to the Administrator/Submitter.
+3.2.1 Send Email. Choose whether to send out emails based on the submitted forms to the Administrator/Submitter.   
 Email to Administrator   
-3.2.2 Email to send submissions to. Here you provide e-mails to which submitted form information is sent. If you need more than one e-mail address, you must separate them by commas.    
-3.2.3 Email From. Here you define the email address from which the users receive the submission email (sender’s email).    
+3.2.2 Email to send submissions to. Here you provide e-mails to which submitted form information is sent. If you need more than one e-mail address, you must separate them by commas.
+3.2.3 Email From. Here you define the email address from which the users receive the submission email (sender’s email).   
 3.2.4 From Name. Here you define the sender’s name which is shown in submission email.   
-3.2.5 Reply to (if different from "Email From"). Specify an alternative email address to which the administrator will be able to reply upon receiving the submitted form.   
+3.2.5 Reply to (if different from “Email From”). Specify an alternative email address to which the administrator will be able to reply upon receiving the submitted form.   
 3.2.6 Custom Text in Email. Here you can add custom texts, images, and custom HTML to the e-mail message that is sent to the administrator, as well as choose which fields of the submitted form are included in the e-mail (set to ‘all’ by default).   
 Email to User   
-3.2.7 Send to. Here you select the Email field in the Form to send out the email to.     
-3.2.8 Email From. Here you define the email address from which the users receive the submission email (sender’s email).    
+3.2.7 Send to. Here you select the Email field in the Form to send out the email to.   
+3.2.8 Email From. Here you define the email address from which the users receive the submission email (sender’s email).   
 3.2.9 From Name. Here you define the sender’s name which is shown in submission email.   
-3.2.10 Reply to (if different from "Email From"). Specify an alternative email address to which the user will be able to reply upon receiving the submitted form.   
-3.2.11 Custom Text in Email. Here you can add custom texts, images, and custom HTML to the e-mail message that is sent to the administrator, as well as choose which fields of the submitted form are included in the e-mail (set to ‘all’ by default).    
+3.2.10 Reply to (if different from “Email From”). Specify an alternative email address to which the user will be able to reply upon receiving the submitted form.   
+3.2.11 Custom Text in Email. This option of this formbuilder plugin lets you add custom texts, images, and custom HTML to the e-mail message that is sent to the administrator, as well as choose which advanced custom fields of the submitted form are included in the e-mail (set to ‘all’ by default).   
 
+Note, that MailChimp Integration add-on will let you collect subscriber emails and have them transferred to your MailChimp account. This lets you use Form Maker plugin as AWeber form and ConvertKit form.
 
-3.3 Actions after Submission    
-Here you can select the action that takes place after form submission. Following options are available:   
-- Stay on form: The user stays on the form page.   
-- Post/Pages: The user is redirected to the selected Post/Pages.   
-- Custom text: Custom text is displayed on the screen.   
-- URL: The user is redirected to the provided URL.   
+3.3 Actions after Submission   
+Here you can select the action that takes place after form submission on this contact form builder plugin WordPress. Following options are available:   
+– Stay on form: The user stays on the form page.   
+– Post/Pages: The user is redirected to the selected Post/Pages.   
+– Custom text: Custom text is displayed on the screen.   
+– URL: The user is redirected to the provided URL.   
 
 3.4 Form Payment Options   
-3.4.1 Turn on PayPal. Allows making PayPal payments using Form Maker.   
+3.4.1 Turn on PayPal. Allows making PayPal payments using Form Maker. In other words, it turns Form Maker to an online order form generator.   
 3.4.2 Checkout Mode. Choose the checkout mode:   
-Production( https://developer.paypal.com/webapps/developer/docs/classic/lifecycle/goingLive/ )     
-Test Mode ( https://developer.paypal.com/webapps/developer/docs/integration/direct/test-the-api/ )     
+Production( https://developer.paypal.com/webapps/developer/docs/classic/lifecycle/goingLive/ )   
+Test Mode ( https://developer.paypal.com/webapps/developer/docs/integration/direct/test-the-api/ )   
 3.4.3 PayPal Email. Enter your PayPal email.   
-3.4.4 PayPal Currency. Choose your PayPal currency.  
-3.4.5 Tax. Add the tax amount if any.  
+3.4.4 PayPal Currency. Choose your PayPal currency.   
+3.4.5 Tax. Add the tax amount if any.   
+Note: This HTML5 form builder only applies one-time payments. It does not support recurring payment yet.   
 
 3.5 JavaScript   
-Here you can define new JavaScript functions, which can be applied to the form. Three empty event functions are included:   
-- before_load(): before the form is loaded   
-- before_submit(): before the form is submitted  
-- before_reset(): before the form is reset   
+This formbuilder lets you define new JavaScript functions, which can be applied to the form. Three empty event functions are included:   
+– before_load(): before the form is loaded   
+– before_submit(): before the form is submitted   
+– before_reset(): before the form is reset   
 
-3.6 Form Conditional Fields.  
-3.6.1 Add Condition. Using plus (+) button  on the upper left hand you can connect specific fields. The following field types are allowed to be used as conditional fields: Simple text, Password, Textarea, Name, Address (Country field- only), Email, Number, Phone, Multiple Choice, Single Choice, Select, PayPal fields (with an exception of the Total field).   
+3.6 Form Conditional Fields.   
+3.6.1 Add Condition. Using plus (+) button on the upper left hand you can connect specific fields. The following field types are allowed to be used as conditional fields: Simple text, Password, Textarea, Name, Address (Country field- only), Email, Number, Phone, Multiple Choice, Single Choice, Select, PayPal fields (with an exception of the Total field).   
 The formula of the conditional fields is the following:   
 For the main condition:   
 Show/Hide+Field 1+if any/all+of the following match   
 For the case(s):   
 Field 2+ is/ is not+Value, e.g.   
 Hide State if all of the following match   
-Country is not United States.    
+Country is not United States.   
 
-3.7 Form Layout    
-Here you can customize the layout of the form fields unchecking the Auto-Generate Layout checkbox and edit the HTML. The sample and more details for this option can be found in the back end of the plugin.   
+3.7 Form Layout   
+Here you can customize the layout of the form fields unchecking the Auto-Generate Layout checkbox and edit the HTML. Form Layout editor allows adding advanced custom fields to your form. The sample and more details for this option can be found in the back end of the contact form builder plugin.   
 
-= Step 4: Description of the form fields =    
+### Step 4: Description of the form fields   
 
-4.1 Custom HTML:An HTML editor. You can insert your own HTML content to your WordPress form builder.  
+4.1 Custom HTML:An HTML editor. You can insert your own HTML content to your WordPress form builder.   
 
-4.2 Text Input: At first choose the form Field Type according to your preference. There are several options:  
-Simple Text: This can be used for typing some text. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Value If Empty, Class Name, Required, Allow only unique values, Additional Attributes  
+4.2 Text Input: At first choose the form Field Type according to your preference. There are several options:    
+Simple Text: This can be used for typing some text. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Value If Empty, Class Name, Required, Allow only unique values, Additional Attributes   
 
-Password: This field can be used for adding a password field to your form. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Allow only unique values, Additional Attributes  
-Text Area: This field can be used for typing some text. The difference between Text Area and Simple Text is that Simple Text has only one row while Text Area can have several rows. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Value If Empty, Class Name, Required, Allow only unique values, Additional Attributes  
-Name: This can be used for typing a name. Default field labels can be edited clicking on the field label and typing in a custom label. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Value If Empty, Field Size, Name Format, Class Name, Required, Allow only unique values, Additional Attributes  
-Address: This field can be used for adding an address. Default field labels can be edited clicking on the label and typing in a custom label. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Overall Size, Class Name, Disable Fields, Required, Additional Attributes  
-Address (Mark on Map):This filed can be used for adding an address by directly marking it on the map. It has several attributes: Field Label, Field Label Position, Default Location, Map Size, Marker Info, Class Name, Additional Attributes  
-E-mail:This field can be used for typing the submitter’s e-mail. The submitted e-mail validation is checked. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Value If Empty, Class Name, Send mail to submitter, Required, Allow only unique values, Additional Attributes.  
-Number: This field can be used to provide numbers for different purposes (e.g. serial number). It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Value If Empty, Class Name, Required, Allow only unique values, Additional Attributes  
-Phone: This field can be used to provide a phone number. Default field labels can be edited clicking on the label and typing in a custom label. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Value If Empty, Field Size, Class Name, Required, Allow only unique values, Additional Attributes  
-Hidden Field: This field can be used to store additional information that does not need to be displayed. It has several attributes : Field ld, Field Name, Field Value, Additional Attributes.  
-4.3 Time and Date: Choose the Field Type according to your preference. There are several options:  
-Date (single field with a picker): This field can be used for typing a date or choosing by the picker. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Date format, Date Picker Label, Class Name, Required, Additional Attributes.  
-Date (3 separate fields): This field can be used for typing a date in 3 field format(day, month, year). Default field labels can be edited clicking on the field label and typing in a custom label. Each of the 3 fields can be set as text input or select list. Each of the 3 fields has the attributes Field Size and Field Label. For year field the select list interval can be defined. These 3 fields can be separated in the format set by the fields separator attribute. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Class Name, Required, Additional Attributes.  
-Time: This field can be used for typing a time. Default field labels can be edited clicking on the field label and typing in a custom label. Time can be shown in 24 hour or 12 hour formats by setting the time format attribute. The seconds preview can be enabled/disabled by setting the Display Seconds attribute. The field has several standard attributes: Field Id, Field Name, Field Label, Field Label Position, Class Name, Required, Additional Attributes.  
-4.4 Select: Choose the Field Type according to your preference. There are several options:  
-Custom select: This field can be used for selecting the values from a list. The list can be defined by Options attribute. You can easily add and remove list items. The checked items are considered as empty values. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Additional Attributes.  
-Country list: This field can be used for selecting a country from a list. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Additional Attributes.  
-4.5 Checkbox: This field can be used for selecting the values from a list of checkboxes. The list can be defined by Options attribute. You can easily add and remove list items. The list can be displayed in horizontal/vertical positions by setting the Relative Position attribute. You can use Rows/Columns field if you want the options to be displayed in a row/column (depending on the positioning choice). The number of rows/columns should be specified. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Randomize in frontend, Allow other, Additional Attributes.  
+Password: This field can be used for adding a password field to your form. If you have WordPress Registration add-on, this can help you setup sign up form and login forms. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Allow only unique values, Additional Attributes   
+Text Area: This field can be used for typing some text. The difference between Text Area and Simple Text is that Simple Text has only one row while Text Area can have several rows. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Value If Empty, Class Name, Required, Allow only unique values, Additional Attributes   
+Name: This can be used for typing a name. Default field labels can be edited clicking on the field label and typing in a custom label. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Value If Empty, Field Size, Name Format, Class Name, Required, Allow only unique values, Additional Attributes   
+Address: This field can be used for adding an address. Default field labels can be edited clicking on the label and typing in a custom label. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Overall Size, Class Name, Disable Fields, Required, Additional Attributes   
+Address (Mark on Map):This filed can be used for adding an address by directly marking it on the map. It has several attributes: Field Label, Field Label Position, Default Location, Map Size, Marker Info, Class Name, Additional Attributes   
+E-mail:This field can be used for typing the submitter’s e-mail. The submitted e-mail validation is checked. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Value If Empty, Class Name, Send mail to submitter, Required, Allow only unique values, Additional Attributes.   
+Number: This formbuilder field can be used to provide numbers for different purposes (e.g. serial number). It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Value If Empty, Class Name, Required, Allow only unique values, Additional Attributes   
+Phone: This field can be used to provide a phone number. Default field labels can be edited clicking on the label and typing in a custom label. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Value If Empty, Field Size, Class Name, Required, Allow only unique values, Additional Attributes   
+Hidden Field: This field can be used to store additional information that does not need to be displayed. It has several attributes : Field ld, Field Name, Field Value, Additional Attributes.   
 
-4.6 Radio:This form field can be used for selecting the values from a list of radio buttons. The list can be defined by Options attribute. You can use Rows/Columns field if you want the options to be displayed in a row/column (depending on the positioning choice). The number of rows/columns should be specified. You can easily add and remove list items. The list can be displayed in horizontal/vertical positions by setting the Relative Position attribute.The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Randomize in frontend, Allow other, Additional Attributes.  
+4.3 Time and Date: Choose the Field Type according to your preference. There are several options:   
+Date (single field with a picker): This field can be used for typing a date or choosing by the picker. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Date format, Date Picker Label, Class Name, Required, Additional Attributes.   
+Date (3 separate fields): This field can be used for typing a date in 3 field format(day, month, year). Default field labels can be edited clicking on the field label and typing in a custom label. Each of the 3 fields can be set as text input or select list. Each of the 3 fields has the attributes Field Size and Field Label. For year field the select list interval can be defined. These 3 fields can be separated in the format set by the fields separator attribute. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Class Name, Required, Additional Attributes.   
+Time: This field can be used for typing a time. Default field labels can be edited clicking on the field label and typing in a custom label. Time can be shown in 24 hour or 12 hour formats by setting the time format attribute. The seconds preview can be enabled/disabled by setting the Display Seconds attribute. The field has several standard attributes: Field Id, Field Name, Field Label, Field Label Position, Class Name, Required, Additional Attributes.   
 
-4.7 File Upload: This form field can be used for uploading files. The size of the uploaded file can be limited by setting the value of Maximum Size attribute in KB. The upload folder can be mentioned by setting the Destination attribute. Only files with extensions listed in Allowed file extensions attribute can be uploaded. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Class Name, Required, Additional Attributes.  
+4.4 Select: Choose the Field Type according to your preference. There are several options:   
+Custom select: This field can be used for selecting the values from a list. The list can be defined by Options attribute. You can easily add and remove list items. The checked items are considered as empty values. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Additional Attributes.   
+Country list: This field can be used for selecting a country from a list. It has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Additional Attributes.   
 
-4.8 Captcha:This field can be used for the ensuring that the submission is generated by a person. Choose the Field Type according to your preference. There are several options:  
-Simple Captcha This is a easy to configure Simple Captcha. The number of randomly generated symbols can be set by the value of Captcha size attribute. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Class Name, Additional Attributes.  
-Recaptcha This is an alternative option for Captcha that uses Public and Private Keys. You will need to create reCaptcha keys with the help of a dedicated tool.The tool can be found on https://www.google.com/recaptcha/admin/create.  
+4.5 Checkbox: This field can be used for selecting the values from a list of checkboxes. The list can be defined by Options attribute. You can easily add and remove list items. The list can be displayed in horizontal/vertical positions by setting the Relative Position attribute. You can use Rows/Columns field if you want the options to be displayed in a row/column (depending on the positioning choice). The number of rows/columns should be specified. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Randomize in frontend, Allow other, Additional Attributes.   
 
-4.9 Page Break: This can be used to break the form into distinct pages. Use Page Title to provide a title for the given page. Furthermore, the following parameters of the “Next” and “Previous” navigation buttons can be customized:  
-Type, Name, Class Name, Check the required fields , Additional Attributes.  
+4.6 Radio:This form field can be used for selecting the values from a list of radio buttons. The list can be defined by Options attribute. You can use Rows/Columns field if you want the options to be displayed in a row/column (depending on the positioning choice). The number of rows/columns should be specified. You can easily add and remove list items. The list can be displayed in horizontal/vertical positions by setting the Relative Position attribute.The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Field Size, Class Name, Required, Randomize in frontend, Allow other, Additional Attributes.   
 
-4.10 Section Break: This option allows adding a section break to the form page.  
+4.7 File Upload: This form field can be used for uploading files. The size of the uploaded file can be limited by setting the value of Maximum Size attribute in KB. The upload folder can be mentioned by setting the Destination attribute. Only files with extensions listed in Allowed file extensions attribute can be uploaded. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Class Name, Required, Additional Attributes.   
 
-4.11 Map: This field can be used for pointing out some position on the map. The position of the marker is fixed at the front end. Multiple locations can be selected by clicking the + button. The field has several attributes:  
-Location, Map Size, Marker Info, Class Name, Additional Attributes.  
+4.8 Captcha:If Akismet is not enough for securing your forms, this field can be used for the ensuring that the submission is generated by a person. Choose the Field Type according to your preference. There are several options:   
+Simple Captcha This is a easy to configure Simple Captcha. The number of randomly generated symbols can be set by the value of Captcha size attribute. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Class Name, Additional Attributes.   
+Recaptcha This is an alternative option for Captcha that uses Public and Private Keys. You will need to create reCaptcha keys with the help of a dedicated tool.The tool can be found on https://www.google.com/recaptcha/admin/create.   
 
-4.12 PayPal: Choose the Field Type. The following options are available:  
-Amount (Price) This field is for indicating the amount of payment. Default form field labels can be edited clicking on the form field label and typing in a custom label. You can configure the following attributes: Field Label, Field Label Position, Range, Value If Empty, Field Size, Class Name, Required, Hide Cents, and Additional Attributes.  
-Select This field can be used for selecting a product/service for which the payment is being made. The list (each item consists of “Product name” and its “Price”)can be specified by the Options attribute. You can easily add and remove list items. There is also a Product Properties parameter, where you can add different properties (e.g. size) by specifying the type, the name, and adding options for selection. The checked items are considered as empty values. You can configure the following attributes: Field Label, Field Label Position, Field Size, Class Name, Required, and Additional Attributes.  
-Checkbox This field can be used for selecting multiple products/services for which the payment is being made. The options (each item consists of “Product name” and its “Price”) can be specified by the Options attribute. You can easily add and remove list items. There is also a quantity property parameter where the quantity of products/services can be specified. Moreover, there is a Product Properties parameter, where you can add different properties (e.g. size) by specifying the type, the name, and adding options for selection. You can configure the following attributes: Field Label, Field Label Position, Relative Position, Class Name, Required, and Additional Attributes.  
-Radio This field can be used for selecting the product/service for which the payment is being made. The options (each item consists of “Product name” and its “Price”) can be specified by the Options attribute. You can easily add and remove list items. There is also a quantity property parameter where the quantity of products/services can be specified. Moreover, there is a Product Properties parameter, where you can add different properties (e.g. size) by specifying the type, the name, and adding options for selection. You can configure the following attributes: Field Label, Field Label Position, Relative Position, Class Name, Required, and Additional Attributes.  
-Shipping This field can be used for selecting the shipping option for the selected product. The options (each item consists of a “Type” and “Price” parameters) can be specified by the Options attribute. You can easily add and remove list items. You can configure the following attributes: Field Label, Field Label Position, Relative Position, Class Name, Required, and Additional Attributes.  
-Total This field calculates the total sum to be paid via PayPal, including the payments for the shipping and taxes (if applicable).  
+4.9 Page Break: This can be used to break the form into distinct pages. Use Page Title to provide a title for the given page. Furthermore, the following parameters of the “Next” and “Previous” navigation buttons can be customized:   
+Type, Name, Class Name, Check the required fields , Additional Attributes.   
 
-4.13 Survey Tools: Choose the Field Type according to your preferences. There are several options:  
-Star Rating: This form field can be used for inserting star rating field in the form. Type the name of the field to be displayed with the rating system. The field has several attributes: Field Label Position, Star Amount, Star Color, Class Name, Required, and Additional Attributes.  
-Scale Rating: This field can be used for inserting scale rating in the form. Type the name of the field to be displayed with the rating system.Default field labels for lowest/highest satisfaction/grading can be edited clicking on the field label and typing in a custom label. The field has several attributes: Field Label Position, Scale Amount, Class Name, Required, and Additional Attributes.  
-Spinner: This field can be used for inserting spinner as a rating system in the form. Type the name of the field to be displayed with the rating system. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Width, Min Value, Max Value, Step, Class Name, Required, and Additional Attributes.  
-Slider: This field can be used for inserting slider as a rating system in the form. Type the name of the field to be displayed with the rating system. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Width, Min Value, Max Value, Class Name, Required, and Additional Attributes.  
-Range: This field can be used for inserting range system in the form. Type the name of the field to be displayed with the range system. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Width, Step, Class Name, Required, and Additional Attributes.  
-Grading: This field can be used for inserting grading system in the form. Type the name of the field to be displayed with the grading system. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Total, Items, Class Name, Required, and Additional Attributes.  
-Matrix: This field can be used for inserting a matrix in the form. Type the name of the field to be displayed with the matrix. The field has several attributes: Field Label, Field Label Position, Input Type, Rows, Columns, Class Name, Required, and Additional Attributes.  
-4.14 Submit Button: Choose the Field Type according to your preference. There are several options:  
-Submit and Reset: This field can be used for inserting a submit/reset button into the form. You can display reset button by checking the box called Display reset button. Type the name of the submit and reset buttons in Submit button label and Reset button label. The field also has several attributes: Class Name and Additional Attributes.  
-Custom: This field can be used for inserting custom buttons into the form. Type the name of each button in button name field. You can define click functions for each button. The field also has several attributes: Class Name and Additional Attributes.  
+4.10 Section Break: This option allows adding a section break to the form page.   
 
-= Step 5: Publishing the created form. =    
+4.11 Map: This field can be used for pointing out some position on the map. The position of the marker is fixed at the front end. Multiple locations can be selected by clicking the + button. The field has several attributes:   
+Location, Map Size, Marker Info, Class Name, Additional Attributes.   
 
-To insert a form into a Page or a Post.  
+4.12 PayPal: Choose the Field Type. The following options are available:   
+Amount (Price) This field is for indicating the amount of payment. Default form field labels can be edited clicking on the form field label and typing in a custom label. You can configure the following attributes: Field Label, Field Label Position, Range, Value If Empty, Field Size, Class Name, Required, Hide Cents, and Additional Attributes.   
+Select This field can be used for selecting a product/service for which the payment is being made. The list (each item consists of “Product name” and its “Price”)can be specified by the Options attribute. You can easily add and remove list items. There is also a Product Properties parameter, where you can add different properties (e.g. size) by specifying the type, the name, and adding options for selection. The checked items are considered as empty values. You can configure the following attributes: Field Label, Field Label Position, Field Size, Class Name, Required, and Additional Attributes.   
+Checkbox This field can be used for selecting multiple products form will indicate for PayPal payment. The options (each item consists of “Product name” and its “Price”) can be specified by the Options attribute. You can easily add and remove list items. This WordPress builder plugin also has a quantity property parameter where the quantity of products/services can be specified. Moreover, there is a Product Properties parameter, where you can add different properties (e.g. size) by specifying the type, the name, and adding options for selection. You can configure the following attributes: Field Label, Field Label Position, Relative Position, Class Name, Required, and Additional Attributes.   
+Radio This field can be used for selecting the product/service for which the payment is being made. The options (each item consists of “Product name” and its “Price”) can be specified by the Options attribute. You can easily add and remove list items. There is also a quantity property parameter where the quantity of products/services can be specified. Moreover, there is a Product Properties parameter, where you can add different properties (e.g. size) by specifying the type, the name, and adding options for selection. You can configure the following attributes: Field Label, Field Label Position, Relative Position, Class Name, Required, and Additional Attributes.   
+Shipping This field can be used for selecting the shipping option for the selected product. The options (each item consists of a “Type” and “Price” parameters) can be specified by the Options attribute. You can easily add and remove list items. You can configure the following attributes: Field Label, Field Label Position, Relative Position, Class Name, Required, and Additional Attributes.   
+Total. This is a calculated field. Without any complex equation editor, it calculates the total sum to be paid via PayPal, including the payments for the shipping and taxes (if applicable). You can add this field to your form as a price quote calculator.   
 
-5.1. Press the button named Insert Form Maker in a post or a page you want to show the form.
+4.13 Survey Tools: Choose the Field Type according to your preferences. There are several options:   
+Star Rating: This WP form field can be used for inserting star rating field in the form. Type the name of the field to be displayed with the rating system. The field has several attributes: Field Label Position, Star Amount, Star Color, Class Name, Required, and Additional Attributes.   
+Scale Rating: This field can be used for inserting scale rating in the form. Type the name of the field to be displayed with the rating system.Default field labels for lowest/highest satisfaction/grading can be edited clicking on the field label and typing in a custom label. The field has several attributes: Field Label Position, Scale Amount, Class Name, Required, and Additional Attributes.   
+Spinner: This field can be used for inserting spinner as a rating system in the form. Type the name of the field to be displayed with the rating system. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Width, Min Value, Max Value, Step, Class Name, Required, and Additional Attributes.   
+Slider: This field can be used for inserting slider as a rating system in the form. Type the name of the field to be displayed with the rating system. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Width, Min Value, Max Value, Class Name, Required, and Additional Attributes.   
+Range: This field can be used for inserting range system in the form. Type the name of the field to be displayed with the range system. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Width, Step, Class Name, Required, and Additional Attributes.   
+Grading: This field can be used for inserting grading system in the form. Type the name of the field to be displayed with the grading system. The field has several attributes: Field Id, Field Name, Field Label, Field Label Position, Total, Items, Class Name, Required, and Additional Attributes.   
+Matrix: This field can be used for inserting a matrix in the form. Type the name of the field to be displayed with the matrix. The field has several attributes: Field Label, Field Label Position, Input Type, Rows, Columns, Class Name, Required, and Additional Attributes.   
 
-5.2. Select a form from the list.
+4.14 Submit Button: Choose the Field Type according to your preference. There are several options:   
+Submit and Reset: This field can be used for inserting a submit/reset button into the form. You can display reset button by checking the box called Display reset button. Type the name of the submit and reset buttons in Submit button label and Reset button label. The field also has several attributes: Class Name and Additional Attributes.   
+Custom: This field can be used for inserting custom buttons into the form. Type the name of each button in button name field. You can define click functions for each button. The field also has several attributes: Class Name and Additional Attributes.   
 
-5.3. Save the page or the post.
+### Step 5: Publishing the created form.   
 
-Alternatively, you can use form builder without the button on the toolbar. Add the shortcode [Form id="N"] (where N is the id of the form, for the form with id=2, the shortcode must be [Form id="2"]) to the pages and posts, where you want the form to appear. For each form you can find the relevant shortcode from Manager view, it is stored on the right corner of the form title.  
+To insert a WP form into a Page or a Post.   
+
+5.1. Press the button named Insert Form Maker in a post or a page you want to show the form.   
+
+5.2. Select a form from the list.   
+
+5.3. Save the page or the post.   
+
+Alternatively, you can use form builder without the button on the toolbar. Add the shortcode [Form id=”N”] (where N is the id of the form, for the form with id=2, the shortcode must be [Form id=”2″]) to the pages and posts, where you want the form to appear. For each form you can find the relevant shortcode from Manager view, it is stored on the right corner of the form title.   
   
 
-= Step 6: Managing submissions of the form. =    
+### Step 6: Managing submissions of the form.   
   
-6.1 On the left menu select Form Maker > Submissions  
+6.1 On the left menu select Form Maker > Submissions   
 
-6.2 In order to manage a form's submissions, select the form from the list.  
+6.2 In order to manage a form’s submissions, select the form from the list.   
 
-6.3 For each form certain types of statistical data are available:  
-- Entries: The number of submitted forms.  
-- Views: The number of times the form has been viewed.  
-- Conversion Rate: The percentage of submitted forms to the overall number of views.  
+6.3 For each form certain types of statistical data are available:   
+– Entries: The number of submitted forms.   
+– Views: The number of times the form has been viewed.   
+– Conversion Rate: The percentage of submitted forms to the overall number of views.   
 
-6.4 For the forms that contain checkboxes or radio buttons a separate statistics is available. It shows how many times a particular checkbox/radio button has been checked, and what is the ratio of that number to the overall number of checks.  
+6.4 For the forms that contain checkboxes or radio buttons a separate statistics is available. It shows how many times a particular checkbox/radio button has been checked, and what is the ratio of that number to the overall number of checks.   
 
-6.5 Form builder allows to search the submissions database by all the relevant fields of the given form. Submissions can be sorted by any of the fields of the form by clicking the labels.  
+6.5 Form builder allows to search forms submissions database by all the relevant fields of the given form. Submissions can be sorted by any of the fields of the form by clicking the labels.   
 
+6.6 Form builder allows to delete any of submissions by selecting them and pressing the “Delete” button on the top of the page.   
 
-6.6 Form builder allows to delete any of submissions by selecting them and pressing the “Delete” button on the top of the page.  
+6.7 Form builder allows to edit the submissions by clicking on the “Edit” icon on the upper right corner of the “Submissions” section.   
 
-6.7 Form builder allows to edit the submissions by clicking on the “Edit” icon on the upper right corner of the “Submissions” section.  
-
-6.8 Form builder allows to add/remove any column of the submissions by “Add/Remove Columns” button. 
+6.8 Form builder allows to add/remove any column of the submissions by “Add/Remove Columns” button.   
   
-6.9 The submissions can be exported to the CSV and XML formats.
+6.9 The submissions can be exported to the CSV and XML formats.   
 
 
+### Step 7: Blocking IPs   
 
-= Step 7: Blocking IPs +
-6.1 Go to Plugins > Form Maker > Blocked IPs.
-6.2 IP. Provide the IP address you want to block in the line.
-6.3 Press Add IP button.
+7.1 Go to Plugins > Form Maker > Blocked IPs.   
+7.2 IP. Provide the IP address you want to block in the line.   
+7.3 Press Add IP button.   
 
-Note:  Another option of blocking IPs can be done from the Submissions section. You should go to Form Maker > Submissions. Check the box in front of Spam submissions and press Block IP button at the top right corner. In addition you can unblock the IP using Unblock IP button in the same location.
+Note: Another option of blocking IPs can be done from the Submissions section. You should go to Form Maker > Submissions. Check the box in front of Spam submissions and press Block IP button at the top right corner. In addition you can unblock the IP using Unblock IP button in the same location.   
 
-= Step 8: Publishing submissions of the WordPress Form  =
-8.1 Press the button named Insert Form Maker in a post or a page you want to show the form.  
-8.2 Click on Submissions tab.    
-8.3 Select a Form. Using the dropdown list select the form.    
+### Step 8: Publishing submissions of the WordPress Form   
+
+8.1 Press the button named Insert Form Maker in a post or a page you want to show the WP form.   
+8.2 Click on Submissions tab.   
+8.3 Select a Form. Using the dropdown list select the form.   
 8.4 Select Date Range. Specify the starting and ending dates for the date range for the submissions.   
-8.5 Select fields. Check the field types you want to display within the front end submissions. Please note that the list of the form fields should be defined in General Options unless you want all fields to be displayed.
+8.5 Select fields. Check the field types you want to display within the front end submissions. Please note that the list of the form fields should be defined in General Options unless you want all fields to be displayed.   
 8.6 Export to. Allow the users to export the submissions list in CSV and/or XML format. If you uncheck both options, the feature will not be displayed.   
-8.7 Show. Check the form-associated features to be displayed within the front end submissions page.    
+8.7 Show. Check the form-associated features to be displayed within the front end submissions page.   
 
-= Step 9: Export/Import =
-Form Maker Export/Import is a Form Maker capacity enhancing plugin. It uses a set of three easily adjustable sections.
-The first section allows exporting form submissions from a WordPress website to specific software which is capable of handling CSV or XML format files. This is specifically useful for the data analysis of the form entry with advanced analytical tools. The submissions can be selected for a specific range. You can include only the fields for the form required for the analysis. 
-The second section is designed for exporting the forms and importing them to another location. The form submissions can also be exporting with the forms. 
-The third section allows importing the previously exported forms. These two sections are useful for keeping the forms and their entries when moving for another website. 
-The product is simple in use and does not require any coding experience.
+### Export/Import   
 
-Export Submissions
+Export/Import add-on provided by this contact form generator form builder is a capacity enhancing plugin for this HTML5 form builder. It uses a set of three easily adjustable sections.   
+The first section allows exporting form submissions from a WordPress website to specific software which is capable of handling CSV or XML format files. This is specifically useful for the data analysis of the form entry with advanced analytical tools. The submissions can be selected for a specific range. You can include only the fields for the form required for the analysis.   
+The second section is designed for exporting the forms and importing them to another location. The form submissions can also be exporting with the forms.   
+The third section allows importing the previously exported forms. These two sections are useful for keeping the forms and their entries when moving for another website.   
+The product is simple in use and does not require any coding experience.   
 
-Go to Form Maker Export/Import>Export Submissions to export the submissions of the forms in use.
-Select a Form. Choose the corresponding form from the dropdown list for exporting the submissions.
-Select Fields. All form fields will be displayed here in rows. You can select all or specific fields to be included in the exported file. To do so you should check the box next to the field title.
-Select Date Range. This options is useful if you plan to get the entries for a specific period. Using the date pickers you can select the From and To dates.
-Export To. You can download the submissions in CSV and XML format choosing the button of the relevant format.
+Export Submissions   
 
-Export /Forms
+Go to Form Maker Export/Import>Export Submissions to export the submissions of the forms in use.   
+Select a Form. Choose the corresponding form from the dropdown list for exporting the submissions.   
+Select Fields. All form fields will be displayed here in rows. You can select all or specific fields to be included in the exported file. To do so you should check the box next to the field title.   
+Select Date Range. This options is useful if you plan to get the entries for a specific period. Using the date pickers you can select the From and To dates.   
+Export To. You can download the submissions in CSV and XML format choosing the button of the relevant format.   
 
-Go to Form Maker Export/Import>Export Forms to export forms for further import to another location. This option is useful when you have to export forms from one website to another.
-Select Forms. The list of previously created forms will be displayed here. You can choose a single or multiple forms to export by checking the box.
-Export Submissions. In addition to the form, you can also transfer the submissions of it checking this option.
-Export To. The files (including forms with/without submissions) will be downloaded in XML format, when pressing the XML button.
+Export Forms   
 
-Import Forms
+You need to open Form Maker Export/Import add-on of this dynamic web form builder plugin, then go to Export Forms to export forms for further import to another location. This option is useful when you have to export forms from one website to another.   
+Select Forms. The list of previously created forms will be displayed here. You can choose a single or multiple forms to export by checking the box.   
+Export Submissions. In addition to the form, you can also transfer the submissions of it checking this option.   
+Export To. The files (including forms with/without submissions) will be downloaded in XML format, when pressing the XML button.   
 
-Go to Form Maker Export/Import>Export Forms to import forms from another website to the current one.
-Select file. Press Choose File and select the form XML file, then press Select button.
+Import Forms   
 
-= Save Progress =
-General Description
+Open this drag drop form builder plugin from WordPress dashboard, then go to Form Maker Export/Import > Export Forms to import forms from another website to the current one.   
+Select file. Press Choose File and select the form XML file, then press Select button.   
 
-Do you use large applications and want to allow your users to finalize them later? Using Form Maker Save Progress you can let your users to start filling out the form and getting back to it at their convenience. Save button will be added to standard and Submit buttons, so that user can save the form at any time.
+### Save Progress   
 
-The add-on works only for registered users, including those who have subscriber user level. When logged in they can return to the form page, where they will see pre-filled data. The users will have two options: to continue where they have left off or change submitted data. For the last option they can use Clear button which will completely erase previously saved data.
+General Description   
 
-Partial/Incomplete submissions will be stored in separate Saved Entries section when users press Save button. As a result no data will be lost, even if the form is not submitted at the end.
+Do you use large applications and want to allow your users to finalize them later? Using Save Progress add-on of this contact form generator form builder plugin you can let your users to start filling out the form and getting back to it at their convenience. Save button will be added to standard and Submit buttons, so that user can save the form at any time.   
 
-Installation
+The add-on of Form Maker offline form builder works only for registered users, including those who have subscriber user level. When logged in they can return to the form page, where they will see pre-filled data. The users will have two options: to continue where they have left off or change submitted data. For the last option they can use Clear button which will completely erase previously saved data.   
 
-You should install Form Maker Save Progress add-on as a standard plugin. Go to Plugins section of your WordPress site, press Add new. Here select the downloaded zip file of the add-on and press Install Now. After the installation is completed press Activate button. Alternatively you can extract the plugin’s zip file and upload to your wp-content/plugins folder via FTP, then enter Plugins section and press Activate.
+Partial/Incomplete submissions will be stored in separate Saved Entries section when users press Save button. As a result no data will be lost, even if the form is not submitted at the end.   
 
-Save Progress Integration
+Installation   
 
-Login to your WordPress site using administrator credentials. Navigate to Form Maker> Manager>Your Form. Hit Form Options button. Find Save Progress Tab. Activate the option and fill in further details. Finalize the changes pressing Save button.
+You should install Save Progress add-on this HTML form generator plugin as a standard plugin. Go to Plugins section of your WordPress site, press Add new. Here select the downloaded zip file of the add-on and press Install Now. After the installation is completed press Activate button. Alternatively you can extract the plugin’s zip file and upload to your wp-content/plugins folder via FTP, then enter Plugins section and press Activate.   
 
-Allow users to save progress? Enable this option to allow your users to save filled in data and return for further editing.
-Display clear button? If you want your user to be able to delete previously entered data and start filling in the form from scratch enable this option.
-Save data for. Specify number of days to keep drafted data in Saved entries. If not submitted, data will be completely erased after provided time period. Leave it to 0, if you don't want to erase data in general.
-Save message. Provide a message, which will be displayed to users when they press Save button after filling the form.
-Send email. Choose whether to send email to user when form is submitted or not.
-Send to. Choose the email field which will receive an email informing that form entry is saved.
-Email text. Provide custom text which will be sent to user when form entry is saved.
+Save Progress Integration   
 
+Login to your WordPress site using administrator credentials. Open this free online application form creator from WordPress left menu > Form Maker, then navigate to Forms Manager > Your Form. Hit Form Options button. Find Save Progress Tab. Activate the option and fill in further details. Finalize the changes pressing Save button.   
 
+Allow users to save progress? Enable this option to allow your users to save filled in data and return for further editing.   
+Display clear button? If you want your user to be able to delete previously entered data and start filling in the form from scratch enable this option.   
+Save data for. Specify number of days to keep drafted data in Saved entries. If not submitted, data will be completely erased after provided time period. Leave it to 0, if you don’t want to erase data in general.   
+Save message. Provide a message, which will be displayed to users when they press Save button after filling the form.   
+Send email. Choose whether to send email to user when form is submitted or not.   
+Send to. Choose the email field which will receive an email informing that form entry is saved.   
+Email text. Provide custom text which will be sent to user when form entry is saved.   

@@ -27,6 +27,7 @@
 .submissions {
   margin-top:20px;
   border-top:1px solid #ccc !important;
+  table-layout: auto;
 }
 .submissions th {
   padding: 3px;
@@ -132,4 +133,18 @@
 }
 .submissions pre {
   background: transparent;
+  margin: 0 !important;
+  padding: 0 !important;
 }
+.submissions pre {
+    vertical-align: middle !important
+}
+.wd_front_submissons_th{
+	min-width:150px;
+	max-width:200px;
+}
+.container-wrap .submission_params input[type="text"], .container-wrap .stats input[type="text"] {
+	width: initial !important;
+	padding: 0 !important;
+}
+

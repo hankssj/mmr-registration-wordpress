@@ -252,6 +252,8 @@ class FMViewSelect_data_from_db {
 		document.getElementById('db_field_value').style.display = "none";
 	}
 	
+	
+	
     if(jQuery('#value_disabled').val()=='no')
 	jQuery('.ch_rad_value_disabled').hide();
 
@@ -700,7 +702,7 @@ function gen_query(){
 
 				?>
 			</select>
-		</div>
+		</div> 
 		<div class="select-db-op where"><img src="<?php echo WD_FM_URL . '/images/add_condition.png?ver='. get_option("wd_form_maker_version").''; ?>" title="ADD" class="add_cond"/>WHERE</div>
 			
 	</div>

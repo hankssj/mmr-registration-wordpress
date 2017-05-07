@@ -33,31 +33,18 @@ class FMViewBlocked_ips_fm {
 		$ids_string = '';
 		?>
 		<div id="fm_blocked_ips_message" style="width: 99%; display: none;"></div>
-		<div class="fm-user-manual">
-			This section allows you to block IPs.
-			<a style="color: blue; text-decoration: none;" target="_blank" href="https://web-dorado.com/wordpress-form-maker/blocking-ips.html">Read More in User Manual</a>
-		</div>
-		<div class="fm-upgrade-pro">
-			<a target="_blank" href="https://web-dorado.com/files/fromFormMaker.php">
-				<div class="fm-upgrade-img">
-					UPGRADE TO PRO VERSION 
-					<span></span>
-				</div>
-			</a>
-		</div>
-		<div class="fm-clear"></div>
-		<form onkeypress="fm_doNothing(event)" class="wrap" id="blocked_ips" method="post" action="admin.php?page=blocked_ips_fm" style="width:99%;">
+		<form onkeypress="fm_doNothing(event)" class="wrap" id="blocked_ips" method="post" action="admin.php?page=blocked_ips_fm">
 			<?php wp_nonce_field('nonce_fm', 'nonce_fm'); ?>
 			<div class="fm-page-banner blocked-ips-banner">
 				<div class="block_icon">
 				</div>
 				<div class="fm-logo-title">Blocked IPs</div>
 				<div class="fm-page-actions">
-					<button class="fm-button save-button small" onclick="fm_set_input_value('task', 'save_all');">
+					<button class="fm-button save-button medium" onclick="fm_set_input_value('task', 'save_all');">
 						<span></span>
 						Save
 					</button>
-					<button class="fm-button delete-button small" onclick="if (confirm('Do you want to unblock selected IPs?')) { fm_set_input_value('task', 'delete_all'); } else { return false; }">
+					<button class="fm-button delete-button medium" onclick="if (confirm('Do you want to unblock selected IPs?')) { fm_set_input_value('task', 'delete_all'); } else { return false; }">
 						<span></span>
 						Delete
 					</button>
@@ -97,7 +84,7 @@ class FMViewBlocked_ips_fm {
 						<th></th>
 						<th>
 							<input type="text" class="input_th" id="ip" name="ip" onkeypress="return fm_check_isnum(event)">
-							<button class="fm-button add-button small" onclick="if (fm_check_required('ip', 'IP')) {return false;} fm_set_input_value('task', 'save'); fm_set_input_value('current_id', ''); fm_save_ip('blocked_ips');">
+							<button class="fm-button add-button medium" onclick="if (fm_check_required('ip', 'IP')) {return false;} fm_set_input_value('task', 'save'); fm_set_input_value('current_id', ''); fm_save_ip('blocked_ips');">
 								Add IP
 								<span></span>
 							</button>

@@ -19,12 +19,6 @@ class FMModelFormMakerPreview {
   // Public Methods                                                                     //
   ////////////////////////////////////////////////////////////////////////////////////////
 
-  public function get_theme_css($id) {
-    global $wpdb;
-    $css = $wpdb->get_var($wpdb->prepare('SELECT css FROM ' . $wpdb->prefix . 'formmaker_themes WHERE id="%d"', $id));
-    return $css;
-  }
-
   public function get_form($form_id) {
     global $wpdb;
     $form = $wpdb->get_var($wpdb->prepare('SELECT form_front FROM ' . $wpdb->prefix . 'formmaker WHERE id="%d"', $form_id));
