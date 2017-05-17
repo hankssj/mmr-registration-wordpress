@@ -1,5 +1,4 @@
 <?php
-
 define( 'SHORTINIT', true );
 require_once( '../wp-load.php' );
 require_once dirname( __FILE__ ) . '../../wp-content/plugins/eventBookingPro/helpers.php';
@@ -17,8 +16,6 @@ $settings = $wpdb->get_row( "SELECT force_ssl_v3, sandbox  FROM " . EventBooking
 $listener = new IpnListener();
 
 $listener->force_ssl_v3 = ($settings->force_ssl_v3 == "true");
-
-//$listener->use_ssl = false;
 
 $listener->use_sandbox = ($settings->sandbox == "true");
 
@@ -78,11 +75,10 @@ function paymentDone ($status) {
 
 function handleEmailStatus($emailSendStatus) {
 	if ($emailSendStatus[0] != EmailService::SENT_SUCCESS) {
-    error_log("error sending email to customer: " . print_R($emailSendStatus[0]));
-  }
-  if ($emailSendStatus[1] != EmailService::SENT_SUCCESS) {
-    error_log("error sending email to admin: " . print_R($emailSendStatus[1]));
-  }
+    	error_log("error sending email to customer: " . print_R($emailSendStatus[0]));
+	}
+	if ($emailSendStatus[1] != EmailService::SENT_SUCCESS) {
+    	error_log("error sending email to admin: " . print_R($emailSendStatus[1]));
+	}
 }
-
 ?>

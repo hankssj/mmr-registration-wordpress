@@ -19,16 +19,6 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
 	<?php wp_head(); ?>
-	<script type="text/javascript">
-		jQuery(document).ready(function(){
-			var len=jQuery("table.gv-table-view tbody tr td").length;
-			if(len>1){
-				jQuery(".gform_wrapper").hide();
-			}
-			
-		});
-	
-</script>
 </head>
 
 <body <?php body_class(); ?>>

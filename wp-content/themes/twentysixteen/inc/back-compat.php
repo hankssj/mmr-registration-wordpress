@@ -20,9 +20,7 @@
  */
 function twentysixteen_switch_theme() {
 	switch_theme( WP_DEFAULT_THEME, WP_DEFAULT_THEME );
-
 	unset( $_GET['activated'] );
-
 	add_action( 'admin_notices', 'twentysixteen_upgrade_notice' );
 }
 add_action( 'after_switch_theme', 'twentysixteen_switch_theme' );

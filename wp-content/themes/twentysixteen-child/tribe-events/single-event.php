@@ -17,21 +17,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural = tribe_get_event_label_plural();
-
 $event_id = get_the_ID();
-
 ?>
 
 <div id="tribe-events-content" class="tribe-events-single">
-
 	<p class="tribe-events-back">
 		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
 	</p>
 
 	<!-- Notices -->
-	<?php tribe_the_notices() ?>
-
-	<?php the_title( '<h1 class="tribe-events-single-event-title">', '</h1>' ); ?>
+	<?php 
+		tribe_the_notices();
+	    the_title( '<h1 class="tribe-events-single-event-title">', '</h1>' ); 
+	?>
 
 	<div class="tribe-events-schedule tribe-clearfix">
 		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
@@ -85,27 +83,17 @@ $event_id = get_the_ID();
 	</div>
 	<!-- #tribe-events-footer -->
 	<?php
-	
-
-	
 	if(get_option( 'disable_questionairies' )=='' || get_option( 'disable_questionairies' )!=1){
-	$eid = get_the_id();
-	global $product;
-	$current_user = wp_get_current_user();
-
-	if ( wc_customer_bought_product( $current_user->user_email, $current_user->ID, $product->id ) ){
-	
-	
-	$quesionaire_form=get_post_meta( $eid, 'select_questionaire_form', true );
-	$quesionaire_form_view=get_post_meta( $eid, 'select_questionaire_edit_view', true );
-	
-	 ?>
-	<div class="qustion_ans"><?php echo do_shortcode($quesionaire_form_view); ?><?php echo do_shortcode($quesionaire_form); ?></div>
-	<?php 	
-	
-	}
+		$eid = get_the_id();
+		global $product;
+		$current_user = wp_get_current_user();
+		if ( wc_customer_bought_product( $current_user->user_email, $current_user->ID, $product->id ) ){
+			$quesionaire_form=get_post_meta( $eid, 'select_questionaire_form', true );
+			$quesionaire_form_view=get_post_meta( $eid, 'select_questionaire_edit_view', true );
+			 ?>
+			<div class="qustion_ans"><?php echo do_shortcode($quesionaire_form_view); ?><?php echo do_shortcode($quesionaire_form); ?></div>
+			<?php 	
+		}
 	}
 	?>
-
-
 </div><!-- #tribe-events-content -->

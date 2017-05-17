@@ -51,7 +51,6 @@ function wootickets_init() {
 		$langpath = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'lang/';
 		load_plugin_textdomain( 'tribe-wootickets', false, $langpath );
 		add_action( 'admin_notices', 'tribe_wootickets_show_fail_message' );
-
 		return;
 	}
 

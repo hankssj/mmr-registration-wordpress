@@ -9,7 +9,6 @@
  * @since Twenty Sixteen 1.0
  */
 ?>
-
 		</div><!-- .site-content -->
 
 		<footer id="colophon" class="site-footer" role="contentinfo">
@@ -55,6 +54,22 @@
 </div><!-- .site -->
 
 <?php wp_footer(); ?>
+<script type="text/javascript">
+	// Script to hide form on submit first entry inside event table
+	jQuery(document).ready(function(){
+		var len=jQuery("table.gv-table-view tbody tr td").length;
+		if(len>1){
+			jQuery(".gform_wrapper").hide();
+		}
 
+		jQuery('.profilediv').hide();
+		jQuery( "#changeprofile" ).click(function() {
+		  jQuery('.profilediv').show();
+		});
+		jQuery( "#cancelprofile" ).click(function() {
+		  jQuery('.profilediv').hide();
+		});
+	});
+</script>
 </body>
 </html>
