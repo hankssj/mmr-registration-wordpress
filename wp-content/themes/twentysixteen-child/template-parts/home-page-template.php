@@ -19,6 +19,20 @@ $announcement_title = get_field( "announcement_title" );
 $announcement_content = get_field( "announcement_content" );
 $enrollment_status = get_field( "enrollment_status" );
 $enrollment_status_text = get_field( "enrollment_status_text" );
+
+if(is_user_logged_in()){ 
+	?>
+	<script>
+	jQuery(document).ready(function(){
+
+		window.location.href = '<?php  echo site_url(); ?>/dashboard';
+	});
+	
+	</script>
+	
+	<?php
+}
+			
 ?>
 <div id="primary" class="content-area-home">
 	<main id="main" class="site-main" role="main">

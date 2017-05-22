@@ -20,7 +20,7 @@
 			</thead>
 			<tbody>
 				<?php
-					
+
 					$markup = '
 						<tr id="{{ field_id }}" class="{{class}}">
 							<th scope="row">{{label}}</th>

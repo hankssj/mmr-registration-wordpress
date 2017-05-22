@@ -34,7 +34,9 @@ if( ! $this->getTotalEntries() ) {
 	// There are entries. Loop through them.
 	
 	foreach ( $this->getEntries() as $entry ) {
-	  if($uid==$entry['created_by']){
+		$user_info = get_userdata($uid);
+		$role = implode(', ', $user_info->roles);
+	  if($uid==$entry['created_by'] || $role == 'administrator'){
 		$this->setCurrentEntry( $entry );
 		
 		$entry_slug = GravityView_API::get_entry_slug( $entry['id'], $entry );
@@ -75,10 +77,11 @@ if( ! $this->getTotalEntries() ) {
 						'form'       => $this->getForm(),
 						'hide_empty' => $this->getAtts( 'hide_empty' ),
 					);
-
+					
 					foreach ( $this->getField( 'directory_list-title' ) as $field ) {
+						
 						$title_args['field'] = $field;
-
+						
 						// The first field in the title zone is the main
 						if ( $i == 0 ) {
 							$title_args['markup'] = '<h3 class="{{class}}">{{label}}{{value}}</h3>';

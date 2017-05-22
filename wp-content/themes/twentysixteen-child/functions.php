@@ -962,4 +962,139 @@ function vfb_filter_field_default( $default, $field_type, $field_id, $form_id ){
 
     return $default;
 }
+function display_logindata( $atts ) {
+	$user = new WP_User(get_current_user_id());
+
+	$all_meta_for_user = get_user_meta( $user->ID );
+	//echo "<pre>"; print_r($_REQUEST); echo "<pre>";
+
+?>
+        <li id="field_1_44" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label">Gender</label>
+            <div class="ginput_container ginput_container_radio">
+			<div class="ginput_container ginput_container_text"><input name="input_45" id="input_1_45" value="<?php  echo $all_meta_for_user['pippin_user_gender'][0];  ?>" class="medium"  type="text" readonly></div>    
+            </div>
+         </li>
+         <li id="field_1_45" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="input_1_45">First Name</label>
+            <div class="ginput_container ginput_container_text"><input name="input_45" id="input_1_45" value="<?php  print_r( $all_meta_for_user['first_name'][0] ); ?>" class="medium" tabindex="3" aria-invalid="false" type="text" readonly></div>
+         </li>
+         <li id="field_1_3" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="input_1_3">Last Name</label>
+            <div class="ginput_container ginput_container_text"><input name="input_3" id="input_1_3" value="<?php  print_r( $all_meta_for_user['last_name'][0] ); ?>" class="medium" tabindex="4" aria-invalid="false" type="text" readonly></div>
+         </li>
+		 <li id="field_1_45" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="input_1_45">Email</label>
+            <div class="ginput_container ginput_container_text"><input name="input_45" id="input_1_45" value="<?php print_r( $user->data->user_email ); ?>" class="medium" tabindex="3" aria-invalid="false" type="text" readonly></div>
+         </li>
+         <li id="field_1_4" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="input_1_4">Street Address</label>
+            <div class="ginput_container ginput_container_text"><input name="input_4" id="input_1_4" value="<?php   print_r( $all_meta_for_user['pippin_user_address1'][0] ); ?>" class="medium" tabindex="5" aria-invalid="false" type="text" readonly></div>
+         </li>
+         <li id="field_1_5" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="input_1_5">City</label>
+            <div class="ginput_container ginput_container_text"><input name="input_5" id="input_1_5" value="<?php print_r( $all_meta_for_user['pippin_user_city'][0] ); ?>" class="medium" tabindex="6" aria-invalid="false" type="text" readonly></div>
+         </li>
+		 <li id="field_1_6" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="input_1_6">State</label>
+            <div class="ginput_container ginput_container_text"><input name="input_6" id="input_1_6" value="<?php print_r( $all_meta_for_user['pippin_user_state'][0] ); ?>" class="medium" tabindex="7" aria-invalid="false" type="text" readonly></div>
+         </li>
+         <li id="field_1_7" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="input_1_7">Zip</label>
+            <div class="ginput_container ginput_container_text"><input name="input_7" id="input_1_7" value="<?php print_r( $all_meta_for_user['pippin_user_zip'][0] ); ?>" class="medium" tabindex="8" aria-invalid="false" type="text" readonly></div>
+         </li>
+		 <li id="" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="">Country</label>
+            <div class="ginput_container ginput_container_text"><input name="" id="" value="<?php  echo $all_meta_for_user['pippin_user_country'][0]  ?>" class="medium" tabindex="8" aria-invalid="false" type="text" readonly></div>
+         </li>
+		 <li id="field_1_9" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="input_1_9">Emergency Contact Name</label>
+            <div class="ginput_container ginput_container_text"><input name="input_9" id="input_1_9" value="<?php print_r( $all_meta_for_user['imergency_contact_name'][0] ); ?>" class="medium" tabindex="10" aria-invalid="false" type="text" readonly></div>
+         </li>
+         <li id="field_1_10" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="input_1_10">Emergency Contact Phone</label>
+            <div class="ginput_container ginput_container_text"><input name="input_10" id="input_1_10" value="<?php print_r( $all_meta_for_user['imergency_contact_phone'][0] ); ?>" class="medium" tabindex="11" aria-invalid="false" type="text" readonly></div>
+         </li>
+         
+		 <?php
+  
+}
+add_shortcode( 'logindata', 'display_logindata' );
+
+function enrollment_button( $atts ) {
+	// check is free or paid
+	$is_paid = get_post_meta( 218, 'is_paid', true );
+	// Check if the custom field has a value.
+	
+	if ( ! empty( $is_paid ) ) {
+		if($is_paid == 'no')
+		{
+			
+		}	
+		else{
+			echo "<a href=''>Make Payment</a><br>";
+		}
+	}
+	// End check is free or paid
+	
+	// Link For enrollment form
+	$status = get_post_meta( 218, 'enrollment_status', true );
+		
+		$user = wp_get_current_user();
+		
+			global $wpdb;
+			$querystr = "
+			SELECT * 
+			FROM wp_rg_lead
+			WHERE created_by = $user->ID
+			AND form_id = 1
+			";
+
+			$check_user = $wpdb->get_results($querystr, OBJECT);
+			$entry_id = '';
+			foreach ($check_user as $formdata) {
+			$FormID = $formdata->form_id;
+			$entry_id = $formdata->id;
+			}
+
+			if($FormID == ''){
+				// if status is open
+				if($status == 'open'){
+					echo "<a href='".site_url()."/event-form/'> Add Enrollment Form </a>";
+				}
+				// End if status is open
+				// if status is close
+				else{
+					echo get_post_meta( 60, 'enrollment_status_text', true );
+				}
+				//End  if status is close
+			}
+			else{
+				// if status is open
+				if($status == 'open'){
+
+					$current_user = wp_get_current_user();
+					if($current_user->roles[0] == 'administrator'){
+						echo "<a href='".site_url()."/admin-enrollment-form/'> View All Enrolled Form </a>";
+					}
+					else{
+
+					
+					echo do_shortcode('[gv_entry_link action="edit" entry_id="'.$entry_id.'" view_id="220" /]'); 
+						//echo "<a href='".site_url()."/view/event-form/'> Edit Enrolled Form </a>";
+					}
+					
+				}
+				// End if status is open
+				// if status is close
+				else{
+					echo "<a href='".site_url()."/view/event-form/'> Enrolled Form </a>";
+				}
+				//End  if status is close
+			}
+}
+			
+	
+	
+add_shortcode( 'enrollment_option', 'enrollment_button' );
 ?>

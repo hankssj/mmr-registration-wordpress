@@ -1,0 +1,135 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: contact-form-7-multi-step-module\n"
+"POT-Creation-Date: 2016-12-03 12:55+0100\n"
+"PO-Revision-Date: 2016-12-03 12:55+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: contact-form-7-multi-step-module.php:226
+#: contact-form-7-multi-step-module.php:230
+msgid "Please fill out the form on the previous page"
+msgstr ""
+
+#: contact-form-7-multi-step-module.php:431
+#, php-format
+msgid ". For more details, see %s."
+msgstr ""
+
+#: contact-form-7-multi-step-module.php:432
+msgid "https://wordpress.org/plugins/contact-form-7-multi-step-module/"
+msgstr ""
+
+#: contact-form-7-multi-step-module.php:432
+msgid "the plugin page on WordPress.org"
+msgstr ""
+
+#: form-tags/module-back.php:52
+msgid "Previous"
+msgstr ""
+
+#: form-tags/module-back.php:56
+msgid "Back"
+msgstr ""
+
+#: form-tags/module-back.php:77
+msgid "previous"
+msgstr ""
+
+#: form-tags/module-back.php:81
+msgid "Back button"
+msgstr ""
+
+#: form-tags/module-back.php:102 form-tags/module-back.php:155
+msgid "Label"
+msgstr ""
+
+#: form-tags/module-back.php:110
+msgid "Id attribute"
+msgstr ""
+
+#: form-tags/module-back.php:115
+msgid "Class attribute"
+msgstr ""
+
+#: form-tags/module-back.php:127 form-tags/module-multistep.php:152
+#: form-tags/module-session.php:154
+msgid "Insert Tag"
+msgstr ""
+
+#: form-tags/module-back.php:132 form-tags/module-multistep.php:157
+#: form-tags/module-session.php:159
+msgid "This field should not be used on the Mail tab."
+msgstr ""
+
+#: form-tags/module-back.php:147 form-tags/module-back.php:150
+#: form-tags/module-back.php:155 form-tags/module-hidden.php:163
+#: form-tags/module-hidden.php:168 form-tags/module-session.php:178
+msgid "optional"
+msgstr ""
+
+#: form-tags/module-back.php:162 form-tags/module-hidden.php:176
+#: form-tags/module-session.php:183
+msgid "Copy this code and paste it into the form left."
+msgstr ""
+
+#: form-tags/module-hidden.php:149
+msgid "Hidden field"
+msgstr ""
+
+#: form-tags/module-hidden.php:160 form-tags/module-session.php:137
+msgid "Name"
+msgstr ""
+
+#: form-tags/module-hidden.php:168
+msgid "Default value"
+msgstr ""
+
+#: form-tags/module-hidden.php:171
+msgid "Use this text as watermark?"
+msgstr ""
+
+#: form-tags/module-hidden.php:178
+msgid "And, put this code into the Mail fields below."
+msgstr ""
+
+#: form-tags/module-multistep.php:40
+msgid "multistep"
+msgstr ""
+
+#: form-tags/module-multistep.php:107
+msgid "Current Step"
+msgstr ""
+
+#: form-tags/module-multistep.php:118
+msgid "Total Steps"
+msgstr ""
+
+#: form-tags/module-multistep.php:130
+msgid "Next Page URL"
+msgstr ""
+
+#: form-tags/module-session.php:113
+msgid "form field"
+msgstr ""
+
+#: form-tags/module-session.php:116
+msgid "Form value"
+msgstr ""
+
+#: form-tags/module-session.php:175
+msgid "Name of previous form field"
+msgstr ""
+
+#: form-tags/module-session.php:185
+msgid "Mail fields currently not supported."
+msgstr ""

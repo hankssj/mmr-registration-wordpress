@@ -904,6 +904,14 @@ class GravityView_Edit_Entry_Render {
                 echo GVCommon::generate_notice( $message , 'gv-error' );
 
             } else {
+                $current_user = wp_get_current_user();
+                    if($current_user->roles[0] == 'administrator'){
+                        $back_link = site_url().'/admin-enrollment-form/';
+                    }
+                    else{
+                        $back_link = site_url().'/dashboard/';
+                    }
+
                 $entry_updated_message = sprintf( esc_attr__('Entry Updated. %sReturn to Entry%s', 'gravityview'), '<a href="'. $back_link .'">', '</a>' );
 
                 /**

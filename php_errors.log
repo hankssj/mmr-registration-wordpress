@@ -1474,3 +1474,376 @@ Stack trace:
 [05-May-2017 11:49:00 UTC] The WC_Product::get_post_data function is deprecated since version 3.0. Replace with get_post.
 [05-May-2017 11:49:00 UTC] The WC_Product::get_post_data function is deprecated since version 3.0. Replace with get_post.
 [05-May-2017 11:49:00 UTC] The WC_Product::get_post_data function is deprecated since version 3.0. Replace with get_post.
+[19-May-2017 10:30:11 UTC] PHP Fatal error:  Cannot redeclare class RGForms in /home/ubuntu/workspace/wp-content/plugins/gravityforms/gravityforms.php on line 4927
+[19-May-2017 10:30:11 UTC] PHP Stack trace:
+[19-May-2017 10:30:11 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[19-May-2017 10:30:11 UTC] PHP   2. plugin_sandbox_scrape() /home/ubuntu/workspace/wp-admin/plugins.php:164
+[19-May-2017 10:30:12 UTC] PHP Fatal error:  Cannot redeclare class RGForms in /home/ubuntu/workspace/wp-content/plugins/gravityforms/gravityforms.php on line 4927
+[19-May-2017 10:30:12 UTC] PHP Stack trace:
+[19-May-2017 10:30:12 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[19-May-2017 10:30:12 UTC] PHP   2. plugin_sandbox_scrape() /home/ubuntu/workspace/wp-admin/plugins.php:164
+[22-May-2017 05:07:33 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:07:33 UTC] PHP Stack trace:
+[22-May-2017 05:07:33 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/update.php:0
+[22-May-2017 05:07:33 UTC] PHP   2. Plugin_Upgrader->install() /home/ubuntu/workspace/wp-admin/update.php:162
+[22-May-2017 05:07:33 UTC] PHP   3. WP_Upgrader->run() /home/ubuntu/workspace/wp-admin/includes/class-plugin-upgrader.php:116
+[22-May-2017 05:07:33 UTC] PHP   4. do_action() /home/ubuntu/workspace/wp-admin/includes/class-wp-upgrader.php:791
+[22-May-2017 05:07:33 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:07:33 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:07:33 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:07:33 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:07:33 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:07:33 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:07:39 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:07:39 UTC] PHP Stack trace:
+[22-May-2017 05:07:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:07:39 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:07:39 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:07:39 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:07:39 UTC] PHP   5. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:547
+[22-May-2017 05:07:39 UTC] PHP   6. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:07:39 UTC] PHP   7. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:07:39 UTC] PHP   8. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:07:39 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:07:39 UTC] PHP Stack trace:
+[22-May-2017 05:07:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:07:39 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:07:39 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:07:39 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:07:39 UTC] PHP   5. wp_get_translation_updates() /home/ubuntu/workspace/wp-includes/update.php:564
+[22-May-2017 05:07:39 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:525
+[22-May-2017 05:07:39 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:07:39 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:07:39 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:07:39 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:07:39 UTC] PHP Stack trace:
+[22-May-2017 05:07:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:07:39 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:07:39 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:07:39 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:07:39 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:07:39 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:628
+[22-May-2017 05:07:39 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:07:39 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:07:39 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:07:39 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:07:39 UTC] PHP Stack trace:
+[22-May-2017 05:07:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:07:39 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:07:39 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:07:39 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:07:39 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:07:39 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/update.php:631
+[22-May-2017 05:07:39 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:07:39 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:07:39 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:07:39 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:13 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:08:13 UTC] PHP Stack trace:
+[22-May-2017 05:08:13 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/update.php:0
+[22-May-2017 05:08:13 UTC] PHP   2. Plugin_Upgrader->install() /home/ubuntu/workspace/wp-admin/update.php:162
+[22-May-2017 05:08:13 UTC] PHP   3. WP_Upgrader->run() /home/ubuntu/workspace/wp-admin/includes/class-plugin-upgrader.php:116
+[22-May-2017 05:08:13 UTC] PHP   4. do_action() /home/ubuntu/workspace/wp-admin/includes/class-wp-upgrader.php:791
+[22-May-2017 05:08:13 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:08:13 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:08:13 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:08:13 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:08:13 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:13 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:28 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:08:28 UTC] PHP Stack trace:
+[22-May-2017 05:08:28 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:08:28 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:08:28 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:08:28 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:08:28 UTC] PHP   5. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:547
+[22-May-2017 05:08:28 UTC] PHP   6. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:08:28 UTC] PHP   7. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:28 UTC] PHP   8. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:28 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:08:28 UTC] PHP Stack trace:
+[22-May-2017 05:08:28 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:08:28 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:08:28 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:08:28 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:08:28 UTC] PHP   5. wp_get_translation_updates() /home/ubuntu/workspace/wp-includes/update.php:564
+[22-May-2017 05:08:28 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:525
+[22-May-2017 05:08:28 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:08:28 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:28 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:28 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:08:28 UTC] PHP Stack trace:
+[22-May-2017 05:08:28 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:08:28 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:08:28 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:08:28 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:08:28 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:08:28 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:628
+[22-May-2017 05:08:28 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:08:28 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:28 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:28 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:08:28 UTC] PHP Stack trace:
+[22-May-2017 05:08:28 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:08:28 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:08:28 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:08:28 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:08:28 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:08:28 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/update.php:631
+[22-May-2017 05:08:28 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:08:28 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:08:28 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:08:28 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:13:49 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:13:49 UTC] PHP Stack trace:
+[22-May-2017 05:13:49 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/update.php:0
+[22-May-2017 05:13:49 UTC] PHP   2. Plugin_Upgrader->install() /home/ubuntu/workspace/wp-admin/update.php:162
+[22-May-2017 05:13:49 UTC] PHP   3. WP_Upgrader->run() /home/ubuntu/workspace/wp-admin/includes/class-plugin-upgrader.php:116
+[22-May-2017 05:13:49 UTC] PHP   4. do_action() /home/ubuntu/workspace/wp-admin/includes/class-wp-upgrader.php:791
+[22-May-2017 05:13:49 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:13:49 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:13:49 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:13:49 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:13:49 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:13:49 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:01 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:14:01 UTC] PHP Stack trace:
+[22-May-2017 05:14:01 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:14:01 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:14:01 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:14:01 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:14:01 UTC] PHP   5. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:547
+[22-May-2017 05:14:01 UTC] PHP   6. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:14:01 UTC] PHP   7. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:01 UTC] PHP   8. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:01 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:14:01 UTC] PHP Stack trace:
+[22-May-2017 05:14:01 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:14:01 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:14:01 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:14:01 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:14:01 UTC] PHP   5. wp_get_translation_updates() /home/ubuntu/workspace/wp-includes/update.php:564
+[22-May-2017 05:14:01 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:525
+[22-May-2017 05:14:01 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:14:01 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:01 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:01 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:14:01 UTC] PHP Stack trace:
+[22-May-2017 05:14:01 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:14:01 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:14:01 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:14:01 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:01 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:01 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:628
+[22-May-2017 05:14:01 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:14:01 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:01 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:01 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:14:01 UTC] PHP Stack trace:
+[22-May-2017 05:14:01 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:14:01 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:14:01 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:14:01 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:01 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:01 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/update.php:631
+[22-May-2017 05:14:01 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:14:01 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:14:01 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:01 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:30 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:14:30 UTC] PHP Stack trace:
+[22-May-2017 05:14:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/update.php:0
+[22-May-2017 05:14:30 UTC] PHP   2. Plugin_Upgrader->install() /home/ubuntu/workspace/wp-admin/update.php:162
+[22-May-2017 05:14:30 UTC] PHP   3. WP_Upgrader->run() /home/ubuntu/workspace/wp-admin/includes/class-plugin-upgrader.php:116
+[22-May-2017 05:14:30 UTC] PHP   4. do_action() /home/ubuntu/workspace/wp-admin/includes/class-wp-upgrader.php:791
+[22-May-2017 05:14:30 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:30 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:30 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:14:30 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:14:30 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:30 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:36 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:14:36 UTC] PHP Stack trace:
+[22-May-2017 05:14:36 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:14:36 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:14:36 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:14:36 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:14:36 UTC] PHP   5. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:547
+[22-May-2017 05:14:36 UTC] PHP   6. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:14:36 UTC] PHP   7. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:36 UTC] PHP   8. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:36 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:14:36 UTC] PHP Stack trace:
+[22-May-2017 05:14:36 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:14:36 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:14:36 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:14:36 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:14:36 UTC] PHP   5. wp_get_translation_updates() /home/ubuntu/workspace/wp-includes/update.php:564
+[22-May-2017 05:14:36 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:525
+[22-May-2017 05:14:36 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:14:36 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:36 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:36 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:14:36 UTC] PHP Stack trace:
+[22-May-2017 05:14:36 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:14:36 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:14:36 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:14:36 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:36 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:36 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:628
+[22-May-2017 05:14:36 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:14:36 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:36 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:36 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:14:36 UTC] PHP Stack trace:
+[22-May-2017 05:14:36 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:14:36 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:14:36 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:14:36 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:36 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:14:36 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/update.php:631
+[22-May-2017 05:14:36 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:14:36 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:14:36 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:14:36 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:51 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:24:51 UTC] PHP Stack trace:
+[22-May-2017 05:24:51 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/update.php:0
+[22-May-2017 05:24:51 UTC] PHP   2. Plugin_Upgrader->install() /home/ubuntu/workspace/wp-admin/update.php:162
+[22-May-2017 05:24:51 UTC] PHP   3. WP_Upgrader->run() /home/ubuntu/workspace/wp-admin/includes/class-plugin-upgrader.php:116
+[22-May-2017 05:24:51 UTC] PHP   4. do_action() /home/ubuntu/workspace/wp-admin/includes/class-wp-upgrader.php:791
+[22-May-2017 05:24:51 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:24:51 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:24:51 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:24:51 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:24:51 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:51 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:55 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:24:55 UTC] PHP Stack trace:
+[22-May-2017 05:24:55 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:24:55 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:24:55 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:24:55 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:24:55 UTC] PHP   5. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:547
+[22-May-2017 05:24:55 UTC] PHP   6. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:24:55 UTC] PHP   7. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:55 UTC] PHP   8. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:55 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:24:55 UTC] PHP Stack trace:
+[22-May-2017 05:24:55 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:24:55 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:24:55 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:24:55 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:24:55 UTC] PHP   5. wp_get_translation_updates() /home/ubuntu/workspace/wp-includes/update.php:564
+[22-May-2017 05:24:55 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:525
+[22-May-2017 05:24:55 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:24:55 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:55 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:55 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:24:55 UTC] PHP Stack trace:
+[22-May-2017 05:24:55 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:24:55 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:24:55 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:24:55 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:24:55 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:24:55 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:628
+[22-May-2017 05:24:55 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:24:55 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:55 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:55 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:24:55 UTC] PHP Stack trace:
+[22-May-2017 05:24:55 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:24:55 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:24:55 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:24:55 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:24:55 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:24:55 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/update.php:631
+[22-May-2017 05:24:55 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:24:55 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:24:55 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:55 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:24:59 UTC] WordPress database error Table 'c9.wp_rg_form' doesn't exist for query  SELECT display_meta, confirmations, notifications FROM wp_rg_form f
+                                        INNER JOIN wp_rg_form_meta m ON f.id = m.form_id
+                                        WHERE id in(3,1,2) made by require_once('wp-admin/admin-header.php'), do_action('in_admin_header'), call_user_func_array, wp_admin_bar_render, do_action('wp_before_admin_bar_render'), call_user_func_array, GFForms::admin_bar, GFFormsModel::get_form_meta_by_id
+[22-May-2017 05:25:04 UTC] WordPress database error Table 'c9.wp_rg_form' doesn't exist for query  SELECT display_meta, confirmations, notifications FROM wp_rg_form f
+                                        INNER JOIN wp_rg_form_meta m ON f.id = m.form_id
+                                        WHERE id in(3,1,2) made by require_once('wp-admin/admin-header.php'), do_action('in_admin_header'), call_user_func_array, wp_admin_bar_render, do_action('wp_before_admin_bar_render'), call_user_func_array, GFForms::admin_bar, GFFormsModel::get_form_meta_by_id
+[22-May-2017 05:25:04 UTC] WordPress database error Table 'c9.wp_rg_form' doesn't exist for query 
+            SELECT
+            (SELECT count(0) FROM wp_rg_form WHERE is_trash = 0) as total,
+            (SELECT count(0) FROM wp_rg_form WHERE is_active=1 AND is_trash = 0 ) as active,
+            (SELECT count(0) FROM wp_rg_form WHERE is_active=0 AND is_trash = 0 ) as inactive,
+            (SELECT count(0) FROM wp_rg_form WHERE is_trash=1) as trash
+             made by do_action('toplevel_page_gf_edit_forms'), call_user_func_array, GFForms::forms, GFForms::form_list_page, GFFormList::form_list_page, WP_List_Table->views, GF_Form_List_Table->get_views, GFFormsModel::get_form_count
+[22-May-2017 05:25:04 UTC] WordPress database error Table 'c9.wp_rg_form' doesn't exist for query SELECT f.id, f.title, f.date_created, f.is_active, 0 as lead_count, 0 view_count
+                FROM wp_rg_form f
+                WHERE is_trash=0
+                ORDER BY title ASC made by do_action('toplevel_page_gf_edit_forms'), call_user_func_array, GFForms::forms, GFForms::form_list_page, GFFormList::form_list_page, GF_Form_List_Table->prepare_items, GFFormsModel::get_forms
+[22-May-2017 05:25:04 UTC] WordPress database error Table 'c9.wp_rg_lead' doesn't exist for query SELECT form_id, count(id) as lead_count FROM wp_rg_lead l WHERE status='active' GROUP BY form_id made by do_action('toplevel_page_gf_edit_forms'), call_user_func_array, GFForms::forms, GFForms::form_list_page, GFFormList::form_list_page, GF_Form_List_Table->prepare_items, GFFormsModel::get_forms, GFFormsModel::get_entry_count_per_form
+[22-May-2017 05:25:04 UTC] WordPress database error Table 'c9.wp_rg_form_view' doesn't exist for query SELECT form_id, sum(count) as view_count FROM wp_rg_form_view GROUP BY form_id made by do_action('toplevel_page_gf_edit_forms'), call_user_func_array, GFForms::forms, GFForms::form_list_page, GFFormList::form_list_page, GF_Form_List_Table->prepare_items, GFFormsModel::get_forms, GFFormsModel::get_view_count_per_form
+[22-May-2017 05:25:06 UTC] WordPress database error Table 'c9.wp_rg_form' doesn't exist for query  SELECT display_meta, confirmations, notifications FROM wp_rg_form f
+                                        INNER JOIN wp_rg_form_meta m ON f.id = m.form_id
+                                        WHERE id in(3,1,2) made by include('wp-admin/admin-header.php'), do_action('in_admin_header'), call_user_func_array, wp_admin_bar_render, do_action('wp_before_admin_bar_render'), call_user_func_array, GFForms::admin_bar, GFFormsModel::get_form_meta_by_id
+[22-May-2017 05:25:17 UTC] WordPress database error Table 'c9.wp_rg_form' doesn't exist for query  SELECT display_meta, confirmations, notifications FROM wp_rg_form f
+                                        INNER JOIN wp_rg_form_meta m ON f.id = m.form_id
+                                        WHERE id in(3,1,2) made by require_once('wp-admin/admin-header.php'), do_action('in_admin_header'), call_user_func_array, wp_admin_bar_render, do_action('wp_before_admin_bar_render'), call_user_func_array, GFForms::admin_bar, GFFormsModel::get_form_meta_by_id
+[22-May-2017 05:25:18 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:25:18 UTC] PHP Stack trace:
+[22-May-2017 05:25:18 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/update.php:0
+[22-May-2017 05:25:18 UTC] PHP   2. Plugin_Upgrader->install() /home/ubuntu/workspace/wp-admin/update.php:162
+[22-May-2017 05:25:18 UTC] PHP   3. WP_Upgrader->run() /home/ubuntu/workspace/wp-admin/includes/class-plugin-upgrader.php:116
+[22-May-2017 05:25:18 UTC] PHP   4. do_action() /home/ubuntu/workspace/wp-admin/includes/class-wp-upgrader.php:791
+[22-May-2017 05:25:18 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:25:18 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:25:18 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:25:18 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:25:18 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:18 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:24 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:25:24 UTC] PHP Stack trace:
+[22-May-2017 05:25:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:25:24 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:25:24 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:25:24 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:25:24 UTC] PHP   5. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:547
+[22-May-2017 05:25:24 UTC] PHP   6. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:25:24 UTC] PHP   7. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:24 UTC] PHP   8. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:24 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:25:24 UTC] PHP Stack trace:
+[22-May-2017 05:25:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:25:24 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:25:24 UTC] PHP   3. require() /home/ubuntu/workspace/wp-admin/admin.php:138
+[22-May-2017 05:25:24 UTC] PHP   4. wp_get_update_data() /home/ubuntu/workspace/wp-admin/menu.php:32
+[22-May-2017 05:25:24 UTC] PHP   5. wp_get_translation_updates() /home/ubuntu/workspace/wp-includes/update.php:564
+[22-May-2017 05:25:24 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:525
+[22-May-2017 05:25:24 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:25:24 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:24 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:24 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:25:24 UTC] PHP Stack trace:
+[22-May-2017 05:25:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:25:24 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:25:24 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:25:24 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:25:24 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:25:24 UTC] PHP   6. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:628
+[22-May-2017 05:25:24 UTC] PHP   7. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:25:24 UTC] PHP   8. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:24 UTC] PHP   9. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:24 UTC] PHP Warning:  Attempt to modify property of non-object in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/the-events-calendar.php on line 41
+[22-May-2017 05:25:24 UTC] PHP Stack trace:
+[22-May-2017 05:25:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/plugins.php:0
+[22-May-2017 05:25:24 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/plugins.php:10
+[22-May-2017 05:25:24 UTC] PHP   3. do_action() /home/ubuntu/workspace/wp-admin/admin.php:154
+[22-May-2017 05:25:24 UTC] PHP   4. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:25:24 UTC] PHP   5. _maybe_update_plugins() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[22-May-2017 05:25:24 UTC] PHP   6. wp_update_plugins() /home/ubuntu/workspace/wp-includes/update.php:631
+[22-May-2017 05:25:24 UTC] PHP   7. get_site_transient() /home/ubuntu/workspace/wp-includes/update.php:206
+[22-May-2017 05:25:24 UTC] PHP   8. apply_filters() /home/ubuntu/workspace/wp-includes/option.php:1596
+[22-May-2017 05:25:24 UTC] PHP   9. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:235}() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:24 UTC] PHP  10. remove_update_notification() /home/ubuntu/workspace/wp-includes/plugin.php:235
+[22-May-2017 05:25:27 UTC] WordPress database error Table 'c9.wp_rg_form' doesn't exist for query  SELECT display_meta, confirmations, notifications FROM wp_rg_form f
+                                        INNER JOIN wp_rg_form_meta m ON f.id = m.form_id
+                                        WHERE id in(3,1,2) made by require_once('wp-admin/admin-header.php'), do_action('in_admin_header'), call_user_func_array, wp_admin_bar_render, do_action('wp_before_admin_bar_render'), call_user_func_array, GFForms::admin_bar, GFFormsModel::get_form_meta_by_id
+[22-May-2017 05:25:55 UTC] WordPress database error Table 'c9.wp_rg_form' doesn't exist for query SELECT count(0) FROM wp_rg_form made by do_action('wp_ajax_gf_save_new_form'), call_user_func_array, GFForms::save_new_form, GFFormList::save_new_form, GFFormsModel::ensure_tables_exist

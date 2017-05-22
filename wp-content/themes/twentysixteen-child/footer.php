@@ -54,9 +54,30 @@
 </div><!-- .site -->
 
 <?php wp_footer(); ?>
+<?php
+$user = new WP_User(get_current_user_id());
+if(trim($user->roles[0]) != 'administrator'){ ?>
 <script type="text/javascript">
 	// Script to hide form on submit first entry inside event table
 	jQuery(document).ready(function(){
+
+		jQuery(".for-admin-only").hide();
+	});
+</script>	<?php
+}
+?>
+<script type="text/javascript">
+	// Script to hide form on submit first entry inside event table
+	jQuery(document).ready(function(){
+		
+		<?php
+		if ( !is_user_logged_in() ) {
+			?>
+			jQuery('#changeprofile').hide();
+			<?php
+		}
+		
+		?>
 		var len=jQuery("table.gv-table-view tbody tr td").length;
 		if(len>1){
 			jQuery(".gform_wrapper").hide();
@@ -71,5 +92,62 @@
 		});
 	});
 </script>
+
+<?php
+// Link For enrollment form
+/*
+$start_date = get_post_meta( 218, 'start_date', true );
+$end_date = get_post_meta( 218, 'end_date', true );
+
+$paymentDate = date('Y-m-d');
+$paymentDate=date('Y-m-d', strtotime($paymentDate));;
+//echo $paymentDate; // echos today! 
+$contractDateBegin = date('Y-m-d', strtotime($start_date));
+$contractDateEnd = date('Y-m-d', strtotime($end_date));
+
+if (($paymentDate > $contractDateBegin) && ($paymentDate < $contractDateEnd))
+{
+	$status = 'open';
+}
+else
+{
+	$status = 'close';
+}
+*/
+$status = get_post_meta( 218, 'enrollment_status', true );
+
+$user = wp_get_current_user();
+
+global $wpdb;
+$querystr = "
+SELECT * 
+FROM wp_rg_lead
+WHERE created_by = $user->ID
+AND form_id = 1
+";
+
+$check_user = $wpdb->get_results($querystr, OBJECT);
+
+foreach ($check_user as $formdata) {
+$FormID = $formdata->form_id;
+}
+
+if($FormID == ''){
+}
+else{
+	if($status == 'open'){
+	}
+	else{
+		?>
+		<script type="text/javascript">
+		// Script to hide form on submit first entry inside event table
+		jQuery(document).ready(function(){
+			jQuery('#gv-field-3-edit_link').hide();
+		});
+		</script>
+		<?php
+	}
+}
+?>
 </body>
 </html>
