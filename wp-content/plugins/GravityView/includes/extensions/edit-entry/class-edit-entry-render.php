@@ -8,7 +8,7 @@
  * @link      http://gravityview.co
  * @copyright Copyright 2014, Katz Web Services, Inc.
  */
-
+session_start();
 if ( ! defined( 'WPINC' ) ) {
     die;
 }
@@ -836,27 +836,27 @@ class GravityView_Edit_Entry_Render {
              * @see https://github.com/katzwebservices/GravityView/issues/451
              */
             echo gravityview_strip_whitespace( $javascript );
-
-            ?><h2 class="gv-edit-entry-title">
-                <span><?php
-
-                    /**
-                     * @filter `gravityview_edit_entry_title` Modify the edit entry title
-                     * @param string $edit_entry_title Modify the "Edit Entry" title
-                     * @param GravityView_Edit_Entry_Render $this This object
-                     */
-                    $edit_entry_title = apply_filters('gravityview_edit_entry_title', __('Edit Entry', 'gravityview'), $this );
-
-                    echo esc_attr( $edit_entry_title );
-            ?></span>
-            </h2>
-
+            
+            $current_user = wp_get_current_user();
+            if($current_user->roles[0] != 'administrator'){
+    
+            echo "<div class='custom-contact'>";
+        	echo "<h3>Your Contact Info:</h3>";
+        	echo do_shortcode('[logindata]');
+        	echo "</div>";
+            }
+            ?>
+         
             <?php $this->maybe_print_message(); ?>
 
-            <?php // The ID of the form needs to be `gform_{form_id}` for the pluploader ?>
-
+            <?php // The ID of the form needs to be `gform_{form_id}` for the pluploader 
+            	echo "<div class='custom-enrollment'>";
+            	echo "<h3>Your Enrollment Info</h3>";
+            	echo "<div><h4>Total Amount : </h4><span class='custotal-amount'></span></div>";
+            	?>
+            
             <form method="post" id="gform_<?php echo $this->form_id; ?>" enctype="multipart/form-data">
-
+           
                 <?php
 
                 wp_nonce_field( self::$nonce_key, self::$nonce_key );
@@ -867,8 +867,9 @@ class GravityView_Edit_Entry_Render {
                 $this->render_edit_form();
 
                 ?>
+               
             </form>
-
+ </div>
             <script>
                 gform.addFilter('gform_reset_pre_conditional_logic_field_action', function ( reset, formId, targetId, defaultValues, isInit ) {
                     return false;
@@ -890,7 +891,7 @@ class GravityView_Edit_Entry_Render {
      * @return void
      */
     private function maybe_print_message() {
-
+                
         if( rgpost('action') === 'update' ) {
 
             $back_link = esc_url( remove_query_arg( array( 'page', 'view', 'edit' ) ) );
@@ -909,10 +910,26 @@ class GravityView_Edit_Entry_Render {
                         $back_link = site_url().'/admin-enrollment-form/';
                     }
                     else{
-                        $back_link = site_url().'/dashboard/';
+                        $back_link = site_url().'/dashboard/';   
                     }
+                
+                $_SESSION['succmsg'] = 'Entry updated.';
+                $_SESSION['redirect'] = 1;
+                ?>
+                <div class="ovelay-form">
+                <img src="<?php echo site_url(); ?>/wp-content/uploads/2017/05/default.gif">
+                </div>
+            
+                <script>
+                jQuery(document).ready(function(){
+                    window.location.href = '<?php  echo $back_link; ?>';
+                });
 
-                $entry_updated_message = sprintf( esc_attr__('Entry Updated. %sReturn to Entry%s', 'gravityview'), '<a href="'. $back_link .'">', '</a>' );
+                </script>
+                
+                <?php
+               
+               // $entry_updated_message = sprintf( esc_attr__('Entry Updated. %sReturn to Entry%s', 'gravityview'), '<a href="'. $back_link .'">', '</a>' );
 
                 /**
                  * @filter `gravityview/edit_entry/success` Modify the edit entry success message (including the anchor link)
@@ -922,9 +939,9 @@ class GravityView_Edit_Entry_Render {
                  * @param array $entry Gravity Forms entry array
                  * @param string $back_link URL to return to the original entry. @since 1.6
                  */
-                $message = apply_filters( 'gravityview/edit_entry/success', $entry_updated_message , $this->view_id, $this->entry, $back_link );
+                //$message = apply_filters( 'gravityview/edit_entry/success', $entry_updated_message , $this->view_id, $this->entry, $back_link );
 
-                echo GVCommon::generate_notice( $message );
+                //echo GVCommon::generate_notice( $message );
             }
 
         }

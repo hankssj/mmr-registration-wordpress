@@ -44,7 +44,15 @@
 
 	?>
 	<input id="gform_submit_button_<?php echo esc_attr( $object->form['id'] ); ?>" class="btn btn-lg button button-large gform_button button-primary gv-button-update" type="submit" tabindex="4" value="<?php echo esc_attr( $labels['submit'] ); ?>" name="save" />
-
+	<?php
+	$current_user = wp_get_current_user();
+	if($current_user->roles[0] == 'administrator'){
+        $back_link = site_url().'/admin-enrollment-form/';
+    }
+    else{
+        $back_link = site_url().'/dashboard/';
+    }
+    ?>
 	<a class="btn btn-sm button button-small gv-button-cancel" tabindex="5" href="<?php echo esc_url( $back_link ); ?>"><?php echo esc_attr( $labels['cancel'] ); ?></a>
 	<?php
 

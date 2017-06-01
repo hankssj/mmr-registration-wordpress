@@ -1,0 +1,3 @@
+[31-May-2017 10:34:59 UTC] PHP Fatal error:  Call to undefined function get_header() in /home/ubuntu/workspace/wp-content/themes/twentysixteen/index.php on line 17
+[31-May-2017 10:34:59 UTC] PHP Stack trace:
+[31-May-2017 10:34:59 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-content/themes/twentysixteen/index.php:0

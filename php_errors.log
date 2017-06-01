@@ -1847,3 +1847,149 @@ Stack trace:
                                         INNER JOIN wp_rg_form_meta m ON f.id = m.form_id
                                         WHERE id in(3,1,2) made by require_once('wp-admin/admin-header.php'), do_action('in_admin_header'), call_user_func_array, wp_admin_bar_render, do_action('wp_before_admin_bar_render'), call_user_func_array, GFForms::admin_bar, GFFormsModel::get_form_meta_by_id
 [22-May-2017 05:25:55 UTC] WordPress database error Table 'c9.wp_rg_form' doesn't exist for query SELECT count(0) FROM wp_rg_form made by do_action('wp_ajax_gf_save_new_form'), call_user_func_array, GFForms::save_new_form, GFFormList::save_new_form, GFFormsModel::ensure_tables_exist
+[23-May-2017 06:48:32 UTC] participants-database plugin deactivated
+[24-May-2017 06:43:14 UTC] PHP Warning:  array_values() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-includes/script-loader.php on line 953
+[24-May-2017 06:43:14 UTC] PHP Stack trace:
+[24-May-2017 06:43:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin-ajax.php:0
+[24-May-2017 06:43:14 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/admin-ajax.php:22
+[24-May-2017 06:43:14 UTC] PHP   3. require_once() /home/ubuntu/workspace/wp-load.php:39
+[24-May-2017 06:43:14 UTC] PHP   4. require_once() /home/ubuntu/workspace/wp-config.php:92
+[24-May-2017 06:43:14 UTC] PHP   5. do_action() /home/ubuntu/workspace/wp-settings.php:295
+[24-May-2017 06:43:14 UTC] PHP   6. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   7. GravityView_Plugin::getInstance() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   8. GravityView_Plugin->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:84
+[24-May-2017 06:43:14 UTC] PHP   9. GravityView_Plugin->include_files() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:98
+[24-May-2017 06:43:14 UTC] PHP  10. include_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:156
+[24-May-2017 06:43:14 UTC] PHP  11. GravityView_Edit_Entry::getInstance() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:293
+[24-May-2017 06:43:14 UTC] PHP  12. GravityView_Edit_Entry->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:59
+[24-May-2017 06:43:14 UTC] PHP  13. GravityView_Edit_Entry->load_components() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:44
+[24-May-2017 06:43:14 UTC] PHP  14. require_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:75
+[24-May-2017 06:43:14 UTC] PHP  15. wp_head() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry-render.php:21
+[24-May-2017 06:43:14 UTC] PHP  16. do_action() /home/ubuntu/workspace/wp-includes/general-template.php:2555
+[24-May-2017 06:43:14 UTC] PHP  17. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  18. wp_enqueue_scripts() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  19. do_action() /home/ubuntu/workspace/wp-includes/script-loader.php:1197
+[24-May-2017 06:43:14 UTC] PHP  20. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  21. wp_localize_jquery_ui_datepicker() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  22. array_values() /home/ubuntu/workspace/wp-includes/script-loader.php:953
+[24-May-2017 06:43:14 UTC] PHP Warning:  array_values() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-includes/script-loader.php on line 954
+[24-May-2017 06:43:14 UTC] PHP Stack trace:
+[24-May-2017 06:43:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin-ajax.php:0
+[24-May-2017 06:43:14 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/admin-ajax.php:22
+[24-May-2017 06:43:14 UTC] PHP   3. require_once() /home/ubuntu/workspace/wp-load.php:39
+[24-May-2017 06:43:14 UTC] PHP   4. require_once() /home/ubuntu/workspace/wp-config.php:92
+[24-May-2017 06:43:14 UTC] PHP   5. do_action() /home/ubuntu/workspace/wp-settings.php:295
+[24-May-2017 06:43:14 UTC] PHP   6. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   7. GravityView_Plugin::getInstance() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   8. GravityView_Plugin->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:84
+[24-May-2017 06:43:14 UTC] PHP   9. GravityView_Plugin->include_files() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:98
+[24-May-2017 06:43:14 UTC] PHP  10. include_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:156
+[24-May-2017 06:43:14 UTC] PHP  11. GravityView_Edit_Entry::getInstance() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:293
+[24-May-2017 06:43:14 UTC] PHP  12. GravityView_Edit_Entry->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:59
+[24-May-2017 06:43:14 UTC] PHP  13. GravityView_Edit_Entry->load_components() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:44
+[24-May-2017 06:43:14 UTC] PHP  14. require_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:75
+[24-May-2017 06:43:14 UTC] PHP  15. wp_head() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry-render.php:21
+[24-May-2017 06:43:14 UTC] PHP  16. do_action() /home/ubuntu/workspace/wp-includes/general-template.php:2555
+[24-May-2017 06:43:14 UTC] PHP  17. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  18. wp_enqueue_scripts() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  19. do_action() /home/ubuntu/workspace/wp-includes/script-loader.php:1197
+[24-May-2017 06:43:14 UTC] PHP  20. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  21. wp_localize_jquery_ui_datepicker() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  22. array_values() /home/ubuntu/workspace/wp-includes/script-loader.php:954
+[24-May-2017 06:43:14 UTC] PHP Warning:  array_values() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-includes/script-loader.php on line 957
+[24-May-2017 06:43:14 UTC] PHP Stack trace:
+[24-May-2017 06:43:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin-ajax.php:0
+[24-May-2017 06:43:14 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/admin-ajax.php:22
+[24-May-2017 06:43:14 UTC] PHP   3. require_once() /home/ubuntu/workspace/wp-load.php:39
+[24-May-2017 06:43:14 UTC] PHP   4. require_once() /home/ubuntu/workspace/wp-config.php:92
+[24-May-2017 06:43:14 UTC] PHP   5. do_action() /home/ubuntu/workspace/wp-settings.php:295
+[24-May-2017 06:43:14 UTC] PHP   6. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   7. GravityView_Plugin::getInstance() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   8. GravityView_Plugin->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:84
+[24-May-2017 06:43:14 UTC] PHP   9. GravityView_Plugin->include_files() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:98
+[24-May-2017 06:43:14 UTC] PHP  10. include_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:156
+[24-May-2017 06:43:14 UTC] PHP  11. GravityView_Edit_Entry::getInstance() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:293
+[24-May-2017 06:43:14 UTC] PHP  12. GravityView_Edit_Entry->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:59
+[24-May-2017 06:43:14 UTC] PHP  13. GravityView_Edit_Entry->load_components() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:44
+[24-May-2017 06:43:14 UTC] PHP  14. require_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:75
+[24-May-2017 06:43:14 UTC] PHP  15. wp_head() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry-render.php:21
+[24-May-2017 06:43:14 UTC] PHP  16. do_action() /home/ubuntu/workspace/wp-includes/general-template.php:2555
+[24-May-2017 06:43:14 UTC] PHP  17. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  18. wp_enqueue_scripts() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  19. do_action() /home/ubuntu/workspace/wp-includes/script-loader.php:1197
+[24-May-2017 06:43:14 UTC] PHP  20. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  21. wp_localize_jquery_ui_datepicker() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  22. array_values() /home/ubuntu/workspace/wp-includes/script-loader.php:957
+[24-May-2017 06:43:14 UTC] PHP Warning:  array_values() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-includes/script-loader.php on line 958
+[24-May-2017 06:43:14 UTC] PHP Stack trace:
+[24-May-2017 06:43:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin-ajax.php:0
+[24-May-2017 06:43:14 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/admin-ajax.php:22
+[24-May-2017 06:43:14 UTC] PHP   3. require_once() /home/ubuntu/workspace/wp-load.php:39
+[24-May-2017 06:43:14 UTC] PHP   4. require_once() /home/ubuntu/workspace/wp-config.php:92
+[24-May-2017 06:43:14 UTC] PHP   5. do_action() /home/ubuntu/workspace/wp-settings.php:295
+[24-May-2017 06:43:14 UTC] PHP   6. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   7. GravityView_Plugin::getInstance() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   8. GravityView_Plugin->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:84
+[24-May-2017 06:43:14 UTC] PHP   9. GravityView_Plugin->include_files() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:98
+[24-May-2017 06:43:14 UTC] PHP  10. include_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:156
+[24-May-2017 06:43:14 UTC] PHP  11. GravityView_Edit_Entry::getInstance() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:293
+[24-May-2017 06:43:14 UTC] PHP  12. GravityView_Edit_Entry->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:59
+[24-May-2017 06:43:14 UTC] PHP  13. GravityView_Edit_Entry->load_components() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:44
+[24-May-2017 06:43:14 UTC] PHP  14. require_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:75
+[24-May-2017 06:43:14 UTC] PHP  15. wp_head() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry-render.php:21
+[24-May-2017 06:43:14 UTC] PHP  16. do_action() /home/ubuntu/workspace/wp-includes/general-template.php:2555
+[24-May-2017 06:43:14 UTC] PHP  17. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  18. wp_enqueue_scripts() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  19. do_action() /home/ubuntu/workspace/wp-includes/script-loader.php:1197
+[24-May-2017 06:43:14 UTC] PHP  20. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  21. wp_localize_jquery_ui_datepicker() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  22. array_values() /home/ubuntu/workspace/wp-includes/script-loader.php:958
+[24-May-2017 06:43:14 UTC] PHP Warning:  array_values() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-includes/script-loader.php on line 959
+[24-May-2017 06:43:14 UTC] PHP Stack trace:
+[24-May-2017 06:43:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin-ajax.php:0
+[24-May-2017 06:43:14 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/admin-ajax.php:22
+[24-May-2017 06:43:14 UTC] PHP   3. require_once() /home/ubuntu/workspace/wp-load.php:39
+[24-May-2017 06:43:14 UTC] PHP   4. require_once() /home/ubuntu/workspace/wp-config.php:92
+[24-May-2017 06:43:14 UTC] PHP   5. do_action() /home/ubuntu/workspace/wp-settings.php:295
+[24-May-2017 06:43:14 UTC] PHP   6. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   7. GravityView_Plugin::getInstance() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   8. GravityView_Plugin->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:84
+[24-May-2017 06:43:14 UTC] PHP   9. GravityView_Plugin->include_files() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:98
+[24-May-2017 06:43:14 UTC] PHP  10. include_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:156
+[24-May-2017 06:43:14 UTC] PHP  11. GravityView_Edit_Entry::getInstance() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:293
+[24-May-2017 06:43:14 UTC] PHP  12. GravityView_Edit_Entry->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:59
+[24-May-2017 06:43:14 UTC] PHP  13. GravityView_Edit_Entry->load_components() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:44
+[24-May-2017 06:43:14 UTC] PHP  14. require_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:75
+[24-May-2017 06:43:14 UTC] PHP  15. wp_head() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry-render.php:21
+[24-May-2017 06:43:14 UTC] PHP  16. do_action() /home/ubuntu/workspace/wp-includes/general-template.php:2555
+[24-May-2017 06:43:14 UTC] PHP  17. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  18. wp_enqueue_scripts() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  19. do_action() /home/ubuntu/workspace/wp-includes/script-loader.php:1197
+[24-May-2017 06:43:14 UTC] PHP  20. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  21. wp_localize_jquery_ui_datepicker() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  22. array_values() /home/ubuntu/workspace/wp-includes/script-loader.php:959
+[24-May-2017 06:43:14 UTC] PHP Fatal error:  Call to a member function is_rtl() on a non-object in /home/ubuntu/workspace/wp-includes/script-loader.php on line 962
+[24-May-2017 06:43:14 UTC] PHP Stack trace:
+[24-May-2017 06:43:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin-ajax.php:0
+[24-May-2017 06:43:14 UTC] PHP   2. require_once() /home/ubuntu/workspace/wp-admin/admin-ajax.php:22
+[24-May-2017 06:43:14 UTC] PHP   3. require_once() /home/ubuntu/workspace/wp-load.php:39
+[24-May-2017 06:43:14 UTC] PHP   4. require_once() /home/ubuntu/workspace/wp-config.php:92
+[24-May-2017 06:43:14 UTC] PHP   5. do_action() /home/ubuntu/workspace/wp-settings.php:295
+[24-May-2017 06:43:14 UTC] PHP   6. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   7. GravityView_Plugin::getInstance() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP   8. GravityView_Plugin->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:84
+[24-May-2017 06:43:14 UTC] PHP   9. GravityView_Plugin->include_files() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:98
+[24-May-2017 06:43:14 UTC] PHP  10. include_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/gravityview.php:156
+[24-May-2017 06:43:14 UTC] PHP  11. GravityView_Edit_Entry::getInstance() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:293
+[24-May-2017 06:43:14 UTC] PHP  12. GravityView_Edit_Entry->__construct() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:59
+[24-May-2017 06:43:14 UTC] PHP  13. GravityView_Edit_Entry->load_components() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:44
+[24-May-2017 06:43:14 UTC] PHP  14. require_once() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry.php:75
+[24-May-2017 06:43:14 UTC] PHP  15. wp_head() /home/ubuntu/workspace/wp-content/plugins/GravityView/includes/extensions/edit-entry/class-edit-entry-render.php:21
+[24-May-2017 06:43:14 UTC] PHP  16. do_action() /home/ubuntu/workspace/wp-includes/general-template.php:2555
+[24-May-2017 06:43:14 UTC] PHP  17. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  18. wp_enqueue_scripts() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  19. do_action() /home/ubuntu/workspace/wp-includes/script-loader.php:1197
+[24-May-2017 06:43:14 UTC] PHP  20. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:524}() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[24-May-2017 06:43:14 UTC] PHP  21. wp_localize_jquery_ui_datepicker() /home/ubuntu/workspace/wp-includes/plugin.php:524
+[31-May-2017 03:15:50 UTC] WordPress database error Incorrect table name '' for query DROP TABLE ``, ``, ``; made by do_action('wp_ajax_delete-plugin'), call_user_func_array, wp_ajax_delete_plugin, delete_plugins, uninstall_plugin, do_action('uninstall_participants-database/participants-database.php'), call_user_func_array, PDb_Init::on_uninstall, PDb_Init->__construct, PDb_Init->_uninstall
+[31-May-2017 03:15:50 UTC] participants-database plugin uninstalled

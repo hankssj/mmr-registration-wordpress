@@ -21,6 +21,18 @@
 	<?php wp_head(); ?>
 </head>
 
+<?php
+//session_start();
+// if($_SESSION['redirect'] != ''){ 
+// 	header('Location: https://www.google.co.in/');
+// 	unset($_SESSION['redirect']);
+// }
+// else{
+
+// }
+
+?>
+
 <body <?php body_class(); ?>>
 <div id="page" class="site">
 	<div class="site-inner">

@@ -20,6 +20,7 @@ $announcement_content = get_field( "announcement_content" );
 $enrollment_status = get_field( "enrollment_status" );
 $enrollment_status_text = get_field( "enrollment_status_text" );
 
+// if user login redirect to dashboard
 if(is_user_logged_in()){ 
 	?>
 	<script>
@@ -27,11 +28,10 @@ if(is_user_logged_in()){
 
 		window.location.href = '<?php  echo site_url(); ?>/dashboard';
 	});
-	
-	</script>
-	
+</script>
 	<?php
 }
+// End if user login redirect to dashboard
 			
 ?>
 <div id="primary" class="content-area-home">

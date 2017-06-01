@@ -6,35 +6,79 @@ get_header();
 
 global $wpdb;
 
+$current_user = wp_get_current_user();
+if($current_user->roles[0] != 'administrator'){
+?>
+<script>
+jQuery(document).ready(function(){
+window.location.href = '<?php  echo site_url(); ?>';
+});
 
-if($_GET['sort'] == ''){
-	$sort = 'DESC';
+</script>
+<?php
+
 }
-else if($_GET['sort'] == 'ASC'){
-	$sort = 'DESC';
+
+
+$pagetitle = get_post_meta( get_the_ID(), 'page_title', true );
+// Check if the custom field has a value.
+if ( ! empty( $pagetitle ) ) {
+    echo "<h2><center>".$pagetitle."<center></h2>";
 }
-else if($_GET['sort'] == 'DESC'){
-	$sort = 'ASC';
+
+
+if($current_user->roles[0] == 'administrator'){
+session_start();
+echo "<h2>";
+echo "<div style='color: green;'>";
+echo $_SESSION['succmsg'];
+echo "</div>";
+echo "</h2>";
+unset($_SESSION['succmsg']);
+if($_POST['deleteform'] != '' && isset($_POST['deleteform'])){
+	global $wpdb;
+	// Get all user id from form
+	$qryGetID = "
+				SELECT *
+				FROM ".$wpdb->prefix."rg_lead
+				WHERE created_by = ".$_POST['deleteid']."";
+
+	$getUSer = $wpdb->get_results($qryGetID, OBJECT);
+	foreach ($getUSer as $userdata) {
+		$wpdb->query(
+		              "DELETE  FROM ".$wpdb->prefix."rg_lead
+		               WHERE id = ".$userdata->id.""
+		);
+		$wpdb->query(
+		              "DELETE  FROM ".$wpdb->prefix."rg_lead_detail
+		               WHERE lead_id = ".$userdata->id.""
+		);
+	}
 }
+
+// Get all form data and user data
+$user = wp_get_current_user();
 
 $querystr = "
 			SELECT DISTINCT *
-			FROM wp_rg_lead
-			WHERE form_id = 1 GROUP BY created_by ".$sort."
+			FROM ".$wpdb->prefix."rg_lead		
+			WHERE form_id = 1 
+			AND created_by != ".$user->ID."
+			GROUP BY created_by DESC
 			";
 
 $check_user = $wpdb->get_results($querystr, OBJECT);
 ?>
 	
-	<input type="hidden" name="sort" value="<?php echo $sort; ?>">
-	<table class="table-view">
+	<input type="hidden" name="sortemail" value="<?php echo $sortemail; ?>">
+	<input type="hidden" name="sortname" value="<?php echo $sortname; ?>">
+	<table class="table-view" id="example">
 		<thead>
 			<tr>
 			<th>Email</th>
-			<th><a href="?sort=<?php echo $sort; ?>">Name</a></th>
+			<th>Name</th>
 			<th>Instrument</th>
 			<th>Dorms?</th>
-			<th>Single</th>	
 			<th>Meals?</th>
 			<th>First?</th>
 			<th>Vol?</th>
@@ -49,11 +93,11 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
 
 		$querydetails = "
 			SELECT * 
-			FROM wp_rg_lead_detail
+			FROM ".$wpdb->prefix."rg_lead_detail
 			WHERE lead_id = ".$getuserID->id."
 			";
 
-		$get_user_details = $wpdb->get_results($querydetails, OBJECT);
+			$get_user_details = $wpdb->get_results($querydetails, OBJECT);
 			$instrumental = '';
 			$meal = 'N';
 			$room = '';
@@ -63,33 +107,26 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
 			$vol = '';
 			
 		foreach ($get_user_details as $getUserDetails) {
-			// echo "<pre>"; print_r($getUserDetails); echo "</prE>"; 
-			// echo "<br>";
-
+			
 			$meta_value = gform_get_meta( $entry_id, $meta_key );
 
 			if($getUserDetails->field_number == '23'){
 				  $instrumental = $getUserDetails->value;
-				  
 			}
-			if($getUserDetails->field_number == '31'){
+			if($getUserDetails->field_number == '56'){
 				 	$meal = $getUserDetails->value;
-				 	if($meal == ''){
-				  	$meal = 'N';
-				  }
 				 	
 			}
 			if($getUserDetails->field_number == '21'){
 				$room = $getUserDetails->value;
-
 			}
-			if($getUserDetails->field_number == '28'){
+			if($getUserDetails->field_number == '51.1'){
 				$single = $getUserDetails->value;
 				if(trim($single) == ''){
 				  	$single = 'N';
 				  }
 			}
-			if($getUserDetails->field_number == '44'){
+			if($getUserDetails->field_number == '55'){
 				$dorm = $getUserDetails->value;
 			}
 			if($getUserDetails->field_number == '17.1'){
@@ -101,7 +138,6 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
 			if($getUserDetails->field_number == '45'){
 				$vol = $getUserDetails->value;
 			}
-			
 		}
 		
 		$entry_id = $getuserID->id;
@@ -114,15 +150,21 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
 			<td class=""><?php echo $user_last['first_name'][0]." "; ?><?php echo $user_last['last_name'][0]; ?></td>
 			<td class=""><?php echo $instrumental; ?></td>
 			<td class=""><?php echo $dorm; ?></td>
-			<td class=""><?php echo $single; ?></td>
 			<td class=""><?php echo $meal; ?></td>
 			<td class=""><?php echo $first; ?></td>
 			<td class=""><?php echo $vol; ?></td>
 			<td class="">$ 0</td>
 			<td class="">N</td>
-			<td class="">
-			<?php echo do_shortcode('[gv_entry_link action="edit" entry_id="'.$entry_id.'" view_id="220" /]'); ?>
-			<?php echo do_shortcode('[gv_entry_link action="delete" entry_id="'.$entry_id.'" view_id="220" /]'); ?>
+			<td class="" >
+			<?php echo do_shortcode('[gv_edit_entry_link action="edit" entry_id="'.$entry_id.'" view_id="220"]Edit[/gv_edit_entry_link]'); ?>
+			<form method="post" id="deleteform">
+			<input type="hidden" name="deleteid" class="deleteid" value="">
+			<a href="javascript:;" onClick="deletefun(<?php echo $user_id; ?>);">Delete</a>
+			<input type="hidden" name="deleteform" value="Delete">
+			</form>
+			<!--
+			<?php echo do_shortcode('[gv_edit_entry_link action="delete" entry_id="'.$entry_id.'" view_id="220" /]'); ?>
+			-->
 			</td>
       	</tr>
  	<?php		
@@ -135,7 +177,6 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
 			<th>Name</th>
 			<th>Instrument</th>
 			<th>Dorms?</th>
-			<th>Single</th>	
 			<th>Meals?</th>
 			<th>First?</th>
 			<th>Vol?</th>
@@ -146,5 +187,6 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
    </tfoot>
 </table>
 <?php
+}
 get_footer();
 ?>
