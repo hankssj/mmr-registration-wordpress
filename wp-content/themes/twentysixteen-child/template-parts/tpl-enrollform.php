@@ -40,7 +40,7 @@ $querystr = "
 if($FormID == ''){
 	echo "<div class='custom-enrollment'>";
 	echo "<h3>Your Enrollment Info</h3>";
-	echo "<div><h4>Total Amount : </h4><span class='custotal-amount'></span></div>";
+	echo "<div class='custom-scroll'><h4>Total Amount : </h4><span class='custotal-amount'></span></div>";
 	echo do_shortcode('[gravityform id="1" title="false" description="false"]');
 	echo "</div>";
 	

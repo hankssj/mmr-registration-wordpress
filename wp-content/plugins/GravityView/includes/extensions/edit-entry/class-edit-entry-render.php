@@ -840,10 +840,10 @@ class GravityView_Edit_Entry_Render {
             $current_user = wp_get_current_user();
             if($current_user->roles[0] != 'administrator'){
     
-            echo "<div class='custom-contact'>";
-        	echo "<h3>Your Contact Info:</h3>";
-        	echo do_shortcode('[logindata]');
-        	echo "</div>";
+        //     echo "<div class='custom-contact'>";
+        // 	echo "<h3>Your Contact Info:</h3>";
+        // 	echo do_shortcode('[logindata]');
+        // 	echo "</div>";
             }
             ?>
          
@@ -852,7 +852,7 @@ class GravityView_Edit_Entry_Render {
             <?php // The ID of the form needs to be `gform_{form_id}` for the pluploader 
             	echo "<div class='custom-enrollment'>";
             	echo "<h3>Your Enrollment Info</h3>";
-            	echo "<div><h4>Total Amount : </h4><span class='custotal-amount'></span></div>";
+            	echo "<div class='custom-scroll'><h4>Total Amount : </h4><span class='custotal-amount'>Loading</span></div>";
             	?>
             
             <form method="post" id="gform_<?php echo $this->form_id; ?>" enctype="multipart/form-data">

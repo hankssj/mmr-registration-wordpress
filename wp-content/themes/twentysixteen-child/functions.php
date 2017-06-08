@@ -943,6 +943,89 @@ add_shortcode( 'logindata', 'display_logindata' );
 * enrollment_button - Display enrollment button based on different criteria, that set by admin, ie, Enrollment Status, Questionaire Status, Payment
 */
 function enrollment_button( $atts ) {
+
+// Add User Payment data
+$current_user = wp_get_current_user();
+	global $wpdb;
+
+	$user_last = get_user_meta( $current_user->ID );
+	$user_info = get_userdata($current_user->ID);
+	
+	if($_REQUEST['mc_gross'] != ''){
+
+		if($current_user->ID != ''){
+
+		echo "<h2>Transcation successfully.</h2>";
+		
+		// Insert paid user data
+		$payamount = $_REQUEST['mc_gross']  - $_REQUEST['mc_fee'];
+
+		$sql = "INSERT INTO `payments` (payment_type, txnid, payment_amount, payment_status, itemid, createdtime, user_ID) VALUES (
+				'online',
+				'".$_REQUEST['txn_id']."',
+				'".$payamount."',
+				'".$_REQUEST['payment_status']."',
+				'".$_REQUEST['item_number']."',
+				'".date("Y-m-d H:i:s")."',
+				'".$current_user->ID."'
+				)";
+
+		$wpdb->query($sql);
+
+		// User details for send mail
+		$first_name = $user_last['first_name'][0];
+		$last_name = $user_last['last_name'][0];
+		$user_email = $user_info->user_email;
+
+		$payer_id = $_REQUEST['payer_id'];
+		$receiver_id = $_REQUEST['receiver_id'];
+		$payment_gross = $_REQUEST['payment_gross'];
+		$payment_fee = $_REQUEST['payment_fee'];
+		$receiver_id = $_REQUEST['receiver_id'];
+		$txn_id = $_REQUEST['txn_id'];
+		// End User details for send mail
+
+		// Send mail to user
+		$to = $user_email;
+        $subject = 'New Transcation';
+        $sender = 'MMR Enrollment';
+        $fromemail='charlessamuel733@gmail.com';
+
+        $message .= "Hello ".$first_name. " ". $last_name."<br>";
+        $message .= "New Transcation Successfully Added<br>";
+        $message .= "Check Below Details";
+        $message .= "<ul><li>Transcation ID: ".$txn_id."</li><li>Payer ID: ".$payer_id."</li><li>Receiver ID : ".$receiver_id."</li><li>Payment Amount: ".$payment_gross."</li></ul>";
+
+        $headers[] = 'MIME-Version: 1.0' . "\r\n";
+        $headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers[] = "X-Mailer: PHP \r\n";
+        $headers[] = 'From: '.$sender.' < '.$fromemail.'>' . "\r\n";
+        
+        $mail = wp_mail( $to, $subject, $message, $headers );
+        // End send mail to user
+
+        // Send mail to admin
+       	$toadmin = get_option( 'admin_email' );;
+        $subjectadmin = 'New Transcation';
+        $senderadmin = 'MMR Enrollment';
+        $fromemailadmin = $user_email;
+
+        $messageadmin .= "Hello Administrator<br>";
+        $messageadmin .= "New Transcation Successfully Added<br>";
+        $messageadmin .= "Check Below Details";
+        $messageadmin .= "<ul><li>User Name: ".$first_name. " ". $last_name."</li><li>Transcation ID: ".$txn_id."</li><li>Payer ID: ".$payer_id."</li><li>Receiver ID : ".$receiver_id."</li><li>Payment Amount: ".$payment_gross."</li></ul>";
+
+        $headersadmin[] = 'MIME-Version: 1.0' . "\r\n";
+        $headersadmin[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headersadmin[] = "X-Mailer: PHP \r\n";
+        $headersadmin[] = 'From: '.$sender.' < '.$fromemail.'>' . "\r\n";
+        
+        $mail = wp_mail( $toadmin, $subjectadmin, $messageadmin, $headersadmin );
+        // End send mail to admin
+    	}
+	}
+// End Add User Payment data
+
 echo "<h2>";
 session_start();
 echo "<div style='color: green;'>";
@@ -950,13 +1033,14 @@ echo $_SESSION['succmsg'];
 echo "</div>";
 echo "</h2>";
 unset($_SESSION['succmsg']);
+
+$displaypaymentbutton = 0;
 	if(!is_user_logged_in()){ 
 	?>
 	<script>
 	jQuery(document).ready(function(){
 		window.location.href = '<?php  echo site_url(); ?>';
 	});
-
 	</script>
 	
 	<?php
@@ -1005,9 +1089,11 @@ else{
 					$current_user = wp_get_current_user();
 					if($current_user->roles[0] == 'administrator'){
 						echo "<a href='".site_url()."/admin-enrollment-form/'> View All Enrolled Form </a>";
+						$displaypaymentbutton = 1;
 					}
 					else{
 						echo "<a href='".site_url()."/enrollment-form/'> Add Enrollment Form </a>";
+
 					}
 				}
 				// End if status is open
@@ -1024,10 +1110,12 @@ else{
 					$current_user = wp_get_current_user();
 					if($current_user->roles[0] == 'administrator'){
 						echo "<a href='".site_url()."/admin-enrollment-form/'> View All Enrolled Form </a>";
+						$displaypaymentbutton = 1;
 					}
 					else{
 
 						echo do_shortcode('[gv_edit_entry_link entry_id="'.$entry_id[0].'" view_id="220"] Edit Enrollment [/gv_edit_entry_link]'); 
+						$displaypaymentbutton = 1;
 					}
 					
 				}
@@ -1037,53 +1125,85 @@ else{
 					$current_user = wp_get_current_user();
 					if($current_user->roles[0] == 'administrator'){
 						echo "<a href='".site_url()."/admin-enrollment-form/'> View All Enrolled Form </a>";
+						$displaypaymentbutton = 1;
 					}
 					else{
 
-						echo do_shortcode('[gv_edit_entry_link entry_id="'.$entry_id[0].'" view_id="220"] View Enrollment [/gv_edit_entry_link]'); 
+						echo do_shortcode('[gv_edit_entry_link entry_id="'.$entry_id[0].'" view_id="220"] View Enrollment [/gv_edit_entry_link]');
+						$displaypaymentbutton = 1; 
 					}
 
 				}
 			}
 }
+
+?>
+<br><br>
+<?php
+ 
+$current_user = wp_get_current_user();
+if($current_user->roles[0] != 'administrator'){
+
+
+
+	if($displaypaymentbutton != 0){
+		global $wpdb;
+		$querystr = "
+					SELECT * 
+					FROM gravity_amount
+					WHERE user_id = ".$current_user->ID."
+					";
+
+		$get_data = $wpdb->get_results($querystr, OBJECT);
+		$entry_id = array();
+		$paymentamount = '';
+		foreach ($get_data as $formdata) {
+			$paymentamount = $formdata->amount;
+		}
+
+		// Get paid amount
+		$qryamount = "
+					SELECT * 
+					FROM payments
+					WHERE user_ID = ".$current_user->ID."
+					";
+
+		$get_amount = $wpdb->get_results($qryamount, OBJECT);
+		$paidary = array();
+		foreach ($get_amount as $amountdata) {
+			$paidary[] = $amountdata->payment_amount;
+		}
+		$paidamount = array_sum($paidary);
+
+
+ 		$paymentamount = round($paymentamount - $paidamount);
+ 		if($paymentamount > 0){
+		echo "<br><b>BALANCE : $";
+		echo $paymentamount;
+			?>
+			<br>
+			<a href="<?php echo site_url(); ?>/payment-options/">Make Payment</a>
+			</b>
+			<?php 
+		}
+		else{
+			echo "Your balance is $0";
+		}
+}
+
+
+} 
+else{
+echo "<a href='".site_url()."/view-all-transcation/'>View All Transcation</a>";
+}
+?>
+<br><br>
+<?php
 }
 
 add_shortcode( 'enrollment_option', 'enrollment_button' );
 
-function do_payment( $atts ){
-	$current_user = wp_get_current_user();
-	
-	global $wpdb;
-	$querystr = "
-				SELECT * 
-				FROM gravity_amount
-				WHERE user_id = ".$current_user->ID."
-				";
 
-	$get_data = $wpdb->get_results($querystr, OBJECT);
-	$entry_id = array();
-	foreach ($get_data as $formdata) {
-		//echo $formdata->amount;
-	}
-	?>
-	<br><br>
-	<input type="button" id="makepayment" name="makepayment" value="Make Payment">
-
-	<div class="paymentoption" style="display: none">
-	<input name="paymentoption" id="onlinepayment" value="onlinepayment" type="radio"> <span>Online Payment</span>
-	<input name="paymentoption" id="sendingcheck" value="sendingcheck" type="radio"> <span>Sending Cheque</span>
-	</div>
-
-	<div class="fullpaymentoptions" style="display: none">
-	<input name="fullpaymentoptions" value="fullpayment" type="radio"> <span>Full Payment</span>
-	<input name="fullpaymentoptions" value="paydeposite" type="radio"> <span>Pay a deposit of $150 </span>
-	<input type="text" placeholder="customamount" name="fullpaymentoptions"> 
-	</div>
-
-	<?php
-}
-
-add_shortcode( 'payment_option', 'do_payment' );
 /**
 * blockusers_init - Method restricts Normal user to wordpress admin Screen.
 */
@@ -1110,18 +1230,11 @@ function my_custom_fonts() {
   </style>';
 }
 
-
-// add_action( 'wp_ajax_insertamount', 'prefix_ajax_insertamount' );
-// add_action( 'wp_ajax_nopriv_insertamount', 'prefix_ajax_insertamount' );
-
-// function prefix_ajax_insertamount() {
-// print_r($_REQUEST);
-// exit;
-// }
-
+/**
+* Add payment data after submit grevity form
+*/
 add_action( 'gform_after_submission', 'set_post_content', 10, 2 );
 function set_post_content( $entry, $form ) {
-
 
 	if($_REQUEST['lid'] == ''){
 		$entryID = $entry['id'];
@@ -1167,4 +1280,37 @@ function set_post_content( $entry, $form ) {
 
 		$wpdb->query($sql);
 	}
+	$current_user = wp_get_current_user();
+	if($current_user->roles[0] != 'administrator'){ 
+		$redirect_url = site_url()."/dashboard/";
+		wp_redirect( $redirect_url );
+	}
+}
+
+/**
+* Hook for get user role by form id
+*/
+add_action( 'wp_ajax_get_userrole', 'prefix_ajax_get_userrole' );
+add_action( 'wp_ajax_nopriv_get_userrole', 'prefix_ajax_get_userrole' );
+
+function prefix_ajax_get_userrole() {
+
+	global $wpdb;
+	$querystr = "
+				SELECT * 
+				FROM ".$wpdb->prefix."rg_lead
+				WHERE id = ".$_REQUEST['formID']."
+				";
+
+	$check_user = $wpdb->get_results($querystr, OBJECT);
+	$entry_id = array();
+	foreach ($check_user as $formdata) {
+		$created_by = $formdata->created_by;
+		
+		$user_info = get_userdata($created_by);
+     
+      echo implode(', ', $user_info->roles);
+     
+	}
+exit;
 }

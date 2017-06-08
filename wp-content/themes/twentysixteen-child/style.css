@@ -146,3 +146,30 @@ table.dataTable thead .sorting_asc:last-child {
   }
 
 	.users-php .wrap .page-title-action,.users-php .wp-has-submenu .wp-submenu li:nth-child(2) { display:none !important; }
+	
+.darkHeader {
+	background:#e7e7e7;
+	border-radius:8px;
+	padding:10px;
+	position: fixed;
+    top: 10px;
+	z-index:500;
+	right: 40px;
+}
+.custompay {
+	width: 100%;
+    max-width: 450px;
+    margin-top:15px;
+}
+
+.paymentoption {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.custom-enroll{
+ width: 500px;   
+}
+}
+#menu-item-35{
+ display:none !important;
+}

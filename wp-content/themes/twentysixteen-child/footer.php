@@ -114,13 +114,36 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 <input type="hidden" id="board_registration_and_instrumental" name="board_registration_and_instrumental" value="<?php echo $board_registration_and_instrumental; ?>">
 <input type="hidden" id="board_user_per_tshirt" name="board_user_per_tshirt" value="<?php echo $board_user_per_tshirt; ?>">
 
+<input type="hidden" name="grevityuserrole" id="grevityuserrole" value="">
+
 <script type="text/javascript">
 
+	jQuery(document).ready(function(){
+
+		
+		//jQuery('#gform_submit_button_1').val('Next');
+		var formID = jQuery("input[name=lid]").val();
+
+		var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+				jQuery.ajax({
+	                cache: false,
+	                type: 'POST',
+	                url: '<?php echo admin_url('admin-ajax.php'); ?>',
+	                data: 'formID='+formID+'&action=get_userrole',
+	                success: function(data) 
+	                {
+	                	jQuery('#grevityuserrole').val(data);
+	               	}
+	            });		
+
+	});
+
 	<?php
-	// If user role : subscriber
-	if($current_user->roles[0] == 'subscriber' || $current_user->roles[0] == 'administrator'){
-	?>
-		setInterval(function(){
+	if($current_user->roles[0] == 'administrator'){ ?>
+	setTimeout(function(){
+		var grevityuserrole = jQuery('#grevityuserrole').val();
+		if(grevityuserrole == 'subscriber'){
+			
 			var normal_reg = jQuery('#normal_reg').val();
 			var normal_instrument = jQuery('#normal_instrument').val();
 			var normal_double_room = jQuery('#normal_double_room').val();
@@ -130,38 +153,68 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			var normal_wine = jQuery('#normal_wine').val();
 			var normal_tshirt = jQuery('#normal_tshirt').val();
 
+			jQuery("#label_1_54_1").append(" ($" + normal_instrument + ")");
+			jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
+			jQuery("#label_1_55_1").append(" ($" + normal_single_room + ")");
+			jQuery("#label_1_56_0").append(" ($" + normal_all_meal + ")");
+			jQuery("#label_1_56_1").append(" ($" + normal_lunch_dinner + ")");
+			jQuery("#field_1_36 .gfield_label").append(" ($" + normal_wine + ") Per Glass");
+			jQuery("#field_1_37").append(" ($" + normal_tshirt + ") Per Tshirt");
+
+			setInterval(function(){
+			
 			var totalfee = 0;
 			totalfee = parseInt(totalfee)+parseInt(normal_reg);
+
+			var instrumentcheck = 0;
+			var double_room_check = 0;
+			var single_room_check = 0;
+			var full_meal_check = 0;
+			var lunch_dinner_check = 0;
+			var wine_check = 0;
+			var tshirtcheck = 0;
 
 			// check instrument
 			if(jQuery("#choice_1_54_1").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_instrument);
+			  	instrumentcheck = 1;
 			}
 
 			// check Double dorm room
 			if(jQuery("#choice_1_55_0").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_double_room);
+			  	double_room_check = 1;
 			}
 
 			// check Single dorm room
 			if(jQuery("#choice_1_55_1").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_single_room);
+			  	single_room_check = 1;
 			}
 
 			// check All Meals
 			if(jQuery("#choice_1_56_0").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_all_meal);
+			  	full_meal_check = 1;
 			}
 
 			// check Lunch and Dinner Only
 			if(jQuery("#choice_1_56_1").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_lunch_dinner);
+			  	lunch_dinner_check = 1;
 			}
 
 			// check Wine Glass
 			var wineglass = jQuery("#input_1_36 ").val();
+			if(isNaN(wineglass)) {
+				wineglass = 0;
+			}
 			var winetotal = parseInt(normal_wine*wineglass);
 			totalfee = parseInt(totalfee)+parseInt(winetotal);
+
+			if(wineglass > 0){
+				wine_check = 1;
+			}
 
 			// check TShirt
 			var small = parseInt(jQuery("#input_1_38 ").val());
@@ -170,57 +223,206 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			var xl = parseInt(jQuery("#input_1_41 ").val());
 			var xxl = parseInt(jQuery("#input_1_42 ").val());
 			var xxxl = parseInt(jQuery("#input_1_43 ").val());
+			if(isNaN(small)) {
+				small = 0;
+			}
+			if(isNaN(medium)) {
+				medium = 0;
+			}
+			if(isNaN(large)) {
+				large = 0;
+			}
+			if(isNaN(xl)) {
+				xl = 0;
+			}
+			if(isNaN(xxl)) {
+				xxl = 0;
+			}
+			if(isNaN(xxxl)) {
+				xxxl = 0;
+			}
 			var totalshirt = small+medium+large+xl+xxl+xxxl;
+			if(totalshirt > 0){
+				tshirtcheck = 1;
+			}
 			var shirttotal = parseInt(normal_tshirt*totalshirt);
 			totalfee = parseInt(totalfee)+parseInt(shirttotal);
-			jQuery('.custotal-amount').html(totalfee);    jQuery('#amount').val(totalfee);
 
-		}, 500);
-	<?php
-	}
-	// End If user role : subscriber
+			var donation = jQuery('#input_1_35').val();
+			donationdata = '';
 
-	// If user role : Faculty and Staff
-	if($current_user->roles[0] == 'faculty' || $current_user->roles[0] == 'staff'){
-	?>
-		setInterval(function(){
+			if(donation != 'none'){
+				donationdata =  "<br>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")";
+				totalfee = parseInt(totalfee)+parseInt(donation);
+			}
+
+			var instrumentdata = '';
+
+			if(instrumentcheck == 1){
+				instrumentdata =  "<br>" +
+				jQuery('#label_1_54_1').html() + " (" + jQuery('#input_1_23').val() + ")";
+			}
+
+			var double_room_data = '';
+
+			if(double_room_check == 1){
+				double_room_data =  "<br>" +
+				jQuery('#label_1_55_0').html();
+			}
+
+			var single_room_data = '';
+
+			if(single_room_check == 1){
+				single_room_data =  "<br>" +
+				jQuery('#label_1_55_1').html();
+			}
+
+			var full_meal_data = '';
+
+			if(full_meal_check == 1){
+				full_meal_data =  "<br>" +
+				jQuery('#label_1_56_0').html();
+			}
+
+			var lunch_dinner_data = '';
+
+			if(lunch_dinner_check == 1){
+				lunch_dinner_data =  "<br>" +
+				jQuery('#label_1_56_1').html();
+			}
+
+			var wine_data = '';
+
+			if(wine_check == 1){
+				wine_data =  "<br> Total Wine Glass : " + wineglass + "*" + normal_wine + " = $" + winetotal;
+			}
+
+			var tshirt_data = '';
+			var regfee = '';
+			
+			if(tshirtcheck == 1){
+				tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + normal_tshirt + " = $" + shirttotal;
+			}
+
+			var regfee = "Registration Fees ($" + normal_reg + ")";
+
+			jQuery('.custotal-amount').html(regfee + instrumentdata + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);    
+
+			jQuery('#amount').val(totalfee);
+
+			}, 500);
+		
+		}
+
+		if(grevityuserrole == 'faculty' || grevityuserrole == 'staff'){
+
 			var faculty_staff_single_room = jQuery('#faculty_staff_single_room').val();
 			var faculty_staff_wine = jQuery('#faculty_staff_wine').val();
 			var faculty_staff_tshirt = jQuery('#faculty_staff_tshirt').val();
 
-			var totalfee = 0;
-			
-			// check Single dorm room
-			if(jQuery("#choice_1_55_1").is(":checked")) {
-			  	totalfee = parseInt(totalfee)+parseInt(faculty_staff_single_room);
-			}
+			jQuery("#label_1_55_1").append(" ($" + faculty_staff_single_room + ")");
+			jQuery("#field_1_36 .gfield_label").append(" ($" + faculty_staff_wine + ") Per Glass");
+			jQuery("#field_1_37").append(" ($" + faculty_staff_tshirt + ") Per Tshirt");
 
-			// check Wine Glass
-			var wineglass = jQuery("#input_1_36 ").val();
-			var winetotal = parseInt(faculty_staff_wine*wineglass);
-			totalfee = parseInt(totalfee)+parseInt(winetotal);
+			setInterval(function(){
+				
+				var totalfee = 0;
+				var single_room_check = 0;
+				var wine_check = 0;
+				var tshirtcheck = 0;
+				
+				// check Single dorm room
+				if(jQuery("#choice_1_55_1").is(":checked")) {
+				  	totalfee = parseInt(totalfee)+parseInt(faculty_staff_single_room);
+				  	single_room_check = 1;
+				}
 
-			// check TShirt
-			var small = parseInt(jQuery("#input_1_38 ").val());
-			var medium = parseInt(jQuery("#input_1_39 ").val());
-			var large = parseInt(jQuery("#input_1_40 ").val());
-			var xl = parseInt(jQuery("#input_1_41 ").val());
-			var xxl = parseInt(jQuery("#input_1_42 ").val());
-			var xxxl = parseInt(jQuery("#input_1_43 ").val());
-			var totalshirt = small+medium+large+xl+xxl+xxxl;
-			var shirttotal = parseInt(faculty_staff_tshirt*totalshirt);
-			totalfee = parseInt(totalfee)+parseInt(shirttotal);
-			jQuery('.custotal-amount').html(totalfee);    jQuery('#amount').val(totalfee);
+				// check Wine Glass
+				var wineglass = jQuery("#input_1_36 ").val();
+				if(isNaN(wineglass)) {
+					wineglass = 0;
+				}
+				var winetotal = parseInt(faculty_staff_wine*wineglass);
+				totalfee = parseInt(totalfee)+parseInt(winetotal);
 
-		}, 500);
-	<?php
-	}
-	// End If user role : Faculty and Staff
+				if(wineglass > 0){
+					wine_check = 1;
+				}
 
-	// If user role : Board
-	if($current_user->roles[0] == 'board'){
-	?>
-		setInterval(function(){
+				// check TShirt
+				var small = parseInt(jQuery("#input_1_38 ").val());
+				var medium = parseInt(jQuery("#input_1_39 ").val());
+				var large = parseInt(jQuery("#input_1_40 ").val());
+				var xl = parseInt(jQuery("#input_1_41 ").val());
+				var xxl = parseInt(jQuery("#input_1_42 ").val());
+				var xxxl = parseInt(jQuery("#input_1_43 ").val());
+				if(isNaN(small)) {
+					small = 0;
+				}
+				if(isNaN(medium)) {
+					medium = 0;
+				}
+				if(isNaN(large)) {
+					large = 0;
+				}
+				if(isNaN(xl)) {
+					xl = 0;
+				}
+				if(isNaN(xxl)) {
+					xxl = 0;
+				}
+				if(isNaN(xxxl)) {
+					xxxl = 0;
+				}
+
+				var totalshirt = small+medium+large+xl+xxl+xxxl;
+				var shirttotal = parseInt(faculty_staff_tshirt*totalshirt);
+				if(totalshirt > 1){
+					tshirtcheck = 1;
+				}
+				
+				if(totalshirt >= 1){
+					totalshirt = parseInt(totalshirt)-1;
+					shirttotal = parseInt(shirttotal)-parseInt(faculty_staff_tshirt);
+					
+				}
+
+				var single_room_data = '';
+
+				if(single_room_check == 1){
+					single_room_data =  "<br>" +
+					jQuery('#label_1_55_1').html();
+				}
+
+				var wine_data = '';
+
+				if(wine_check == 1){
+					wine_data =  "<br> Total Wine Glass : " + wineglass + "*" + faculty_staff_wine + " = $" + winetotal;
+				}
+
+				var tshirt_data = '';
+
+				if(tshirtcheck == 1){
+					tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + faculty_staff_tshirt + " = $" + shirttotal;
+				}
+
+				totalfee = parseInt(totalfee)+parseInt(shirttotal);
+				
+				var donation = jQuery('#input_1_35').val();
+				donationdata = '';
+
+				if(donation != 'none'){
+					donationdata =  "<br>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")";
+					totalfee = parseInt(totalfee)+parseInt(donation);
+				}
+
+				jQuery('.custotal-amount').html( single_room_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+
+				jQuery('#amount').val(totalfee);
+
+			}, 500);
+		}
+		if(grevityuserrole == 'board'){
 
 			var board_registration_and_instrumental = jQuery('#board_registration_and_instrumental').val();
 			var normal_double_room = jQuery('#normal_double_room').val();
@@ -230,37 +432,411 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			var normal_wine = jQuery('#normal_wine').val();
 			var board_user_per_tshirt = jQuery('#board_user_per_tshirt').val();
 
+			jQuery("#label_1_54_1").append(" ($" + board_registration_and_instrumental + ")");
+			jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
+			jQuery("#label_1_55_1").append(" ($" + normal_single_room + ")");
+			jQuery("#label_1_56_0").append(" ($" + normal_all_meal + ")");
+			jQuery("#label_1_56_1").append(" ($" + normal_lunch_dinner + ")");
+			jQuery("#field_1_36 .gfield_label").append(" ($" + normal_wine + ") Per Glass");
+			jQuery("#field_1_37").append(" ($" + board_user_per_tshirt + ") Per Tshirt");
+
+			setInterval(function(){
+
+					var totalfee = 0;
+					var instrumentcheck = 0;
+					var double_room_check = 0;
+					var single_room_check = 0;
+					var full_meal_check = 0;
+					var lunch_dinner_check = 0;
+					var wine_check = 0;
+					var tshirtcheck = 0;
+
+
+					// check instrument
+					if(jQuery("#choice_1_54_1").is(":checked")) {
+					  	totalfee = parseInt(totalfee)+parseInt(board_registration_and_instrumental);
+					  	instrumentcheck = 1;
+					}
+
+					// check Double dorm room
+					if(jQuery("#choice_1_55_0").is(":checked")) {
+					  	totalfee = parseInt(totalfee)+parseInt(normal_double_room);
+					  	double_room_check = 1;
+					}
+
+					// check Single dorm room
+					if(jQuery("#choice_1_55_1").is(":checked")) {
+					  	totalfee = parseInt(totalfee)+parseInt(normal_single_room);
+					  	single_room_check = 1;
+					}
+
+					// check All Meals
+					if(jQuery("#choice_1_56_0").is(":checked")) {
+					  	totalfee = parseInt(totalfee)+parseInt(normal_all_meal);
+					  	full_meal_check = 1;
+					}
+
+					// check Lunch and Dinner Only
+					if(jQuery("#choice_1_56_1").is(":checked")) {
+					  	totalfee = parseInt(totalfee)+parseInt(normal_lunch_dinner);
+					  	lunch_dinner_check = 1;
+					}
+
+					// check Wine Glass
+					var wineglass = jQuery("#input_1_36 ").val();
+					if(isNaN(wineglass)) {
+						wineglass = 0;
+					}
+					var winetotal = parseInt(normal_wine*wineglass);
+					totalfee = parseInt(totalfee)+parseInt(winetotal);
+					if(wineglass > 0){
+						wine_check = 1;
+					}
+
+					// check TShirt
+					var small = parseInt(jQuery("#input_1_38 ").val());
+					var medium = parseInt(jQuery("#input_1_39 ").val());
+					var large = parseInt(jQuery("#input_1_40 ").val());
+					var xl = parseInt(jQuery("#input_1_41 ").val());
+					var xxl = parseInt(jQuery("#input_1_42 ").val());
+					var xxxl = parseInt(jQuery("#input_1_43 ").val());
+					if(isNaN(small)) {
+						small = 0;
+					}
+					if(isNaN(medium)) {
+						medium = 0;
+					}
+					if(isNaN(large)) {
+						large = 0;
+					}
+					if(isNaN(xl)) {
+						xl = 0;
+					}
+					if(isNaN(xxl)) {
+						xxl = 0;
+					}
+					if(isNaN(xxxl)) {
+						xxxl = 0;
+					}
+					var totalshirt = small+medium+large+xl+xxl+xxxl;
+					var shirttotal = parseInt(board_user_per_tshirt*totalshirt);
+					if(totalshirt > 1){
+						tshirtcheck = 1;
+					}
+					
+					if(totalshirt >= 1){
+						totalshirt = parseInt(totalshirt)-1;
+						shirttotal = parseInt(shirttotal)-parseInt(board_user_per_tshirt);
+					}
+
+					totalfee = parseInt(totalfee)+parseInt(shirttotal);
+
+					var donation = jQuery('#input_1_35').val();
+					donationdata = '';
+
+					if(donation != 'none'){
+						donationdata =  "<br>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")";
+						totalfee = parseInt(totalfee)+parseInt(donation);
+					}
+
+
+					var instrumentdata = '';
+					var regfee = '';
+
+					var regfee = "Registration Fees + instrumental Fees ($" + board_registration_and_instrumental + ")";
+
+					if(instrumentcheck == 1){
+						instrumentdata =  "<br>" +
+					jQuery('#label_1_54_1').html() + " (" + jQuery('#input_1_23').val() + ")";
+
+						
+					}
+
+					var double_room_data = '';
+
+					if(double_room_check == 1){
+						double_room_data =  "<br>" +
+						jQuery('#label_1_55_0').html();
+					}
+
+					var single_room_data = '';
+
+					if(single_room_check == 1){
+						single_room_data =  "<br>" +
+						jQuery('#label_1_55_1').html();
+					}
+
+					var full_meal_data = '';
+
+					if(full_meal_check == 1){
+						full_meal_data =  "<br>" +
+						jQuery('#label_1_56_0').html();
+					}
+
+					var lunch_dinner_data = '';
+
+					if(lunch_dinner_check == 1){
+						lunch_dinner_data =  "<br>" +
+						jQuery('#label_1_56_1').html();
+					}
+
+					var wine_data = '';
+
+					if(wine_check == 1){
+						wine_data =  "<br> Total Wine Glass : " + wineglass + "*" + normal_wine + " = $" + winetotal;
+					}
+
+					var tshirt_data = '';
+
+					if(tshirtcheck == 1){
+						tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + board_user_per_tshirt + " = $" + shirttotal;
+					}
+
+					
+
+					jQuery('.custotal-amount').html(regfee + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+
+					jQuery('#amount').val(totalfee);
+
+			}, 500);
+		}
+
+		if(grevityuserrole == 'volunteer'){
+				
+			var normal_double_room = jQuery('#normal_double_room').val();
+			var normal_single_room = jQuery('#normal_single_room').val();
+			var normal_all_meal = jQuery('#normal_all_meal').val();
+			var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
+			var normal_wine = jQuery('#normal_wine').val();
+			var normal_tshirt = jQuery('#normal_tshirt').val();
+
+			jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
+			jQuery("#label_1_55_1").append(" ($" + normal_single_room + ")");
+			jQuery("#label_1_56_0").append(" ($" + normal_all_meal + ")");
+			jQuery("#label_1_56_1").append(" ($" + normal_lunch_dinner + ")");
+			jQuery("#field_1_36 .gfield_label").append(" ($" + normal_wine + ") Per Glass");
+			jQuery("#field_1_37").append(" ($" + normal_tshirt + ") Per Tshirt");
+
+				setInterval(function(){
+					
+					var totalfee = 0;
+					var instrumentcheck = 0;
+					var double_room_check = 0;
+					var single_room_check = 0;
+					var full_meal_check = 0;
+					var lunch_dinner_check = 0;
+					var wine_check = 0;
+					var tshirtcheck = 0;
+
+					// check Double dorm room
+					if(jQuery("#choice_1_55_0").is(":checked")) {
+					  	totalfee = parseInt(totalfee)+parseInt(normal_double_room);
+					  	double_room_check = 1;
+					}
+
+					// check Single dorm room
+					if(jQuery("#choice_1_55_1").is(":checked")) {
+					  	totalfee = parseInt(totalfee)+parseInt(normal_single_room);
+					  	single_room_check = 1;
+					}
+
+					// check All Meals
+					if(jQuery("#choice_1_56_0").is(":checked")) {
+					  	totalfee = parseInt(totalfee)+parseInt(normal_all_meal);
+					  	full_meal_check = 1;
+					}
+
+					// check Lunch and Dinner Only
+					if(jQuery("#choice_1_56_1").is(":checked")) {
+					  	totalfee = parseInt(totalfee)+parseInt(normal_lunch_dinner);
+					  	lunch_dinner_check = 1;
+					}
+
+					// check Wine Glass
+					var wineglass = jQuery("#input_1_36 ").val();
+					if(isNaN(wineglass)) {
+						wineglass = 0;
+					}
+					var winetotal = parseInt(normal_wine*wineglass);
+					totalfee = parseInt(totalfee)+parseInt(winetotal);
+					if(wineglass > 0){
+						wine_check = 1;
+					}
+
+
+					// check TShirt
+					var small = parseInt(jQuery("#input_1_38 ").val());
+					var medium = parseInt(jQuery("#input_1_39 ").val());
+					var large = parseInt(jQuery("#input_1_40 ").val());
+					var xl = parseInt(jQuery("#input_1_41 ").val());
+					var xxl = parseInt(jQuery("#input_1_42 ").val());
+					var xxxl = parseInt(jQuery("#input_1_43 ").val());
+					if(isNaN(small)) {
+						small = 0;
+					}
+					if(isNaN(medium)) {
+						medium = 0;
+					}
+					if(isNaN(large)) {
+						large = 0;
+					}
+					if(isNaN(xl)) {
+						xl = 0;
+					}
+					if(isNaN(xxl)) {
+						xxl = 0;
+					}
+					if(isNaN(xxxl)) {
+						xxxl = 0;
+					}
+					var totalshirt = small+medium+large+xl+xxl+xxxl;
+					var shirttotal = parseInt(normal_tshirt*totalshirt);
+					totalfee = parseInt(totalfee)+parseInt(shirttotal);
+					if(totalshirt > 0){
+						tshirtcheck = 1;
+					}
+
+					var donation = jQuery('#input_1_35').val();
+					donationdata = '';
+
+					if(donation != 'none'){
+						donationdata =  "<br>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")";
+						totalfee = parseInt(totalfee)+parseInt(donation);
+					}
+
+					var instrumentdata = '';
+
+					if(instrumentcheck == 1){
+						instrumentdata =  "<br>" +
+					jQuery('#label_1_54_1').html() + " (" + jQuery('#input_1_23').val() + ")";
+					}
+
+					var double_room_data = '';
+
+					if(double_room_check == 1){
+						double_room_data =  "<br>" +
+						jQuery('#label_1_55_0').html();
+					}
+
+					var single_room_data = '';
+
+					if(single_room_check == 1){
+						single_room_data =  "<br>" +
+						jQuery('#label_1_55_1').html();
+					}
+
+					var full_meal_data = '';
+
+					if(full_meal_check == 1){
+						full_meal_data =  "<br>" +
+						jQuery('#label_1_56_0').html();
+					}
+
+					var lunch_dinner_data = '';
+
+					if(lunch_dinner_check == 1){
+						lunch_dinner_data =  "<br>" +
+						jQuery('#label_1_56_1').html();
+					}
+
+					var wine_data = '';
+
+					if(wine_check == 1){
+						wine_data =  "<br> Total Wine Glass : " + wineglass + "*" + normal_wine + " = $" + winetotal;
+					}
+					
+					var tshirt_data = '';
+					
+					if(tshirtcheck == 1){
+						tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + normal_tshirt + " = $" + shirttotal;
+					}
+
+					jQuery('.custotal-amount').html(double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+	  
+					jQuery('#amount').val(totalfee);
+
+				}, 500);
+			}
+		
+	 }, 1000);
+		
+	<?php }
+	// For Admin
+	
+	// If user role : subscriber
+	if($current_user->roles[0] == 'subscriber'  ){
+	?>
+		var normal_reg = jQuery('#normal_reg').val();
+		var normal_instrument = jQuery('#normal_instrument').val();
+		var normal_double_room = jQuery('#normal_double_room').val();
+		var normal_single_room = jQuery('#normal_single_room').val();
+		var normal_all_meal = jQuery('#normal_all_meal').val();
+		var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
+		var normal_wine = jQuery('#normal_wine').val();
+		var normal_tshirt = jQuery('#normal_tshirt').val();
+
+		jQuery("#label_1_54_1").append(" ($" + normal_instrument + ")");
+		jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
+		jQuery("#label_1_55_1").append(" ($" + normal_single_room + ")");
+		jQuery("#label_1_56_0").append(" ($" + normal_all_meal + ")");
+		jQuery("#label_1_56_1").append(" ($" + normal_lunch_dinner + ")");
+		jQuery("#field_1_36 .gfield_label").append(" ($" + normal_wine + ") Per Glass");
+		jQuery("#field_1_37").append(" ($" + normal_tshirt + ") Per Tshirt");
+
+		setInterval(function(){
+			
 			var totalfee = 0;
+			totalfee = parseInt(totalfee)+parseInt(normal_reg);
+
+			var instrumentcheck = 0;
+			var double_room_check = 0;
+			var single_room_check = 0;
+			var full_meal_check = 0;
+			var lunch_dinner_check = 0;
+			var wine_check = 0;
+			var tshirtcheck = 0;
 
 			// check instrument
 			if(jQuery("#choice_1_54_1").is(":checked")) {
-			  	totalfee = parseInt(totalfee)+parseInt(board_registration_and_instrumental);
+			  	totalfee = parseInt(totalfee)+parseInt(normal_instrument);
+			  	instrumentcheck = 1;
 			}
 
 			// check Double dorm room
 			if(jQuery("#choice_1_55_0").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_double_room);
+			  	double_room_check = 1;
 			}
 
 			// check Single dorm room
 			if(jQuery("#choice_1_55_1").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_single_room);
+			  	single_room_check = 1;
 			}
 
 			// check All Meals
 			if(jQuery("#choice_1_56_0").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_all_meal);
+			  	full_meal_check = 1;
 			}
 
 			// check Lunch and Dinner Only
 			if(jQuery("#choice_1_56_1").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_lunch_dinner);
+			  	lunch_dinner_check = 1;
 			}
 
 			// check Wine Glass
 			var wineglass = jQuery("#input_1_36 ").val();
+			if(isNaN(wineglass)) {
+				wineglass = 0;
+			}
 			var winetotal = parseInt(normal_wine*wineglass);
 			totalfee = parseInt(totalfee)+parseInt(winetotal);
+
+			if(wineglass > 0){
+				wine_check = 1;
+			}
 
 			// check TShirt
 			var small = parseInt(jQuery("#input_1_38 ").val());
@@ -269,10 +845,382 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			var xl = parseInt(jQuery("#input_1_41 ").val());
 			var xxl = parseInt(jQuery("#input_1_42 ").val());
 			var xxxl = parseInt(jQuery("#input_1_43 ").val());
+			if(isNaN(small)) {
+				small = 0;
+			}
+			if(isNaN(medium)) {
+				medium = 0;
+			}
+			if(isNaN(large)) {
+				large = 0;
+			}
+			if(isNaN(xl)) {
+				xl = 0;
+			}
+			if(isNaN(xxl)) {
+				xxl = 0;
+			}
+			if(isNaN(xxxl)) {
+				xxxl = 0;
+			}
+			var totalshirt = small+medium+large+xl+xxl+xxxl;
+			if(totalshirt > 0){
+				tshirtcheck = 1;
+			}
+			var shirttotal = parseInt(normal_tshirt*totalshirt);
+			totalfee = parseInt(totalfee)+parseInt(shirttotal);
+
+			var donation = jQuery('#input_1_35').val();
+			donationdata = '';
+
+			if(donation != 'none'){
+				donationdata =  "<tr><td>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")</td></tr>";
+				totalfee = parseInt(totalfee)+parseInt(donation);
+			}
+
+			var instrumentdata = '';
+
+			if(instrumentcheck == 1){
+				instrumentdata =  "<tr><td>" +
+				jQuery('#label_1_54_1').html() + " (" + jQuery('#input_1_23').val() + ")</td></tr>";
+			}
+
+			var double_room_data = '';
+
+			if(double_room_check == 1){
+				double_room_data =  "<tr><td>" +
+				jQuery('#label_1_55_0').html()+ "</td></tr>";
+			}
+
+			var single_room_data = '';
+
+			if(single_room_check == 1){
+				single_room_data =  "<tr><td>" +
+				jQuery('#label_1_55_1').html()+ "</td></tr>";
+			}
+
+			var full_meal_data = '';
+
+			if(full_meal_check == 1){
+				full_meal_data =  "<tr><td>" +
+				jQuery('#label_1_56_0').html()+ "</td></tr>";
+			}
+
+			var lunch_dinner_data = '';
+
+			if(lunch_dinner_check == 1){
+				lunch_dinner_data =  "<tr><td>" +
+				jQuery('#label_1_56_1').html()+ "</td></tr>";
+			}
+
+			var wine_data = '';
+
+			if(wine_check == 1){
+				wine_data =  "<tr><td> Total Wine Glass : " + wineglass + "*" + normal_wine + " = $" + winetotal+ "</td></tr>";
+			}
+			
+			var tshirt_data = '';
+			
+			if(tshirtcheck == 1){
+				tshirt_data =  "<tr><td> Total T-Shirt : " + totalshirt + "*" + normal_tshirt + " = $" + shirttotal+ "</td></tr>";
+			}
+
+			var regfee = "<tr><td>Registration Fees ($" + normal_reg + ")</td></tr>";
+
+			jQuery('.custotal-amount').html("<table class='custom-enroll'>" + regfee + instrumentdata + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<tr><td> Total : $" +  totalfee) + "</td></tr></table>";    
+
+			jQuery('#amount').val(totalfee);
+
+		}, 500);
+	<?php
+	}
+	// End If user role : subscriber
+
+	// If user role : Faculty and Staff
+	if($current_user->roles[0] == 'faculty' || $current_user->roles[0] == 'staff'){
+	?>
+		var faculty_staff_single_room = jQuery('#faculty_staff_single_room').val();
+		var faculty_staff_wine = jQuery('#faculty_staff_wine').val();
+		var faculty_staff_tshirt = jQuery('#faculty_staff_tshirt').val();
+
+		jQuery("#label_1_55_1").append(" ($" + faculty_staff_single_room + ")");
+		jQuery("#field_1_36 .gfield_label").append(" ($" + faculty_staff_wine + ") Per Glass");
+		jQuery("#field_1_37").append(" ($" + faculty_staff_tshirt + ") Per Tshirt");
+
+		setInterval(function(){
+			
+			var totalfee = 0;
+
+			var single_room_check = 0;
+			var wine_check = 0;
+			var tshirtcheck = 0;
+			
+			// check Single dorm room
+			if(jQuery("#choice_1_55_1").is(":checked")) {
+			  	totalfee = parseInt(totalfee)+parseInt(faculty_staff_single_room);
+			  	single_room_check = 1;
+			}
+
+			// check Wine Glass
+			var wineglass = jQuery("#input_1_36 ").val();
+			if(isNaN(wineglass)) {
+				wineglass = 0;
+			}
+			var winetotal = parseInt(faculty_staff_wine*wineglass);
+			totalfee = parseInt(totalfee)+parseInt(winetotal);
+
+			if(wineglass > 0){
+				wine_check = 1;
+			}
+
+			// check TShirt
+			var small = parseInt(jQuery("#input_1_38 ").val());
+			var medium = parseInt(jQuery("#input_1_39 ").val());
+			var large = parseInt(jQuery("#input_1_40 ").val());
+			var xl = parseInt(jQuery("#input_1_41 ").val());
+			var xxl = parseInt(jQuery("#input_1_42 ").val());
+			var xxxl = parseInt(jQuery("#input_1_43 ").val());
+			if(isNaN(small)) {
+				small = 0;
+			}
+			if(isNaN(medium)) {
+				medium = 0;
+			}
+			if(isNaN(large)) {
+				large = 0;
+			}
+			if(isNaN(xl)) {
+				xl = 0;
+			}
+			if(isNaN(xxl)) {
+				xxl = 0;
+			}
+			if(isNaN(xxxl)) {
+				xxxl = 0;
+			}
+			var totalshirt = small+medium+large+xl+xxl+xxxl;
+			var shirttotal = parseInt(faculty_staff_tshirt*totalshirt);
+			if(totalshirt > 1){
+				tshirtcheck = 1;
+			}
+			
+			if(totalshirt >= 1){
+				totalshirt = parseInt(totalshirt)-1;
+				shirttotal = parseInt(shirttotal)-parseInt(faculty_staff_tshirt);
+				
+			}
+			var single_room_data = '';
+
+			if(single_room_check == 1){
+				single_room_data =  "<br>" +
+				jQuery('#label_1_55_1').html();
+			}
+
+			var wine_data = '';
+
+			if(wine_check == 1){
+				wine_data =  "<br> Total Wine Glass : " + wineglass + "*" + faculty_staff_wine + " = $" + winetotal;
+			}
+
+			var tshirt_data = '';
+
+			if(tshirtcheck == 1){
+				tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + faculty_staff_tshirt + " = $" + shirttotal;
+			}
+
+			totalfee = parseInt(totalfee)+parseInt(shirttotal);
+			
+			var donation = jQuery('#input_1_35').val();
+			donationdata = '';
+
+			if(donation != 'none'){
+				donationdata =  "<br>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")";
+				totalfee = parseInt(totalfee)+parseInt(donation);
+			}
+
+			jQuery('.custotal-amount').html( single_room_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+
+			jQuery('#amount').val(totalfee);
+
+		}, 500);
+	<?php
+	}
+	// End If user role : Faculty and Staff
+
+	// If user role : Board
+	if($current_user->roles[0] == 'board'){
+	?>
+	var board_registration_and_instrumental = jQuery('#board_registration_and_instrumental').val();
+	var normal_double_room = jQuery('#normal_double_room').val();
+	var normal_single_room = jQuery('#normal_single_room').val();
+	var normal_all_meal = jQuery('#normal_all_meal').val();
+	var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
+	var normal_wine = jQuery('#normal_wine').val();
+	var board_user_per_tshirt = jQuery('#board_user_per_tshirt').val();
+
+	jQuery("#label_1_54_1").append(" ($" + board_registration_and_instrumental + ")");
+	jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
+	jQuery("#label_1_55_1").append(" ($" + normal_single_room + ")");
+	jQuery("#label_1_56_0").append(" ($" + normal_all_meal + ")");
+	jQuery("#label_1_56_1").append(" ($" + normal_lunch_dinner + ")");
+	jQuery("#field_1_36 .gfield_label").append(" ($" + normal_wine + ") Per Glass");
+	jQuery("#field_1_37").append(" ($" + board_user_per_tshirt + ") Per Tshirt");
+
+		setInterval(function(){
+
+			var totalfee = 0;
+			var instrumentcheck = 0;
+			var double_room_check = 0;
+			var single_room_check = 0;
+			var full_meal_check = 0;
+			var lunch_dinner_check = 0;
+			var wine_check = 0;
+			var tshirtcheck = 0;
+
+			// check instrument
+			if(jQuery("#choice_1_54_1").is(":checked")) {
+			  	totalfee = parseInt(totalfee)+parseInt(board_registration_and_instrumental);
+			  	instrumentcheck = 1;
+			}
+			// check Double dorm room
+			if(jQuery("#choice_1_55_0").is(":checked")) {
+			  	totalfee = parseInt(totalfee)+parseInt(normal_double_room);
+			  	double_room_check = 1;
+			}
+
+			// check Single dorm room
+			if(jQuery("#choice_1_55_1").is(":checked")) {
+			  	totalfee = parseInt(totalfee)+parseInt(normal_single_room);
+			  	single_room_check = 1;
+			}
+
+			// check All Meals
+			if(jQuery("#choice_1_56_0").is(":checked")) {
+			  	totalfee = parseInt(totalfee)+parseInt(normal_all_meal);
+			  	full_meal_check = 1;
+			}
+
+			// check Lunch and Dinner Only
+			if(jQuery("#choice_1_56_1").is(":checked")) {
+			  	totalfee = parseInt(totalfee)+parseInt(normal_lunch_dinner);
+			  	lunch_dinner_check = 1;
+			}
+
+			// check Wine Glass
+			var wineglass = jQuery("#input_1_36 ").val();
+			if(isNaN(wineglass)) {
+				wineglass = 0;
+			}
+
+			var winetotal = parseInt(normal_wine*wineglass);
+			totalfee = parseInt(totalfee)+parseInt(winetotal);
+			if(wineglass > 0){
+				wine_check = 1;
+			}
+
+			// check TShirt
+			var small = parseInt(jQuery("#input_1_38 ").val());
+			var medium = parseInt(jQuery("#input_1_39 ").val());
+			var large = parseInt(jQuery("#input_1_40 ").val());
+			var xl = parseInt(jQuery("#input_1_41 ").val());
+			var xxl = parseInt(jQuery("#input_1_42 ").val());
+			var xxxl = parseInt(jQuery("#input_1_43 ").val());
+			
+			if(isNaN(small)) {
+				small = 0;
+			}
+			if(isNaN(medium)) {
+				medium = 0;
+			}
+			if(isNaN(large)) {
+				large = 0;
+			}
+			if(isNaN(xl)) {
+				xl = 0;
+			}
+			if(isNaN(xxl)) {
+				xxl = 0;
+			}
+			if(isNaN(xxxl)) {
+				xxxl = 0;
+			}
+
 			var totalshirt = small+medium+large+xl+xxl+xxxl;
 			var shirttotal = parseInt(board_user_per_tshirt*totalshirt);
+						
+			if(totalshirt > 1){
+				tshirtcheck = 1;
+			}
+				
+			if(totalshirt >= 1){
+				totalshirt = parseInt(totalshirt)-1;
+				shirttotal = parseInt(shirttotal)-parseInt(board_user_per_tshirt);
+			}
+
 			totalfee = parseInt(totalfee)+parseInt(shirttotal);
-			jQuery('.custotal-amount').html(totalfee);    jQuery('#amount').val(totalfee);
+
+			var donation = jQuery('#input_1_35').val();
+			donationdata = '';
+
+			if(donation != 'none'){
+				donationdata =  "<br>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")";
+				totalfee = parseInt(totalfee)+parseInt(donation);
+			}
+
+			var instrumentdata = '';
+			var regfee = '';
+			var regfee = "Registration Fees + instrumental Fees ($" + board_registration_and_instrumental + ")";
+
+			if(instrumentcheck == 1){
+				instrumentdata =  "<br>" +
+				jQuery('#label_1_54_1').html() + " (" + jQuery('#input_1_23').val() + ")";
+				
+				
+			}
+
+			var double_room_data = '';
+
+			if(double_room_check == 1){
+				double_room_data =  "<br>" +
+				jQuery('#label_1_55_0').html();
+			}
+
+			var single_room_data = '';
+
+			if(single_room_check == 1){
+				single_room_data =  "<br>" +
+				jQuery('#label_1_55_1').html();
+			}
+
+			var full_meal_data = '';
+
+			if(full_meal_check == 1){
+				full_meal_data =  "<br>" +
+				jQuery('#label_1_56_0').html();
+			}
+
+			var lunch_dinner_data = '';
+
+			if(lunch_dinner_check == 1){
+				lunch_dinner_data =  "<br>" +
+				jQuery('#label_1_56_1').html();
+			}
+
+			var wine_data = '';
+
+			if(wine_check == 1){
+				wine_data =  "<br> Total Wine Glass : " + wineglass + "*" + normal_wine + " = $" + winetotal;
+			}
+
+			var tshirt_data = '';
+
+			if(tshirtcheck == 1){
+				tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + board_user_per_tshirt + " = $" + shirttotal;
+			}
+
+			jQuery('.custotal-amount').html(regfee + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+
+			jQuery('#amount').val(totalfee);
 
 		}, 500);
 	<?php
@@ -281,41 +1229,67 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 
 	// If user role : Volunteer
 	if($current_user->roles[0] == 'volunteer'){
-	?>
-		setInterval(function(){
-			var normal_double_room = jQuery('#normal_double_room').val();
-			var normal_single_room = jQuery('#normal_single_room').val();
-			var normal_all_meal = jQuery('#normal_all_meal').val();
-			var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
-			var normal_wine = jQuery('#normal_wine').val();
-			var normal_tshirt = jQuery('#normal_tshirt').val();
+	?>	
+		var normal_double_room = jQuery('#normal_double_room').val();
+		var normal_single_room = jQuery('#normal_single_room').val();
+		var normal_all_meal = jQuery('#normal_all_meal').val();
+		var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
+		var normal_wine = jQuery('#normal_wine').val();
+		var normal_tshirt = jQuery('#normal_tshirt').val();
 
+		jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
+		jQuery("#label_1_55_1").append(" ($" + normal_single_room + ")");
+		jQuery("#label_1_56_0").append(" ($" + normal_all_meal + ")");
+		jQuery("#label_1_56_1").append(" ($" + normal_lunch_dinner + ")");
+		jQuery("#field_1_36 .gfield_label").append(" ($" + normal_wine + ") Per Glass");
+		jQuery("#field_1_37").append(" ($" + normal_tshirt + ") Per Tshirt");
+
+		setInterval(function(){
+			
 			var totalfee = 0;
+			var instrumentcheck = 0;
+			var double_room_check = 0;
+			var single_room_check = 0;
+			var full_meal_check = 0;
+			var lunch_dinner_check = 0;
+			var wine_check = 0;
+			var tshirtcheck = 0;
 
 			// check Double dorm room
 			if(jQuery("#choice_1_55_0").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_double_room);
+			  	double_room_check = 1;
 			}
 
 			// check Single dorm room
 			if(jQuery("#choice_1_55_1").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_single_room);
+			  	single_room_check = 1;
 			}
 
 			// check All Meals
 			if(jQuery("#choice_1_56_0").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_all_meal);
+			  	full_meal_check = 1;
 			}
 
 			// check Lunch and Dinner Only
 			if(jQuery("#choice_1_56_1").is(":checked")) {
 			  	totalfee = parseInt(totalfee)+parseInt(normal_lunch_dinner);
+			  	lunch_dinner_check = 1;
 			}
 
 			// check Wine Glass
 			var wineglass = jQuery("#input_1_36 ").val();
+			if(isNaN(wineglass)) {
+				wineglass = 0;
+			}
 			var winetotal = parseInt(normal_wine*wineglass);
 			totalfee = parseInt(totalfee)+parseInt(winetotal);
+			if(wineglass > 0){
+				wine_check = 1;
+			}
+
 
 			// check TShirt
 			var small = parseInt(jQuery("#input_1_38 ").val());
@@ -324,10 +1298,91 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			var xl = parseInt(jQuery("#input_1_41 ").val());
 			var xxl = parseInt(jQuery("#input_1_42 ").val());
 			var xxxl = parseInt(jQuery("#input_1_43 ").val());
+
+			if(isNaN(small)) {
+				small = 0;
+			}
+			if(isNaN(medium)) {
+				medium = 0;
+			}
+			if(isNaN(large)) {
+				large = 0;
+			}
+			if(isNaN(xl)) {
+				xl = 0;
+			}
+			if(isNaN(xxl)) {
+				xxl = 0;
+			}
+			if(isNaN(xxxl)) {
+				xxxl = 0;
+			}
+
 			var totalshirt = small+medium+large+xl+xxl+xxxl;
 			var shirttotal = parseInt(normal_tshirt*totalshirt);
 			totalfee = parseInt(totalfee)+parseInt(shirttotal);
-			jQuery('.custotal-amount').html(totalfee);    jQuery('#amount').val(totalfee);
+			if(totalshirt > 0){
+				tshirtcheck = 1;
+			}
+
+			var donation = jQuery('#input_1_35').val();
+			donationdata = '';
+
+			if(donation != 'none'){
+				donationdata =  "<br>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")";
+				totalfee = parseInt(totalfee)+parseInt(donation);
+			}
+
+			var instrumentdata = '';
+
+			if(instrumentcheck == 1){
+				instrumentdata =  "<br>" +
+				jQuery('#label_1_54_1').html() + " (" + jQuery('#input_1_23').val() + ")";
+			}
+
+			var double_room_data = '';
+
+			if(double_room_check == 1){
+				double_room_data =  "<br>" +
+				jQuery('#label_1_55_0').html();
+			}
+
+			var single_room_data = '';
+
+			if(single_room_check == 1){
+				single_room_data =  "<br>" +
+				jQuery('#label_1_55_1').html();
+			}
+
+			var full_meal_data = '';
+
+			if(full_meal_check == 1){
+				full_meal_data =  "<br>" +
+				jQuery('#label_1_56_0').html();
+			}
+
+			var lunch_dinner_data = '';
+
+			if(lunch_dinner_check == 1){
+				lunch_dinner_data =  "<br>" +
+				jQuery('#label_1_56_1').html();
+			}
+
+			var wine_data = '';
+
+				if(wine_check == 1){
+					wine_data =  "<br> Total Wine Glass : " + wineglass + "*" + normal_wine + " = $" + winetotal;
+				}
+				
+				var tshirt_data = '';
+				
+				if(tshirtcheck == 1){
+					tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + normal_tshirt + " = $" + shirttotal;
+				}
+
+				jQuery('.custotal-amount').html(double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+  
+				jQuery('#amount').val(totalfee);
 
 		}, 500);
 	<?php
@@ -348,8 +1403,41 @@ if($current_user->roles[0] != 'administrator'){
 			jQuery('.deleteid').val(delID);
 			jQuery('#deleteform').submit();
 		}
+
+		function deletetranscation(delID){
+			jQuery('.deleteid').val(delID);
+			jQuery('#deleteform').submit();
+		}
+		
+	jQuery(window).scroll(function() {    
+		var scroll = jQuery(window).scrollTop();
+		//>=, not <=
+		// if (scroll >= 150) {
+		// //clearHeader, not clearheader - caps H
+		// jQuery(".custom-scroll").addClass("darkHeader");
+		// }
+		// else{
+		// 		jQuery(".custom-scroll").removeClass("darkHeader");
+		// }
+	}); //missing );
+
+
 	
 	jQuery(document).ready(function(){
+
+		jQuery("#menu-item-35").css("display", "none");
+
+		jQuery( "#custompay" ).click(function() {
+		  jQuery(".custompay").prop('required',true);
+		});
+		jQuery( ".removerequire" ).click(function() {
+		  jQuery(".custompay").prop('required',false);
+		});
+
+		jQuery(".custom-scroll").addClass("darkHeader");
+		jQuery( "#addnewpayment" ).click(function() {
+		  jQuery("#cheque_form").css("display", "block");
+		});
 
 		jQuery( "#makepayment" ).click(function() {
 		  jQuery(".paymentoption").css("display", "block");
@@ -362,8 +1450,17 @@ if($current_user->roles[0] != 'administrator'){
 		jQuery( "#onlinepayment" ).click(function() {
 		  jQuery(".fullpaymentoptions").css("display", "block");
 		});
+		jQuery( "#custompay" ).click(function() {
+		  jQuery(".custompay").css("display", "block");
+		});
+		jQuery( ".fullpay" ).click(function() {
+		  jQuery(".custompay").css("display", "none");
+		});
+		jQuery( ".depositepay" ).click(function() {
+		  jQuery(".custompay").css("display", "none");
+		});
 
-		jQuery("#gform_1").append('<input type="text" name="amount" id="amount" value="">');
+		jQuery("#gform_1").append('<input type="hidden" name="amount" id="amount" value="">');
 		
 		jQuery('#example').DataTable( {
 	        "order": [[ 3, "desc" ]]
