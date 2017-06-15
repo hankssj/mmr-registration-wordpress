@@ -840,10 +840,10 @@ class GravityView_Edit_Entry_Render {
             $current_user = wp_get_current_user();
             if($current_user->roles[0] != 'administrator'){
     
-        //     echo "<div class='custom-contact'>";
-        // 	echo "<h3>Your Contact Info:</h3>";
-        // 	echo do_shortcode('[logindata]');
-        // 	echo "</div>";
+            echo "<div class='custom-contact'>";
+        	echo "<h3>Your Contact Info:</h3>";
+        	echo do_shortcode('[logindata]');
+        	echo "</div>";
             }
             ?>
          

@@ -187,7 +187,6 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
 		}
 		$paidamount = array_sum($paidaryamount);
 
-		
  		$paymentblnc = round($paymentblnc - $paidamount);
 
 		echo "$";
@@ -212,7 +211,7 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
 			<?php echo do_shortcode('[gv_edit_entry_link action="edit" entry_id="'.$entry_id.'" view_id="220"]Edit[/gv_edit_entry_link]'); ?>
 			<form method="post" id="deleteform">
 			<input type="hidden" name="deleteid" class="deleteid" value="">
-			<a href="javascript:;" onClick="deletefun(<?php echo $user_id; ?>);">Delete</a>
+			<a id="deletebutton" href="javascript:;" onClick="deletefun(<?php echo $user_id; ?>);">Delete</a>
 			<a href="/transcation/?id=<?php echo $user_id; ?>">Transcation</a>
 			<?php
 				if($unreadtranscation > 0){

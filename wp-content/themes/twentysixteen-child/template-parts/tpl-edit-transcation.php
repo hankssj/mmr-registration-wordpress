@@ -60,7 +60,7 @@ global $wpdb;
 				<table>
 				<tr>
 				<td><label>Amount($)</label></td>
-				<td><input type="text" name="payment_amount" value="<?php echo $amount; ?>"></td>
+				<td><input type="text" class="traamount" name="payment_amount" value="<?php echo round($amount); ?>"></td>
 				</tr>
 				</table>
 				<?php
@@ -70,10 +70,10 @@ global $wpdb;
 				<table>
 				<tr>
 				<td><label>Amount($)</label></td>
-				<td><input type="text" name="payment_amount" value="<?php echo $amount; ?>"></td>
+				<td><input type="text" class="traamount" name="payment_amount" value="<?php echo round($amount); ?>"></td>
 				</tr>
 				<tr>
-				<td><label>Online/CC</label></td>
+				<td><label>Cheque Number</label></td>
 				<td><input type="text" name="cheque_num" value="<?php echo $formdata->cheque_num; ?>"></td>
 				</tr>
 				<tr>
@@ -88,6 +88,6 @@ global $wpdb;
 	}
 	
 ?>
-<input type="submit" name="submit" value="submit">
+<input type="submit" name="submit" id="sbmittranscation" value="submit">
 </form>
 <?php get_footer(); ?>

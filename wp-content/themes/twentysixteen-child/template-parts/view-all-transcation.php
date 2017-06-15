@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Admin Enrollment Form
+Template Name: View All Transcation 
 */
 get_header();
 
@@ -135,8 +135,25 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
 				$paidamount = array_sum($paidaryamount);
 		 		$paymentblnc = round($paymentblnc - $paidamount);
 		 		
-				echo "$";
-				echo $paymentblnc;
+		 		// check form is deleted or not
+
+		 		$querycheckform = "
+					SELECT DISTINCT *
+					FROM ".$wpdb->prefix."rg_lead		
+					WHERE form_id = 1 
+					AND created_by = ".$getuserID->ID."
+					";
+
+					$checkform = $wpdb->get_results($querycheckform, OBJECT);
+				
+				// check form is deleted or not
+				if(!empty($checkform)){
+					echo "$";
+					echo $paymentblnc;
+				}
+				else{
+					echo "$0";
+					}
 				$qrynoti = "
 						SELECT *
 						FROM payment_noti

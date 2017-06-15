@@ -121,6 +121,7 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 	jQuery(document).ready(function(){
 
 		
+
 		//jQuery('#gform_submit_button_1').val('Next');
 		var formID = jQuery("input[name=lid]").val();
 
@@ -162,7 +163,8 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			jQuery("#field_1_37").append(" ($" + normal_tshirt + ") Per Tshirt");
 
 			setInterval(function(){
-			
+
+
 			var totalfee = 0;
 			totalfee = parseInt(totalfee)+parseInt(normal_reg);
 
@@ -1068,6 +1070,10 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 
 		setInterval(function(){
 
+
+
+			
+
 			var totalfee = 0;
 			var instrumentcheck = 0;
 			var double_room_check = 0;
@@ -1400,13 +1406,25 @@ if($current_user->roles[0] != 'administrator'){
 ?>
 	// Script to hide form on submit first entry inside event table
 	function deletefun(delID){
-			jQuery('.deleteid').val(delID);
-			jQuery('#deleteform').submit();
+			var isGood=confirm('Are you sure you want to delete this enrollment?');
+		    if (isGood) {
+		     	jQuery('.deleteid').val(delID);
+				jQuery('#deleteform').submit();
+		    } else {
+		      	return false;
+		    }
+
 		}
 
 		function deletetranscation(delID){
-			jQuery('.deleteid').val(delID);
-			jQuery('#deleteform').submit();
+
+			var isGood=confirm('Are You Sure You Want To Delete This Transcation');
+		    if (isGood) {
+		     	jQuery('.deleteid').val(delID);
+				jQuery('#deleteform').submit();
+		    } else {
+		      	return false;
+		    }
 		}
 		
 	jQuery(window).scroll(function() {    
@@ -1421,15 +1439,58 @@ if($current_user->roles[0] != 'administrator'){
 		// }
 	}); //missing );
 
+ setInterval(function(){ 
+ if(jQuery('#custompay').is(':checked')){
+				jQuery(".custompay").css("display", "block");
+			}
+			 }, 500);
 
-	
 	jQuery(document).ready(function(){
 
-		jQuery("#menu-item-35").css("display", "none");
-
-		jQuery( "#custompay" ).click(function() {
-		  jQuery(".custompay").prop('required',true);
+		jQuery( ".moredata" ).click(function(event) {
+			  alert("Field " + event.target.id + " changed");
 		});
+		jQuery( "#sbmittranscation" ).click(function() {
+				var custompayval = jQuery('.traamount').val();
+				
+				if(custompayval == '' ){
+			  		alert('Please enter amount');
+			  		return false;
+			  	}
+			  	else if(custompayval <= 0 ){
+			  		alert('Please enter valid amount');
+			  		return false;
+			  	}
+			  	else{
+			  		return true;
+			  	}
+		});
+
+		jQuery( "#paynow" ).click(function() {
+			if(jQuery('#custompay').is(':checked')){
+				var custompayval = parseInt(jQuery('.custompay').val());
+				var paybleamount = parseInt(jQuery('#paybleamount').val());
+				
+				if(custompayval == '' ){
+			  		alert('Please enter amount');
+			  		return false;
+			  	}
+			  	else if(custompayval <= 0 ){
+			  		alert('Please enter valid amount');
+			  		return false;
+			  	}
+			  	else if(custompayval > paybleamount){
+			  		alert('Amount is greater then payable amount.');
+			  		return false;
+			  	}
+			  	else{
+			  		return true;
+			  	}
+			}
+		});
+
+		jQuery("#menu-item-35").css("display", "none");
+				
 		jQuery( ".removerequire" ).click(function() {
 		  jQuery(".custompay").prop('required',false);
 		});
@@ -1454,10 +1515,45 @@ if($current_user->roles[0] != 'administrator'){
 		  jQuery(".custompay").css("display", "block");
 		});
 		jQuery( ".fullpay" ).click(function() {
+			jQuery(".custompay").val('');
 		  jQuery(".custompay").css("display", "none");
+		  jQuery(".fullamount").css("display", '');
+		  jQuery(".depositeamount").css("display", "none");
+		  jQuery(".customamount").css("display", "none");
 		});
 		jQuery( ".depositepay" ).click(function() {
+			jQuery(".custompay").val('');
 		  jQuery(".custompay").css("display", "none");
+		  jQuery(".fullamount").css("display", "none");
+		  jQuery(".depositeamount").css("display", "");
+		  jQuery(".customamount").css("display", "none");
+		});
+		jQuery( "#custompay" ).click(function() {
+		  jQuery(".custompay").prop('required',true);
+		  jQuery(".fullamount").css("display", "none");
+		  jQuery(".depositeamount").css("display", "none");
+		  jQuery(".customamount").css("display", "");
+		  jQuery(".customamount").html('0');
+		  jQuery(".cuspercent").html('0');
+		});
+		jQuery( ".custompay" ).blur(function() {
+		  	var payamount = jQuery('.custompay').val();
+		  	var percentdcustom = parseInt(payamount)+parseInt(normal_single_room);
+		  	var percentdcustom = (parseInt(payamount)*3)/parseInt(100);
+ 			
+ 			var cusamount = parseInt(payamount) + 0.30 + parseInt(percentdcustom);
+
+ 			var cusamount = 0.30 + percentdcustom;
+ 			var cusamount = cusamount + parseInt(payamount);
+
+ 			var depositepercent = cusamount - payamount;
+
+ 			
+		  jQuery(".fullamount").css("display", "none");
+		  jQuery(".depositeamount").css("display", "none");
+		  jQuery(".customamount").html(cusamount);
+		  jQuery(".cuspercent").html(parseFloat(parseFloat(depositepercent).toPrecision(2)))
+		  jQuery(".customamount").css("display", "");
 		});
 
 		jQuery("#gform_1").append('<input type="hidden" name="amount" id="amount" value="">');
@@ -1465,6 +1561,8 @@ if($current_user->roles[0] != 'administrator'){
 		jQuery('#example').DataTable( {
 	        "order": [[ 3, "desc" ]]
 	    } );
+	    
+	   
 
 		<?php
 		if ( !is_user_logged_in() ) {

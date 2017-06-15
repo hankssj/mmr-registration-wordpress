@@ -959,12 +959,24 @@ $current_user = wp_get_current_user();
 		
 		// Insert paid user data
 		$payamount = $_REQUEST['mc_gross']  - $_REQUEST['mc_fee'];
-
-		$sql = "INSERT INTO `payments` (payment_type, txnid, payment_amount, payment_status, itemid, createdtime, user_ID) VALUES (
+		
+		$sql = "INSERT INTO `payments` (payment_type, txnid, payer_email, payer_id, payer_status, first_name, last_name, payment_amount, payment_status, payment_fee, payment_gross, type,txn_type, receiver_id, notify_version, verify_sign, itemid, createdtime, user_ID) VALUES (
 				'online',
 				'".$_REQUEST['txn_id']."',
+				'".$_REQUEST['payer_email']."',
+				'".$_REQUEST['payer_id']."',
+				'".$_REQUEST['payer_status']."',
+				'".$_REQUEST['first_name']."',
+				'".$_REQUEST['last_name']."',
 				'".$payamount."',
 				'".$_REQUEST['payment_status']."',
+				'".$_REQUEST['payment_fee']."',
+				'".$_REQUEST['payment_gross']."',
+				'".$_REQUEST['payment_type']."',
+				'".$_REQUEST['txn_type']."',
+				'".$_REQUEST['receiver_id']."',
+				'".$_REQUEST['notify_version']."',
+				'".$_REQUEST['verify_sign']."',
 				'".$_REQUEST['item_number']."',
 				'".date("Y-m-d H:i:s")."',
 				'".$current_user->ID."'
@@ -1050,17 +1062,17 @@ else{
 	// check is free or paid
 
 	// 218 id of enrollment page
-	$is_paid = get_post_meta( 218, 'is_paid', true );
-	// Check if the custom field has a value.
+	// $is_paid = get_post_meta( 218, 'is_paid', true );
+	// // Check if the custom field has a value.
 	
-	if ( ! empty( $is_paid ) ) {
-		if($is_paid == 'no')
-		{
-		}	
-		else{
-			echo "<a href='#'>Make Payment</a><br>";
-		}
-	}
+	// if ( ! empty( $is_paid ) ) {
+	// 	if($is_paid == 'no')
+	// 	{
+	// 	}	
+	// 	else{
+	// 		echo "<a href='#'>Make Payment</a><br>";
+	// 	}
+	// }
 	// End check is free or paid
 	
 	// Link For enrollment form
@@ -1143,8 +1155,19 @@ else{
  
 $current_user = wp_get_current_user();
 if($current_user->roles[0] != 'administrator'){
-
-
+	global $wpdb;
+	// Display user payment data
+	$querypaymentdata = "
+				SELECT * 
+				FROM payments
+				WHERE user_ID = ".$current_user->ID."
+				";
+	$paymentdata = $wpdb->get_results($querypaymentdata, OBJECT);
+	if(!empty($paymentdata)){
+	?>
+		<a href="/user-transcation/">Show All Transactions</a>
+	<?php
+	}
 
 	if($displaypaymentbutton != 0){
 		global $wpdb;
@@ -1186,15 +1209,21 @@ if($current_user->roles[0] != 'administrator'){
 			</b>
 			<?php 
 		}
-		else{
+		else if($paymentamount == 0){
+			echo "<br>";
 			echo "Your balance is $0";
+		}
+		else{
+			echo "<br><b>BALANCE : $";
+			echo $paymentamount;
 		}
 }
 
 
 } 
 else{
-echo "<a href='".site_url()."/view-all-transcation/'>View All Transcation</a>";
+echo "<a href='".site_url()."/view-all-transcation/'>View All Transcations</a><br>";
+echo "<a href='".site_url()."/view-all-notifications/'>View All Notifications</a>";
 }
 ?>
 <br><br>

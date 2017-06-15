@@ -62,14 +62,14 @@ unset($_SESSION['trasucc']);
 			</tr>
 			<tr>
 				<td>Pay Amount ($)</td>
-				<td><input type="text" id="payment_amount" name="payment_amount" value="<?php echo $paidamount; ?>" required></td>
+				<td><input type="text" class="traamount" id="payment_amount" name="payment_amount" value="<?php echo $paidamount; ?>" required></td>
 			</tr>
 			<tr>
 				<td>Notes</td>
 				<td><textarea name="notes"><?php echo $notes;?></textarea> </td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" name="Submit" value="Submit"></td>
+				<td colspan="2"><input id="sbmittranscation" type="submit" name="Submit" value="Submit"></td>
 			</tr>
 		</table>
 	</form>
@@ -80,6 +80,7 @@ unset($_SESSION['trasucc']);
 				SELECT * 
 				FROM payments
 				WHERE user_ID = ".$_GET['id']."
+				order by id
 				";
 	$check_user = $wpdb->get_results($querystr, OBJECT);
 	?>
@@ -102,7 +103,7 @@ unset($_SESSION['trasucc']);
 			$counter++;
 			?>
 			<tr>
-				<td><?php echo $formdata->payment_type; ?></td>
+				<td><?php echo ucfirst($formdata->payment_type); ?></td>
 				<td><?php 
 				$amount = $formdata->payment_amount;
 				
@@ -129,12 +130,21 @@ unset($_SESSION['trasucc']);
 				<a href="javascript:;" onClick="deletetranscation(<?php echo $formdata->id; ?>);">Delete</a>
 				<input type="hidden" name="deleteform" value="Delete">
 				</form>
+
 				<?php
 				if($_GET['tra_type'] != ''){
 					?><a href="/edit-transcation/?id=<?php echo $formdata->id; ?>&userID=<?php echo $_GET['id']; ?>&tra_type=alltranscation">Edit</a><?php
 				}
 				else{
 					?><a href="/edit-transcation/?id=<?php echo $formdata->id; ?>&userID=<?php echo $_GET['id']; ?>">Edit</a><?php
+				}
+				?>
+				<?php
+				if($_GET['tra_type'] != ''){
+					?><br><a href="/more-transcation/?id=<?php echo $formdata->id; ?>&userID=<?php echo $_GET['id']; ?>&tra_type=alltranscation">Show More</a><?php
+				}
+				else{
+					?><br><a href="/more-transcation/?id=<?php echo $formdata->id; ?>&userID=<?php echo $_GET['id']; ?>">Show More</a><?php
 				}
 				?>
 
