@@ -35,14 +35,15 @@ if($_POST['Submit']){
 
 	$amount = $_REQUEST['payment_amount'];
 	
-		$sql = "INSERT INTO `payments` (payment_type, payment_amount, payment_status, createdtime, cheque_num, user_ID, notes) VALUES (
+		$sql = "INSERT INTO `payments` (payment_type, payment_amount, payment_status, createdtime, cheque_num, user_ID, notes,first_name) VALUES (
 					'cheque',
 					'".$amount."',
 					'pending',
 					'".date("Y-m-d H:i:s")."',
 					'".$_REQUEST['cheque_num']."',
 					'".$_GET['id']."',
-					'".$_REQUEST['notes']."'
+					'".$_REQUEST['notes']."',
+					'".$_POST['payee_name']."'
 					)";
 			$wpdb->query($sql);
 			$_SESSION['trasucc'] = 'Transcation Inserted Successfully.';
@@ -56,6 +57,10 @@ unset($_SESSION['trasucc']);
 	<form method="post" style="display: none" id="cheque_form">
 
 		<table border="0">
+			<tr>
+				<td>Payee Name</td>
+				<td><input type="text" id="payee_name" name="payee_name" value="<?php echo $payee_name; ?>" required></td>
+			</tr>
 			<tr>
 				<td>Cheque Number</td>
 				<td><input type="text" id="cheque_num" name="cheque_num" value="<?php echo $cheque_num; ?>" required></td>

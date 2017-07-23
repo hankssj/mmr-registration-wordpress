@@ -173,3 +173,59 @@ table.dataTable thead .sorting_asc:last-child {
 #menu-item-35{
  display:none !important;
 }
+
+.active-custab {
+    background: skyblue none repeat scroll 0 0;
+}
+.redtext {
+    color: red;
+}
+.steps {
+    margin-left: 0;
+}
+
+.steps li{
+    text-align:center;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 10px;
+   
+}
+.steps li a{
+  background: #eee;
+    color: #aaa;
+     display: block;
+    width: 100%;
+    height: auto;
+    line-height: 48px;
+    padding: 0px 15px;
+    border-radius: 10px;
+}
+.steps .active-li{
+    
+    color: #fff !important;
+    text-align:center;
+}
+.steps .active-li a{
+    color: #fff;
+    background: #2184be !important;
+}
+.bs-example{
+    margin: 26px 0 50px !important;
+    padding: 15px;
+    border: double 1px;
+    border-radius: 15px;
+}
+.custom-table td,
+.table3.chamber_assembleappend1 td,
+.table5 td,
+.table4 td {
+    padding: 8px 0;
+}
+.assignedchamber1 td {
+    display:block;
+}
+.custom-group input {
+    width:100%;
+    max-width:400px;
+}

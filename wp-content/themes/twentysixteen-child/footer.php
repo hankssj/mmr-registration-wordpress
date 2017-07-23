@@ -10,10 +10,14 @@
  */
 ?>
 </div><!-- .site-content -->
+
+
 <script type='text/javascript' src=' https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js '></script>
 <link rel='stylesheet' id='dashicons-css'  href='
     https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css
 ' type='text/css' media='all' />
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
 		<footer id="colophon" class="site-footer" role="contentinfo">
 			<?php if ( has_nav_menu( 'primary' ) ) : ?>
@@ -56,14 +60,296 @@
 		</footer><!-- .site-footer -->
 	</div><!-- .site-inner -->
 </div><!-- .site -->
-
 <?php wp_footer(); ?>
-<?php
+<?php 
 $user = new WP_User(get_current_user_id());
 if(trim($user->roles[0]) != 'administrator'){ ?>
 <script type="text/javascript">
 	// Script to hide form on submit first entry inside event table
-	jQuery(document).ready(function(){
+	var validator;
+	var validator_step5;
+	 jQuery(document).ready(function(){
+		 
+      validator = jQuery( "#step3_form" ).validate({
+		  rules: {
+		  	instrument1 :{
+		    	required: true
+		    },
+		    comment1: {
+		      required: true
+		    },
+		    instrument2 :{
+		    	required: true
+		    },
+		    comment2: {
+		      required: true
+		    },
+		    p_instrument1: {
+		      required: true
+		    },
+		    otherparticipant1: {
+		      required: true
+		    },
+		    p_comment1: {
+		      required: true
+		    },
+		    contactpersonname1 :{
+		    	required: true
+		    },
+		    contactpersonemail1: {
+		      required: true
+		    },		    
+		    p_instrument2: {
+		      required: true
+		    },
+		   
+		    otherparticipant2: {
+		      required: true
+		    },
+		    p_comment2: {
+		      required: true
+		    },
+		     
+		    contactpersonname2 :{
+		    	required: true
+		    },
+		    contactpersonemail2: {
+		      required: true
+		    }
+		  },
+		  messages: {
+		  	
+		    instrument1 :{
+		    	 required: "Please Enter Instrument"
+		    },
+		    comment1: {
+		      required: "Please Enter Comment"
+		    },
+		    instrument2 :{
+		    	required: "Please Enter Instrument"
+		    },
+		    comment2: {
+		     required: "Please Enter Comment"
+		    },
+		    p_instrument1: {
+		      required: "Please Enter Instrument"
+		    },
+		    otherparticipant1: {
+		      required: "Please Enter Other Participant"
+		    },
+		    p_comment1: {
+		      required: "Please Enter Comment"
+		    },
+		    contactpersonname1 :{
+		    	required: "Please Enter Contact Person Name"
+		    },
+		    contactpersonemail1: {
+		      required: "Please Enter Contact Person Email"
+		    },		    
+		    p_instrument2: {
+		      required: "Please Enter Instrument"
+		    },
+		    
+		    otherparticipant2: {
+		      required: "Please Enter Other Participant"
+		    },
+		    p_comment2: {
+		      required: "Please Enter Comment"
+		    },
+		     
+		    contactpersonname2 :{
+		    	required: "Please Enter Contact Person Name"
+		    },
+		    contactpersonemail2: {
+		     required: "Please Enter Contact Person Email"
+		    }
+		  }
+		});
+		
+		/*validator_step5 = jQuery( "#step5_form" ).validate({
+		  rules: {
+		  	rate_ability :{
+		    	required: true
+		    },
+		    groups_during_year: {
+		      required: true
+		    },
+		    required_audition :{
+		    	required: true
+		    },
+		    learn_peice: {
+		      required: true
+		    },
+		    difficult_peice: {
+		      required: true
+		    },
+		    studied_theory: {
+		      required: true
+		    },
+		    what_year_1: {
+		      required: true
+		    },
+		    voice_class :{
+		    	required: true
+		    },
+		    what_year_2: {
+		      required: true
+		    },		    
+		    voice_lessons: {
+		      required: true
+		    },
+		   
+		    what_year_3: {
+		      required: true
+		    },
+		    singing_with_ensamble: {
+		      required: true
+		    },
+		    sightreading_ability :{
+		    	required: true
+		    },
+		    groups_during_year_string :{
+		    	required: true
+		    },
+		    learn_peice_string :{
+		    	required: true
+		    },
+		    practice_alone_reg :{
+		    	required: true
+		    },
+		    study_privately :{
+		    	required: true
+		    },
+		    how_many_years :{
+		    	required: true
+		    },
+		    play_chamber_music :{
+		    	required: true
+		    },
+		    'read_positions[]' :{
+		    	required: true,
+				minlength: 1
+		    },
+		    sightreading_ability_string :{
+		    	required: true
+		    },
+		    chamber_music_ability :{
+		    	required: true
+		    },
+		    large_ensemble_ability :{
+		    	required: true
+		    },
+		    like_to_play_jazz_ensamble :{
+		    	required: true
+		    },
+		    played_in_small_jazz_ensamble :{
+		    	required: true
+		    },
+		    played_in_big_band :{
+		    	required: true
+		    },
+		    practice_alone_reg_piano :{
+		    	required: true
+		    },
+		    study_privately_piano :{
+		    	required: true
+		    },
+		    how_many_years_piano :{
+		    	required: true
+		    },
+		    like_to_play_jazz_ensamble_piano :{
+		    	required: true
+		    },
+		    played_in_small_jazz_ensamble_piano :{
+		    	required: true
+		    },
+		    played_in_big_band_piano :{
+		    	required: true
+		    },
+		    play_chamber_music_piano :{
+		    	required: true
+		    },
+		    list_composers_piano :{
+		    	required: true
+		    },
+		    sightreading_ability_string_piano :{
+		    	required: true
+		    },
+		    chamber_music_ability_piano :{
+		    	required: true
+		    },
+		    groups_during_year_brass :{
+		    	required: true
+		    },
+		    required_audition_brass :{
+		    	required: true
+		    },
+		    'transpose_to_q[]' :{
+		    	required: true,
+				minlength: 1
+		    },
+		    practice_alone_reg_brass :{
+		    	required: true
+		    },
+		    study_privately_brass :{
+		    	required: true
+		    },
+		    how_many_years_brass :{
+		    	required: true
+		    },
+		    play_chamber_music_brass :{
+		    	required: true
+		    },
+		    'instrunment_bring_camp_q[]' :{
+		    	required: true,
+				minlength: 1
+		    },
+		    any_other_ins_brass :{
+		    	required: true
+		    },
+		    sightreading_ability_string_brass :{
+		    	required: true
+		    },
+		    chamber_music_ability_brass :{
+		    	required: true
+		    },
+		    large_ensemble_ability_brass :{
+		    	required: true
+		    },
+		  },
+		  errorPlacement: function(error,element) {
+		    return true;
+		  }
+		});*/
+		
+		
+		
+		
+		
+		jQuery('#study_privately_yes').click(function() {
+		   if(jQuery('#study_privately_yes').is(':checked')) { jQuery('#how_many_years').removeAttr('disabled'); }
+		   
+		});
+		jQuery('#study_privately_no').click(function() {
+			if(jQuery('#study_privately_no').is(':checked')) { jQuery('#how_many_years').attr('disabled','disabled');  }
+		});
+		
+		jQuery('#study_privately_yes_piano').click(function() {
+		   if(jQuery('#study_privately_yes_piano').is(':checked')) { jQuery('#how_many_years_piano').removeAttr('disabled'); }
+		   
+		});
+		jQuery('#study_privately_no_piano').click(function() {
+			if(jQuery('#study_privately_no_piano').is(':checked')) { jQuery('#how_many_years_piano').attr('disabled','disabled');  }
+		});
+		
+		jQuery('#study_privately_yes_brass').click(function() {
+		   if(jQuery('#study_privately_yes_brass').is(':checked')) { jQuery('#how_many_years_brass').removeAttr('disabled'); }
+		   
+		});
+		jQuery('#study_privately_no_brass').click(function() {
+			if(jQuery('#study_privately_no_brass').is(':checked')) { jQuery('#how_many_years_brass').attr('disabled','disabled');  }
+		});
+       
 
 		if(jQuery(".for-admin-only div input").val() != ''){
 			jQuery(".for-admin-only div input").prop('readonly', true);
@@ -75,9 +361,18 @@ if(trim($user->roles[0]) != 'administrator'){ ?>
 </script>	<?php
 }
 ?>
+<script>
+  !function(a){function f(a,b){if(!(a.originalEvent.touches.length>1)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null),a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var e,b=a.ui.mouse.prototype,c=b._mouseInit,d=b._mouseDestroy;b._touchStart=function(a){var b=this;!e&&b._mouseCapture(a.originalEvent.changedTouches[0])&&(e=!0,b._touchMoved=!1,f(a,"mouseover"),f(a,"mousemove"),f(a,"mousedown"))},b._touchMove=function(a){e&&(this._touchMoved=!0,f(a,"mousemove"))},b._touchEnd=function(a){e&&(f(a,"mouseup"),f(a,"mouseout"),this._touchMoved||f(a,"click"),e=!1)},b._mouseInit=function(){var b=this;b.element.bind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),c.call(b)},b._mouseDestroy=function(){var b=this;b.element.unbind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),d.call(b)}}}(jQuery);
+</script>
 <?php
+global $wpdb;
 $current_user = wp_get_current_user();
-
+$user_id = $current_user->data->ID;
+$results = $wpdb->get_results( 'SELECT * FROM payments WHERE user_ID = '.$user_id, ARRAY_A );
+$gross_paid = '0';
+foreach($results as $payment){
+	$gross_paid += $payment['payment_amount'];
+}
 $normal_reg = get_post_meta( 218, 'normal_user_registration', true );
 $normal_instrument = get_post_meta( 218, 'normal_user_instrumental', true );
 $normal_double_room = get_post_meta( 218, 'normal_user_double_dorm_room', true );
@@ -113,14 +408,14 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 
 <input type="hidden" id="board_registration_and_instrumental" name="board_registration_and_instrumental" value="<?php echo $board_registration_and_instrumental; ?>">
 <input type="hidden" id="board_user_per_tshirt" name="board_user_per_tshirt" value="<?php echo $board_user_per_tshirt; ?>">
-
 <input type="hidden" name="grevityuserrole" id="grevityuserrole" value="">
+<input type="hidden" name="gross_paid" id="gross_paid" value="<?php echo $gross_paid; ?>">
+
+<input type="hidden" name="gross_paidadmin" id="gross_paidadmin" value="">
 
 <script type="text/javascript">
 
 	jQuery(document).ready(function(){
-
-		
 
 		//jQuery('#gform_submit_button_1').val('Next');
 		var formID = jQuery("input[name=lid]").val();
@@ -135,7 +430,20 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 	                {
 	                	jQuery('#grevityuserrole').val(data);
 	               	}
-	            });		
+	            });
+
+	        var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+
+			jQuery.ajax({
+	            cache: false,
+	            type: 'POST',
+	            url: '<?php echo admin_url('admin-ajax.php'); ?>',
+	            data: 'formID='+formID+'&action=get_gross',
+	            success: function(data) 
+	            {
+	            	jQuery('#gross_paidadmin').val(data);
+	           	}
+	        });
 
 	});
 
@@ -153,6 +461,7 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
 			var normal_wine = jQuery('#normal_wine').val();
 			var normal_tshirt = jQuery('#normal_tshirt').val();
+			var gross_paid = jQuery('#gross_paidadmin').val();
 
 			jQuery("#label_1_54_1").append(" ($" + normal_instrument + ")");
 			jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
@@ -307,8 +616,9 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			}
 
 			var regfee = "Registration Fees ($" + normal_reg + ")";
+			var due = totalfee - gross_paid;
 
-			jQuery('.custotal-amount').html(regfee + instrumentdata + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);    
+			jQuery('.custotal-amount').html(regfee + instrumentdata + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee + "<br> Paid : $" + gross_paid + "<br> Due : $" + due);
 
 			jQuery('#amount').val(totalfee);
 
@@ -321,10 +631,12 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			var faculty_staff_single_room = jQuery('#faculty_staff_single_room').val();
 			var faculty_staff_wine = jQuery('#faculty_staff_wine').val();
 			var faculty_staff_tshirt = jQuery('#faculty_staff_tshirt').val();
+			var gross_paid = jQuery('#gross_paidadmin').val();
 
 			jQuery("#label_1_55_1").append(" ($" + faculty_staff_single_room + ")");
 			jQuery("#field_1_36 .gfield_label").append(" ($" + faculty_staff_wine + ") Per Glass");
 			jQuery("#field_1_37").append(" ($" + faculty_staff_tshirt + ") Per Tshirt");
+
 
 			setInterval(function(){
 				
@@ -417,8 +729,9 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 					donationdata =  "<br>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")";
 					totalfee = parseInt(totalfee)+parseInt(donation);
 				}
+				var due = totalfee - gross_paid;
 
-				jQuery('.custotal-amount').html( single_room_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+				jQuery('.custotal-amount').html( single_room_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee + "<br> Paid : $" + gross_paid + "<br> Due : $" + due);
 
 				jQuery('#amount').val(totalfee);
 
@@ -433,6 +746,7 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
 			var normal_wine = jQuery('#normal_wine').val();
 			var board_user_per_tshirt = jQuery('#board_user_per_tshirt').val();
+			var gross_paid = jQuery('#gross_paidadmin').val();
 
 			jQuery("#label_1_54_1").append(" ($" + board_registration_and_instrumental + ")");
 			jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
@@ -594,9 +908,9 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 						tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + board_user_per_tshirt + " = $" + shirttotal;
 					}
 
-					
+					var due = totalfee - gross_paid;
 
-					jQuery('.custotal-amount').html(regfee + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+					jQuery('.custotal-amount').html(regfee + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee + "<br> Paid : $" + gross_paid + "<br> Due : $" + due);
 
 					jQuery('#amount').val(totalfee);
 
@@ -611,7 +925,8 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
 			var normal_wine = jQuery('#normal_wine').val();
 			var normal_tshirt = jQuery('#normal_tshirt').val();
-
+			var gross_paid = jQuery('#gross_paidadmin').val();
+			
 			jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
 			jQuery("#label_1_55_1").append(" ($" + normal_single_room + ")");
 			jQuery("#label_1_56_0").append(" ($" + normal_all_meal + ")");
@@ -753,7 +1068,9 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 						tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + normal_tshirt + " = $" + shirttotal;
 					}
 
-					jQuery('.custotal-amount').html(double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+					var due = totalfee - gross_paid;
+
+					jQuery('.custotal-amount').html(double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee + "<br> Paid : $" + gross_paid + "<br> Due : $" + due);
 	  
 					jQuery('#amount').val(totalfee);
 
@@ -776,6 +1093,7 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 		var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
 		var normal_wine = jQuery('#normal_wine').val();
 		var normal_tshirt = jQuery('#normal_tshirt').val();
+		var gross_paid = jQuery('#gross_paid').val();
 
 		jQuery("#label_1_54_1").append(" ($" + normal_instrument + ")");
 		jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
@@ -929,7 +1247,9 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 
 			var regfee = "<tr><td>Registration Fees ($" + normal_reg + ")</td></tr>";
 
-			jQuery('.custotal-amount').html("<table class='custom-enroll'>" + regfee + instrumentdata + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<tr><td> Total : $" +  totalfee) + "</td></tr></table>";    
+			var due = totalfee - gross_paid;
+			
+			jQuery('.custotal-amount').html("<table class='custom-enroll'>" + regfee + instrumentdata + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<tr><td> Total : $" +  totalfee + "</td></tr><tr><td> Paid : $" + gross_paid + "</td></tr><tr><td> Due : $" + due + "</td></tr></table>");    
 
 			jQuery('#amount').val(totalfee);
 
@@ -944,6 +1264,7 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 		var faculty_staff_single_room = jQuery('#faculty_staff_single_room').val();
 		var faculty_staff_wine = jQuery('#faculty_staff_wine').val();
 		var faculty_staff_tshirt = jQuery('#faculty_staff_tshirt').val();
+		var gross_paid = jQuery('#gross_paid').val();
 
 		jQuery("#label_1_55_1").append(" ($" + faculty_staff_single_room + ")");
 		jQuery("#field_1_36 .gfield_label").append(" ($" + faculty_staff_wine + ") Per Glass");
@@ -1039,8 +1360,9 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 				donationdata =  "<br>" + jQuery('#field_1_35 .gfield_label').text() + " ($" + jQuery('#input_1_35').val() + ")";
 				totalfee = parseInt(totalfee)+parseInt(donation);
 			}
+			var due = totalfee - gross_paid;
 
-			jQuery('.custotal-amount').html( single_room_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+			jQuery('.custotal-amount').html( single_room_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee + "<br> Paid : $" + gross_paid + "<br> Due : $" + due);
 
 			jQuery('#amount').val(totalfee);
 
@@ -1059,6 +1381,7 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 	var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
 	var normal_wine = jQuery('#normal_wine').val();
 	var board_user_per_tshirt = jQuery('#board_user_per_tshirt').val();
+	var gross_paid = jQuery('#gross_paid').val();
 
 	jQuery("#label_1_54_1").append(" ($" + board_registration_and_instrumental + ")");
 	jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
@@ -1069,10 +1392,6 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 	jQuery("#field_1_37").append(" ($" + board_user_per_tshirt + ") Per Tshirt");
 
 		setInterval(function(){
-
-
-
-			
 
 			var totalfee = 0;
 			var instrumentcheck = 0;
@@ -1223,8 +1542,10 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 			if(tshirtcheck == 1){
 				tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + board_user_per_tshirt + " = $" + shirttotal;
 			}
+			
+			var due = totalfee - gross_paid;
 
-			jQuery('.custotal-amount').html(regfee + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+			jQuery('.custotal-amount').html(regfee + double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee + "<br> Paid : $" + gross_paid + "<br> Due : $" + due);
 
 			jQuery('#amount').val(totalfee);
 
@@ -1242,6 +1563,7 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 		var normal_lunch_dinner = jQuery('#normal_lunch_dinner').val();
 		var normal_wine = jQuery('#normal_wine').val();
 		var normal_tshirt = jQuery('#normal_tshirt').val();
+		var gross_paid = jQuery('#gross_paid').val();
 
 		jQuery("#label_1_55_0").append(" ($" + normal_double_room + ")");
 		jQuery("#label_1_55_1").append(" ($" + normal_single_room + ")");
@@ -1385,8 +1707,9 @@ $board_user_per_tshirt = get_post_meta( 218, 'board_user_per_tshirt', true );
 				if(tshirtcheck == 1){
 					tshirt_data =  "<br> Total T-Shirt : " + totalshirt + "*" + normal_tshirt + " = $" + shirttotal;
 				}
+				var due = totalfee - gross_paid;
 
-				jQuery('.custotal-amount').html(double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee);
+				jQuery('.custotal-amount').html(double_room_data + single_room_data + full_meal_data + lunch_dinner_data + wine_data + tshirt_data + donationdata + "<br> Total : $" +  totalfee + "<br> Paid : $" + gross_paid + "<br> Due : $" + due);
   
 				jQuery('#amount').val(totalfee);
 
@@ -1446,10 +1769,518 @@ if($current_user->roles[0] != 'administrator'){
 			 }, 500);
 
 	jQuery(document).ready(function(){
+			var chamber_assemble_select = jQuery("#chamber_assemble").val();
+			if(chamber_assemble_select == '1'){
+				jQuery(".0").css("display", "block");
+				jQuery(".1").css("display", "block");
+				jQuery(".2").css("display", "none");
+			}else if(chamber_assemble_select == '2'){
+				jQuery(".0").css("display", "block");
+				jQuery(".1").css("display", "none");
+				jQuery(".2").css("display", "none");
+			}
+
+		jQuery( "#chamber_assemble" ).change(function() {
+			var chamber_assemble =   jQuery( "#chamber_assemble" ).val();
+			var prearranged_groupall =   jQuery( "#prearranged_groupall" ).val();
+			if(chamber_assemble == 1){
+				jQuery(".parentheader").css("display", "block");
+				jQuery(".chamber_assembleappend1").css("display", "block");
+
+				// Validation
+				// jQuery("#instrument1").prop('required',true);
+				// jQuery("#comment1").prop('required',true);
+
+				// jQuery("#instrument2").prop('required',false);
+				// jQuery("#comment2").prop('required',false);
+
+				jQuery(".table3").css("display", "block");
+				jQuery(".assignedchamber1").css("display", "block");
+				jQuery(".chamber_assembleappend2").css("display", "none");	
+				jQuery(".assignedchamber2").css("display", "none");
+			}
+			else if(chamber_assemble == 2){
+				jQuery(".parentheader").css("display", "block");
+				jQuery(".chamber_assembleappend1").css("display", "block");
+
+				// Validation
+				// jQuery("#instrument1").prop('required',true);
+				// jQuery("#comment1").prop('required',true);
+
+				// jQuery("#instrument2").prop('required',true);
+				// jQuery("#comment2").prop('required',true);
+
+				jQuery(".assignedchamber1").css("display", "block");
+				jQuery(".table3").css("display", "block");
+				jQuery(".chamber_assembleappend2").css("display", "block");
+				jQuery(".assignedchamber2").css("display", "block");
+			}
+			else{
+				validator.resetForm();
+				jQuery(".parentheader").css("display", "none");
+				jQuery(".chamber_assembleappend1").css("display", "none");
+
+				// Validation
+				// jQuery("#instrument1").prop('required',false);
+				// jQuery("#comment1").prop('required',false);
+				
+				// jQuery("#instrument2").prop('required',false);
+				// jQuery("#comment3").prop('required',false);
+
+				jQuery(".assignedchamber1").css("display", "none");
+				jQuery(".table3").css("display", "none");
+				jQuery(".chamber_assembleappend2").css("display", "none");
+				jQuery(".assignedchamber2").css("display", "none");
+			}
+
+			if(prearranged_groupall == 1){
+				jQuery(".prearranged_groupall1").css("display", "block");
+
+				jQuery(".prearranged_groupall2").css("display", "none");
+
+				// validation
+				// jQuery("#p_instrument1").prop('required',true);
+				// jQuery("#contactpersonname1").prop('required',true);
+				// jQuery("#contactpersonemail1").prop('required',true);
+
+				
+
+				// jQuery("#p_comment1").prop('required',true);
+
+				// jQuery("#p_instrument2").prop('required',false);
+				// jQuery("#contactpersonname2").prop('required',false);
+				// jQuery("#contactpersonemail2").prop('required',false);
+				// jQuery("#p_comment2").prop('required',false);
+
+			}
+			else if(prearranged_groupall == 2){
+				jQuery(".prearranged_groupall1").css("display", "block");
+				jQuery(".prearranged_groupall2").css("display", "block");
+
+				// jQuery("#p_instrument1").prop('required',true);
+				// jQuery("#contactpersonname1").prop('required',true);
+				// jQuery("#contactpersonemail1").prop('required',true);
+				
+				// jQuery("#p_comment1").prop('required',true);
+				// jQuery("#p_instrument2").prop('required',true);
+				// jQuery("#contactpersonname2").prop('required',true);
+				// jQuery("#contactpersonemail2").prop('required',true);
+				
+
+				// jQuery("#p_comment2").prop('required',true);
+			}
+			else{
+				validator.resetForm();    
+				jQuery(".prearranged_groupall1").css("display", "none");
+				jQuery(".prearranged_groupall2").css("display", "none");
+
+				// jQuery("#p_instrument1").prop('required',false);
+				// jQuery("#contactpersonname1").prop('required',false);
+				// jQuery("#contactpersonemail1").prop('required',false);
+				// jQuery("#p_comment1").prop('required',false);
+
+				// jQuery("#p_instrument2").prop('required',false);
+				// jQuery("#contactpersonname2").prop('required',false);
+				// jQuery("#contactpersonemail2").prop('required',false);
+				// jQuery("#p_comment2").prop('required',false);
+			}
+			var chamber_assemble = this.value;
+			var prearranged_groupall = jQuery("#prearranged_groupall").val();
+
+			if((chamber_assemble == '0'  && prearranged_groupall == '0') || (chamber_assemble == ''  && prearranged_groupall == '') || (chamber_assemble == ''  && prearranged_groupall == '0') || (prearranged_groupall == ''  && chamber_assemble == '0')){
+				jQuery('#nextensemble').prop('disabled',true);
+				jQuery('#step3_submit').prop('disabled',false);
+			} else {
+				jQuery('#nextensemble').prop('disabled',false);
+				jQuery('#step3_submit').prop('disabled',false);
+			}
+			if(chamber_assemble == '' || chamber_assemble == '0'){
+				
+				jQuery(".0").css("display", "block");
+				jQuery(".1").css("display", "block");
+				jQuery(".2").css("display", "block");
+			}
+			else if(chamber_assemble == '1'){
+				
+				jQuery(".0").css("display", "block");
+				jQuery(".1").css("display", "block");
+				jQuery(".2").css("display", "none");
+			}
+			else if(chamber_assemble == '2'){
+				
+				jQuery(".0").css("display", "block");
+				jQuery(".1").css("display", "none");
+				jQuery(".2").css("display", "none");
+			}
+		});
+
+		var prearranged_groupall_select = jQuery("#prearranged_groupall").val();
+		if(prearranged_groupall_select == '1'){
+			jQuery(".c_0").css("display", "block");
+			jQuery(".c_1").css("display", "block");
+			jQuery(".c_2").css("display", "none");
+		}else if(prearranged_groupall_select == '2'){
+			jQuery(".c_0").css("display", "block");
+			jQuery(".c_1").css("display", "none");
+			jQuery(".c_2").css("display", "none");
+		}
+
+		jQuery( "#prearranged_groupall" ).change(function() {
+			var prearranged_groupall = this.value;
+			var chamber_assemble = jQuery("#chamber_assemble").val();
+			var chamber_assemble =   jQuery( "#chamber_assemble" ).val();
+			var prearranged_groupall =   jQuery( "#prearranged_groupall" ).val();
+			if(chamber_assemble == 1){
+				jQuery(".parentheader").css("display", "block");
+				jQuery(".chamber_assembleappend1").css("display", "block");
+
+				// Validation
+				// jQuery("#instrument1").prop('required',true);
+				// jQuery("#comment1").prop('required',true);
+
+				// jQuery("#instrument2").prop('required',false);
+				// jQuery("#comment2").prop('required',false);
+
+				jQuery(".table3").css("display", "block");
+				jQuery(".assignedchamber1").css("display", "block");
+				jQuery(".chamber_assembleappend2").css("display", "none");	
+				jQuery(".assignedchamber2").css("display", "none");
+			}
+			else if(chamber_assemble == 2){
+				jQuery(".parentheader").css("display", "block");
+				jQuery(".chamber_assembleappend1").css("display", "block");
+
+				// Validation
+				// jQuery("#instrument1").prop('required',true);
+				// jQuery("#comment1").prop('required',true);
+
+				// jQuery("#instrument2").prop('required',true);
+				// jQuery("#comment2").prop('required',true);
+
+				jQuery(".assignedchamber1").css("display", "block");
+				jQuery(".table3").css("display", "block");
+				jQuery(".chamber_assembleappend2").css("display", "block");
+				jQuery(".assignedchamber2").css("display", "block");
+			}
+			else{
+				validator.resetForm();
+				jQuery(".parentheader").css("display", "none");
+				jQuery(".chamber_assembleappend1").css("display", "none");
+
+				// Validation
+				// jQuery("#instrument1").prop('required',false);
+				// jQuery("#comment1").prop('required',false);
+				
+				// jQuery("#instrument2").prop('required',false);
+				// jQuery("#comment3").prop('required',false);
+
+				jQuery(".assignedchamber1").css("display", "none");
+				jQuery(".table3").css("display", "none");
+				jQuery(".chamber_assembleappend2").css("display", "none");
+				jQuery(".assignedchamber2").css("display", "none");
+			}
+
+			if(prearranged_groupall == 1){
+				jQuery(".prearranged_groupall1").css("display", "block");
+
+				jQuery(".prearranged_groupall2").css("display", "none");
+
+				// validation
+				// jQuery("#p_instrument1").prop('required',true);
+				// jQuery("#contactpersonname1").prop('required',true);
+				// jQuery("#contactpersonemail1").prop('required',true);
+
+				
+
+				// jQuery("#p_comment1").prop('required',true);
+
+				// jQuery("#p_instrument2").prop('required',false);
+				// jQuery("#contactpersonname2").prop('required',false);
+				// jQuery("#contactpersonemail2").prop('required',false);
+				// jQuery("#p_comment2").prop('required',false);
+
+			}
+			else if(prearranged_groupall == 2){
+				jQuery(".prearranged_groupall1").css("display", "block");
+				jQuery(".prearranged_groupall2").css("display", "block");
+
+				// jQuery("#p_instrument1").prop('required',true);
+				// jQuery("#contactpersonname1").prop('required',true);
+				// jQuery("#contactpersonemail1").prop('required',true);
+				
+				// jQuery("#p_comment1").prop('required',true);
+				// jQuery("#p_instrument2").prop('required',true);
+				// jQuery("#contactpersonname2").prop('required',true);
+				// jQuery("#contactpersonemail2").prop('required',true);
+				
+
+				// jQuery("#p_comment2").prop('required',true);
+			}
+			else{
+				validator.resetForm();    
+				jQuery(".prearranged_groupall1").css("display", "none");
+				jQuery(".prearranged_groupall2").css("display", "none");
+
+				// jQuery("#p_instrument1").prop('required',false);
+				// jQuery("#contactpersonname1").prop('required',false);
+				// jQuery("#contactpersonemail1").prop('required',false);
+				// jQuery("#p_comment1").prop('required',false);
+
+				// jQuery("#p_instrument2").prop('required',false);
+				// jQuery("#contactpersonname2").prop('required',false);
+				// jQuery("#contactpersonemail2").prop('required',false);
+				// jQuery("#p_comment2").prop('required',false);
+			}
+
+			if((chamber_assemble == '0'  && prearranged_groupall == '0') || (chamber_assemble == ''  && prearranged_groupall == '') || (chamber_assemble == ''  && prearranged_groupall == '0') || (prearranged_groupall == ''  && chamber_assemble == '0')){
+				jQuery('#nextensemble').prop('disabled',true);
+				jQuery('#step3_submit').prop('disabled',false);
+			} else {
+				jQuery('#nextensemble').prop('disabled',false);
+				jQuery('#step3_submit').prop('disabled',false);
+			}
+
+
+			if(prearranged_groupall == '' || prearranged_groupall == '0'){
+				
+				jQuery(".c_0").css("display", "block");
+				jQuery(".c_1").css("display", "block");
+				jQuery(".c_2").css("display", "block");
+			}
+			else if(prearranged_groupall == '1'){
+				
+				jQuery(".c_0").css("display", "block");
+				jQuery(".c_1").css("display", "block");
+				jQuery(".c_2").css("display", "none");
+			}
+			else if(prearranged_groupall == '2'){
+				
+				jQuery(".c_0").css("display", "block");
+				jQuery(".c_1").css("display", "none");
+				jQuery(".c_2").css("display", "none");
+			}
+		});
+
+		jQuery( "#instrument1" ).change(function() {
+			var instrument1 = this.value;
+			if(instrument1 == 'Trumpet' || instrument1 == 'Horn' || instrument1 == 'Trombone' || instrument1 == 'Tuba' || instrument1 == 'Percussion' || instrument1 == 'Saxophone' || instrument1 == 'Saxophone-Soprano' || instrument1 == 'Saxophone-Alto' || instrument1 == 'Saxophone-Tenor' || instrument1 == 'Saxophone-Baritone' || instrument1 == 'Clarinet' || instrument1 == '' || instrument1 == 'Double Bass' || instrument1 == 'Piano'){
+				jQuery("#instrumentyesno1").css("display", "block");
+			}
+			else{
+				jQuery("#instrumentyesno1").css("display", "none");
+			}
+		});
+
+		jQuery( "#instrument2" ).change(function() {
+            var instrument2 = this.value;
+            if(instrument2 == 'Trumpet' || instrument2 == 'Horn' || instrument2 == 'Trombone' || instrument2 == 'Tuba' || instrument2 == 'Percussion' || instrument2 == 'Saxophone' || instrument2 == 'Saxophone-Soprano' || instrument2 == 'Saxophone-Alto' || instrument2 == 'Saxophone-Tenor' || instrument2 == 'Saxophone-Baritone' || instrument2 == 'Clarinet' || instrument2 == '' || instrument2 == 'Double Bass' || instrument2 == 'Piano'){
+                jQuery("#instrumentyesno2").css("display", "block");
+            }
+            else{
+                jQuery("#instrumentyesno2").css("display", "none");
+            }
+        });
+
+		jQuery( "#step3_submit" ).click(function() {
+			var prearranged_groupall =   jQuery( "#prearranged_groupall" ).val();
+			
+			if(prearranged_groupall == 1 || prearranged_groupall == 2){
+				var pemail1 = jQuery("#contactpersonemail1").val();
+				var pemail2 = jQuery("#contactpersonemail2").val();
+				var pattern = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+				if(pemail1 != ''){
+					if(pattern.test(pemail1)==""){
+		            	alert("Add Valid Email Id");
+		            	return false;
+		        	}
+				}
+				if(pemail2 != ''){
+					if(pattern.test(pemail2)==""){
+		            	alert("Add Valid Email Id");
+		            	return false;
+		        	}
+				}
+			}
+		});
+		
+		jQuery( "#nextensemble" ).click(function(event) {
+			var chamber_assemble =   jQuery( "#chamber_assemble" ).val();
+			var prearranged_groupall =   jQuery( "#prearranged_groupall" ).val();
+			if(chamber_assemble == 1){
+				jQuery(".parentheader").css("display", "block");
+				jQuery(".chamber_assembleappend1").css("display", "block");
+
+				// Validation
+				// jQuery("#instrument1").prop('required',true);
+				// jQuery("#comment1").prop('required',true);
+
+				// jQuery("#instrument2").prop('required',false);
+				// jQuery("#comment2").prop('required',false);
+
+				jQuery(".table3").css("display", "block");
+				jQuery(".assignedchamber1").css("display", "block");
+				jQuery(".chamber_assembleappend2").css("display", "none");	
+				jQuery(".assignedchamber2").css("display", "none");
+			}
+			else if(chamber_assemble == 2){
+				jQuery(".parentheader").css("display", "block");
+				jQuery(".chamber_assembleappend1").css("display", "block");
+
+				// Validation
+				// jQuery("#instrument1").prop('required',true);
+				// jQuery("#comment1").prop('required',true);
+
+				// jQuery("#instrument2").prop('required',true);
+				// jQuery("#comment2").prop('required',true);
+
+				jQuery(".assignedchamber1").css("display", "block");
+				jQuery(".table3").css("display", "block");
+				jQuery(".chamber_assembleappend2").css("display", "block");
+				jQuery(".assignedchamber2").css("display", "block");
+			}
+			else{
+				validator.resetForm();
+				jQuery(".parentheader").css("display", "none");
+				jQuery(".chamber_assembleappend1").css("display", "none");
+
+				// Validation
+				// jQuery("#instrument1").prop('required',false);
+				// jQuery("#comment1").prop('required',false);
+				
+				// jQuery("#instrument2").prop('required',false);
+				// jQuery("#comment3").prop('required',false);
+
+				jQuery(".assignedchamber1").css("display", "none");
+				jQuery(".table3").css("display", "none");
+				jQuery(".chamber_assembleappend2").css("display", "none");
+				jQuery(".assignedchamber2").css("display", "none");
+			}
+
+			if(prearranged_groupall == 1){
+				jQuery(".prearranged_groupall1").css("display", "block");
+
+				jQuery(".prearranged_groupall2").css("display", "none");
+
+				// validation
+				// jQuery("#p_instrument1").prop('required',true);
+				// jQuery("#contactpersonname1").prop('required',true);
+				// jQuery("#contactpersonemail1").prop('required',true);
+
+				
+
+				// jQuery("#p_comment1").prop('required',true);
+
+				// jQuery("#p_instrument2").prop('required',false);
+				// jQuery("#contactpersonname2").prop('required',false);
+				// jQuery("#contactpersonemail2").prop('required',false);
+				// jQuery("#p_comment2").prop('required',false);
+
+			}
+			else if(prearranged_groupall == 2){
+				jQuery(".prearranged_groupall1").css("display", "block");
+				jQuery(".prearranged_groupall2").css("display", "block");
+
+				// jQuery("#p_instrument1").prop('required',true);
+				// jQuery("#contactpersonname1").prop('required',true);
+				// jQuery("#contactpersonemail1").prop('required',true);
+				
+				// jQuery("#p_comment1").prop('required',true);
+				// jQuery("#p_instrument2").prop('required',true);
+				// jQuery("#contactpersonname2").prop('required',true);
+				// jQuery("#contactpersonemail2").prop('required',true);
+				
+
+				// jQuery("#p_comment2").prop('required',true);
+			}
+			else{
+				validator.resetForm();    
+				jQuery(".prearranged_groupall1").css("display", "none");
+				jQuery(".prearranged_groupall2").css("display", "none");
+
+				// jQuery("#p_instrument1").prop('required',false);
+				// jQuery("#contactpersonname1").prop('required',false);
+				// jQuery("#contactpersonemail1").prop('required',false);
+				// jQuery("#p_comment1").prop('required',false);
+
+				// jQuery("#p_instrument2").prop('required',false);
+				// jQuery("#contactpersonname2").prop('required',false);
+				// jQuery("#contactpersonemail2").prop('required',false);
+				// jQuery("#p_comment2").prop('required',false);
+			}
+		});
+		
+		jQuery( "#p_instrumentno1" ).click(function(event) {
+			jQuery("#prearrangedyes1").css("display", "none");
+			jQuery("#prearrangedno1").css("display", "block");
+
+			// Validation
+			// jQuery("#contactpersonname1").prop('required',true);
+			// jQuery("#contactpersonemail1").prop('required',true);
+			
+			// jQuery("#otherparticipant1").prop('required',false);
+
+		});
+
+
+		
+		jQuery( "#p_instrumentyes1" ).click(function(event) {
+			jQuery("#prearrangedno1").css("display", "none");
+			jQuery("#prearrangedyes1").css("display", "block");
+
+			// Validation
+			// jQuery("#contactpersonname1").prop('required',false);
+			// jQuery("#contactpersonemail1").prop('required',false);
+			
+			// jQuery("#otherparticipant1").prop('required',true);
+		});
+		
+		jQuery( "#p_instrumentno2" ).click(function(event) {
+			jQuery("#prearrangedyes2").css("display", "none");
+			jQuery("#prearrangedno2").css("display", "block");
+			// Validation
+			// jQuery("#contactpersonname2").prop('required',true);
+			// jQuery("#contactpersonemail2").prop('required',true);
+
+			
+
+			// jQuery("#otherparticipant2").prop('required',false);
+
+		});
+
+		jQuery( "#p_instrumentyes2" ).click(function(event) {
+
+			jQuery("#prearrangedno2").css("display", "none");
+			jQuery("#prearrangedyes2").css("display", "block");
+
+			// Validation
+			
+			// jQuery("#contactpersonname2").prop('required',false);
+			// jQuery("#contactpersonemail2").prop('required',false);
+
+			// jQuery("#otherparticipant2").prop('required',true);
+
+		});
+
+		jQuery( "#ownmusicyes1" ).click(function(event) {
+			jQuery(".ownmusicyes1").css("display", "block");
+		});
+
+		jQuery( "#ownmusicno1" ).click(function(event) {
+			jQuery(".ownmusicyes1").css("display", "none");
+		});
+
+		jQuery( "#ownmusicyes2" ).click(function(event) {
+			jQuery(".ownmusicyes2").css("display", "block");
+		});
+
+		jQuery( "#ownmusicno2" ).click(function(event) {
+			jQuery(".ownmusicyes2").css("display", "none");
+		});
 
 		jQuery( ".moredata" ).click(function(event) {
 			  alert("Field " + event.target.id + " changed");
 		});
+
 		jQuery( "#sbmittranscation" ).click(function() {
 				var custompayval = jQuery('.traamount').val();
 				
@@ -1490,7 +2321,7 @@ if($current_user->roles[0] != 'administrator'){
 		});
 
 		jQuery("#menu-item-35").css("display", "none");
-				
+
 		jQuery( ".removerequire" ).click(function() {
 		  jQuery(".custompay").prop('required',false);
 		});
@@ -1511,9 +2342,11 @@ if($current_user->roles[0] != 'administrator'){
 		jQuery( "#onlinepayment" ).click(function() {
 		  jQuery(".fullpaymentoptions").css("display", "block");
 		});
+
 		jQuery( "#custompay" ).click(function() {
 		  jQuery(".custompay").css("display", "block");
 		});
+
 		jQuery( ".fullpay" ).click(function() {
 			jQuery(".custompay").val('');
 		  jQuery(".custompay").css("display", "none");
@@ -1521,13 +2354,15 @@ if($current_user->roles[0] != 'administrator'){
 		  jQuery(".depositeamount").css("display", "none");
 		  jQuery(".customamount").css("display", "none");
 		});
+
 		jQuery( ".depositepay" ).click(function() {
 			jQuery(".custompay").val('');
-		  jQuery(".custompay").css("display", "none");
-		  jQuery(".fullamount").css("display", "none");
-		  jQuery(".depositeamount").css("display", "");
-		  jQuery(".customamount").css("display", "none");
+			jQuery(".custompay").css("display", "none");
+			jQuery(".fullamount").css("display", "none");
+			jQuery(".depositeamount").css("display", "");
+			jQuery(".customamount").css("display", "none");
 		});
+
 		jQuery( "#custompay" ).click(function() {
 		  jQuery(".custompay").prop('required',true);
 		  jQuery(".fullamount").css("display", "none");
@@ -1536,6 +2371,7 @@ if($current_user->roles[0] != 'administrator'){
 		  jQuery(".customamount").html('0');
 		  jQuery(".cuspercent").html('0');
 		});
+
 		jQuery( ".custompay" ).blur(function() {
 		  	var payamount = jQuery('.custompay').val();
 		  	var percentdcustom = parseInt(payamount)+parseInt(normal_single_room);
@@ -1560,9 +2396,11 @@ if($current_user->roles[0] != 'administrator'){
 		
 		jQuery('#example').DataTable( {
 	        "order": [[ 3, "desc" ]]
-	    } );
+	    });
 	    
-	   
+	    jQuery('#example-enrollment').DataTable( {
+	        "order": [[ 0, "asc" ]]
+	    });
 
 		<?php
 		if ( !is_user_logged_in() ) {
@@ -1570,7 +2408,6 @@ if($current_user->roles[0] != 'administrator'){
 			jQuery('#changeprofile').hide();
 			<?php
 		}
-		
 		?>
 		var len=jQuery("table.gv-table-view tbody tr td").length;
 		if(len>1){

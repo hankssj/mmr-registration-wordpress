@@ -518,11 +518,7 @@ del {
 	opacity: 0.8;
 }
 
-table,
-th,
-td {
-	border: 1px solid #d1d1d1;
-}
+
 
 table {
 	border-collapse: separate;
@@ -600,15 +596,16 @@ input[type="submit"],
 input[type="submit"][disabled]:hover,
 input[type="submit"][disabled]:focus {
 	background: #1a1a1a;
-	border: 0;
-	border-radius: 2px;
-	color: #fff;
-	font-family: Montserrat, "Helvetica Neue", sans-serif;
-	font-weight: 700;
-	letter-spacing: 0.046875em;
-	line-height: 1;
-	padding: 0.84375em 0.875em 0.78125em;
-	text-transform: uppercase;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    /* font-family: Montserrat, "Helvetica Neue", sans-serif; */
+    /* font-weight: 700; */
+    letter-spacing: 0.046875em;
+    line-height: 1;
+    padding: 0.84375em 0.880em 0.78125em;
+    padding: 9px 13px 11px;
+    text-transform: uppercase;
 }
 
 button:hover,
@@ -646,10 +643,12 @@ textarea {
 	background: #f7f7f7;
 	background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
 	border: 1px solid #d1d1d1;
-	border-radius: 2px;
 	color: #686868;
 	padding: 0.625em 0.4375em;
 	width: 100%;
+	background-color: white;
+    margin: 10px 0px;
+    border-radius: 5px;
 }
 
 input[type="date"]:focus,
@@ -2413,6 +2412,7 @@ body.search-no-results .page-header {
 
 .site-info a {
 	color: #686868;
+	font-size: 13px;
 }
 
 .site-info a:hover,
@@ -2422,8 +2422,8 @@ body.search-no-results .page-header {
 
 .site-footer .site-title {
 	font-family: inherit;
-	font-size: inherit;
-	font-weight: 400;
+	font-size: 13px !important;
+	font-weight: 400 !important;
 }
 
 .site-footer .site-title:after {
@@ -2773,7 +2773,7 @@ p > video {
 	}
 
 	.site-title {
-		font-size: 28px;
+		font-size: 28px !important;
 		font-size: 1.75rem;
 		line-height: 1.25;
 	}
@@ -3976,4 +3976,9 @@ p > video {
 	.widecolumn {
 		padding: 0;
 	}
+}
+.btn-primary {
+    background-color: #337ab7 !important;
+    border-color: #2e6da4 !important;
+    border-radius: 5px;
 }

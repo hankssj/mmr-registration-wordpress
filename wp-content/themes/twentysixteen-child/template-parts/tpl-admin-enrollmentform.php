@@ -206,7 +206,121 @@ $check_user = $wpdb->get_results($querystr, OBJECT);
 				$unreadtranscation = $transcationcounter - $counternotification;
 		?>
 			</td>
-			<td class="">N</td>
+			<?php
+			$querystr1 = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires
+        WHERE userID = ".$user_id."
+        ";
+
+        $questionnaires = $wpdb->get_results($querystr1, OBJECT);
+        foreach ($questionnaires as $formdata1) {
+            $step1 = $formdata1->stp1_completed;
+        }
+ $querystr2 = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_ensemble
+        WHERE user_id = ".$user_id."
+        ";
+
+        $questionnaires_ensemble = $wpdb->get_results($querystr2, OBJECT);
+
+        foreach ($questionnaires_ensemble as $formdata2) {
+            $step2 = $formdata2->step2_completed;
+        }
+ $querystr3 = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_afternoon
+        WHERE userID = ".$user_id."
+        ";
+
+        $questionnaires_afternoon = $wpdb->get_results($querystr3, OBJECT);
+
+        foreach ($questionnaires_afternoon as $formdata3) {
+            $step3 = $formdata3->stp3_completed;
+        }
+ $querystr4 = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_electives
+
+        WHERE user_id = ".$user_id."
+        ";
+
+        $questionnaires_electives = $wpdb->get_results($querystr4, OBJECT);
+
+ $querystr5 = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_self_evaluations
+
+        WHERE user_id = ".$user_id." AND completed='yes'
+        ";
+
+        $questionnaires_self_evaluations = $wpdb->get_results($querystr5, OBJECT);
+
+ $querystr6 = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_read_accept_terms
+
+        WHERE user_id = ".$user_id."
+        ";
+
+        $questionnaires_read_accept_terms = $wpdb->get_results($querystr6, OBJECT);
+        foreach ($questionnaires_read_accept_terms as $formdata6) {
+          # code...
+          $step6 = $formdata6->completed;
+        }
+
+ $querystr7 = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_review_and_commit
+
+        WHERE user_id = ".$user_id."
+        ";
+
+        $questionnaires_review_and_commit = $wpdb->get_results($querystr7, OBJECT);
+        foreach ($questionnaires_review_and_commit as $formdata7) {
+          # code...
+          $step7 = $formdata7->completed;
+        }
+        
+
+   if(empty($questionnaires) && empty($questionnaires_ensemble) && empty($questionnaires_afternoon) && empty($questionnaires_electives) && empty($questionnaires_self_evaluations) && empty($questionnaires_read_accept_terms) && empty($questionnaires_review_and_commit)){
+   	$status = "Not Started";
+   }else if($step1 == "1" && $step2 == "1" && $step3 == "yes" && !empty($questionnaires_electives) && !empty($questionnaires_self_evaluations) && $step6 == "yes" && $step7 == "yes" ){
+   	$status = "Completed";
+   }else{
+   		if($step1 == "1"){
+		      if($step2 == "1" ){
+		        if($step3 == "yes"){
+		          if(!empty($questionnaires_electives)){
+		            if(!empty($questionnaires_self_evaluations)){
+		              if($step6 == "yes"){
+		                $status = "Partially Complete";
+		              }else{
+                $status = "Partially Complete";
+              }
+
+            }else{
+              $status = "Partially Complete";
+            }
+
+          }else{
+            $status = "Partially Complete";
+          }
+
+        }else{
+          $status = "Partially Complete";
+        }
+
+      }else{
+        $status = "Partially Complete";  
+      }
+    }else{
+      $status = "Partially Complete";
+    }								
+   }
+	?>
+			<td class=""><a href="<?php echo site_url(); ?>/view-enrollment-forms/?id=<?php echo $user_id; ?>"><?php echo $status; ?></a></td>
 			<td class="" >
 			<?php echo do_shortcode('[gv_edit_entry_link action="edit" entry_id="'.$entry_id.'" view_id="220"]Edit[/gv_edit_entry_link]'); ?>
 			<form method="post" id="deleteform">

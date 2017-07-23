@@ -22,15 +22,21 @@
 </head>
 
 <?php
-//session_start();
-// if($_SESSION['redirect'] != ''){ 
-// 	header('Location: https://www.google.co.in/');
-// 	unset($_SESSION['redirect']);
-// }
-// else{
+$current_user = wp_get_current_user();
+$user_id = $current_user->data->ID;
 
-// }
-
+if($user_id == ''){
+	if( get_the_ID() == '369' ||  get_the_ID() == '384' ||  get_the_ID() == '386'){
+		  ?>
+		  <script>
+		  jQuery(document).ready(function(){
+		    window.location.href = '<?php  echo site_url(); ?>';
+		  });
+		  </script>
+		  <?php
+		  exit;
+	}
+}
 ?>
 
 <body <?php body_class(); ?>>

@@ -18,6 +18,8 @@ global $wpdb;
 	<table class="table-view" id="example">
 		<thead>
 			<tr>
+			<td>Payee Name</td>
+			<td>Payment Mode</td>
 			<td>Transcation ID</td>
 			<td>Amount</td>
 			<td>Payment Status</td>
@@ -34,6 +36,12 @@ global $wpdb;
 			$counter++;
 			?>
 			<tr>
+				<td><?php echo $formdata->first_name." ".$formdata->last_name; 
+				if($formdata->first_name."".$formdata->last_name == ''){
+					echo '-';
+				}
+				?></td>
+				<td><?php echo $formdata->payment_type; ?></td>
 				<td><?php echo $formdata->txnid; 
 				if($formdata->txnid == ''){
 					echo '-';
@@ -63,10 +71,13 @@ global $wpdb;
 </tbody>
    	<tfoot>
 		<tr>
-			<td>First Name</td>
-			<td>Last Name</td>
-			<td>Payment Type</td>
+			<td>Payee Name</td>
+			<td>Payment Mode</td>
+			<td>Transcation ID</td>
 			<td>Amount</td>
+			<td>Payment Status</td>
+			<td style="display: none">id</td>
+			<td>Payer Email</td>
 			<td>Action</td>
 			</tr>
    </tfoot>

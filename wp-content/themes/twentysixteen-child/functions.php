@@ -3,8 +3,6 @@
 * Display Registration form on front end 
 */
 
-
-
 function pippin_registration_form() {
 	// only show the registration form to non-logged-in members
 	if(!is_user_logged_in()) {
@@ -1152,8 +1150,9 @@ else{
 ?>
 <br><br>
 <?php
- 
+
 $current_user = wp_get_current_user();
+if(is_user_logged_in()){
 if($current_user->roles[0] != 'administrator'){
 	global $wpdb;
 	// Display user payment data
@@ -1168,6 +1167,154 @@ if($current_user->roles[0] != 'administrator'){
 		<a href="/user-transcation/">Show All Transactions</a>
 	<?php
 	}
+
+	// Display Questionnaires
+	$querystr = "
+		    SELECT DISTINCT *
+		    FROM ".$wpdb->prefix."rg_lead   
+		    WHERE form_id = 1 
+		    AND created_by = ".$current_user->ID."
+		    GROUP BY created_by DESC
+		    ";
+
+		$check_user = $wpdb->get_results($querystr, OBJECT);
+		  
+		  foreach ($check_user as $getuserID) {
+
+		    $querydetails = "
+		      SELECT * 
+		      FROM ".$wpdb->prefix."rg_lead_detail
+		      WHERE lead_id = ".$getuserID->id."
+		      ";
+
+		      $get_user_details = $wpdb->get_results($querydetails, OBJECT);
+		     
+		    $instrumentval = '';
+		    foreach ($get_user_details as $getUserDetails) {
+		    	if($getUserDetails->field_number == '23'){
+		    		$instrumentval = $getUserDetails->value;
+		    	}
+		    }
+		}
+		if($instrumentval != ''){
+			$user_id = $current_user->ID;
+			$querystr = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires
+        WHERE userID = ".$user_id."
+        ";
+
+        $questionnaires = $wpdb->get_results($querystr, OBJECT);
+
+        foreach ($questionnaires as $formdata) {
+            $step1 = $formdata->stp1_completed;
+        }
+ $querystr = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_ensemble
+        WHERE user_id = ".$user_id."
+        ";
+
+        $questionnaires_ensemble = $wpdb->get_results($querystr, OBJECT);
+
+        foreach ($questionnaires_ensemble as $formdata) {
+            $step2 = $formdata->step2_completed;
+        }
+ $querystr = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_afternoon
+        WHERE userID = ".$user_id."
+        ";
+
+        $questionnaires_afternoon = $wpdb->get_results($querystr, OBJECT);
+
+        foreach ($questionnaires_afternoon as $formdata) {
+            $step3 = $formdata->stp3_completed;
+        }
+ $querystr = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_electives
+
+        WHERE user_id = ".$user_id."
+        ";
+
+        $questionnaires_electives = $wpdb->get_results($querystr, OBJECT);
+
+ $querystr = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_self_evaluations
+
+        WHERE user_id = ".$user_id." AND completed='yes'
+        ";
+
+        $questionnaires_self_evaluations = $wpdb->get_results($querystr, OBJECT);
+
+ $querystr = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_read_accept_terms
+
+        WHERE user_id = ".$user_id."
+        ";
+
+        $questionnaires_read_accept_terms = $wpdb->get_results($querystr, OBJECT);
+        foreach ($questionnaires_read_accept_terms as $formdata) {
+          # code...
+          $step6 = $formdata->completed;
+        }
+
+ $querystr = "
+        SELECT * 
+        FROM ".$wpdb->prefix."questionnaires_review_and_commit
+
+        WHERE user_id = ".$user_id."
+        ";
+
+        $questionnaires_review_and_commit = $wpdb->get_results($querystr, OBJECT);
+        foreach ($questionnaires_review_and_commit as $formdata) {
+          # code...
+          $step7 = $formdata->completed;
+        }
+
+if( $step1 == "1" && $step2 == "1" && $step3 == "yes" && !empty($questionnaires_electives) && !empty($questionnaires_self_evaluations) && $step6 == "yes" && $step7 == "yes" ){
+	$status = "Complete";	
+}else{
+	if($step1 == "1"){
+      if($step2 == "1" ){
+        if($step3 == "yes"){
+          if(!empty($questionnaires_electives)){
+            if(!empty($questionnaires_self_evaluations)){
+              if($step6 == "yes"){
+                $status = "Partially Complete";
+              }else{
+                $status = "Partially Complete";
+              }
+
+            }else{
+              $status = "Partially Complete";
+            }
+
+          }else{
+            $status = "Partially Complete";
+          }
+
+        }else{
+          $status = "Partially Complete";
+        }
+
+      }else{
+        $status = "Partially Complete";  
+      }
+    }else{
+      $status = "Partially Complete";
+    }
+}
+
+if( $step1 != "1" && $step2 != "1" && $step3 != "yes" && empty($questionnaires_electives) && empty($questionnaires_self_evaluations) && $step6 != "yes" && $step7 != "yes" ){
+	$status = "Not Started";
+}
+			?><br><a href="<?php echo site_url(); ?>/questionnaires/">All questionaire</a> -- <?php echo $status; ?><br><?php
+		}
+		// Display Questionnaires
 
 	if($displaypaymentbutton != 0){
 		global $wpdb;
@@ -1198,7 +1345,6 @@ if($current_user->roles[0] != 'administrator'){
 		}
 		$paidamount = array_sum($paidary);
 
-
  		$paymentamount = round($paymentamount - $paidamount);
  		if($paymentamount > 0){
 		echo "<br><b>BALANCE : $";
@@ -1223,7 +1369,9 @@ if($current_user->roles[0] != 'administrator'){
 } 
 else{
 echo "<a href='".site_url()."/view-all-transcation/'>View All Transcations</a><br>";
-echo "<a href='".site_url()."/view-all-notifications/'>View All Notifications</a>";
+echo "<a href='".site_url()."/view-all-notifications/'>View All Notifications</a><br>";
+echo "<a href='".site_url()."/view-all-questionaires/'>View All questionaires</a>";
+}
 }
 ?>
 <br><br>
@@ -1342,4 +1490,174 @@ function prefix_ajax_get_userrole() {
      
 	}
 exit;
+}
+
+add_action( 'wp_ajax_get_gross', 'prefix_ajax_get_gross' );
+add_action( 'wp_ajax_nopriv_get_gross', 'prefix_ajax_get_gross' );
+
+function prefix_ajax_get_gross() {
+	
+	global $wpdb;
+	$querystr = "
+				SELECT * 
+				FROM ".$wpdb->prefix."rg_lead
+				WHERE id = ".$_REQUEST['formID']."
+				";
+
+	$check_user = $wpdb->get_results($querystr, OBJECT);
+	$entry_id = array();
+	foreach ($check_user as $formdata) {
+		$user_id = $formdata->created_by;
+		
+		$results = $wpdb->get_results( 'SELECT * FROM payments WHERE user_ID = '.$user_id, ARRAY_A );
+		$gross_paid = '0';
+		foreach($results as $payment){
+			$gross_paid += $payment['payment_amount'];
+		}
+		print_r($gross_paid);
+
+	}
+exit;
+}
+
+add_action( 'init', 'codex_elective_init' );
+/**
+ * Register a elective post type.
+ *
+ * @link http://codex.wordpress.org/Function_Reference/register_post_type
+ */
+function codex_elective_init() {
+	$labels = array(
+		'name'               => _x( 'electives', 'post type general name', 'your-plugin-textdomain' ),
+		'singular_name'      => _x( 'elective', 'post type singular name', 'your-plugin-textdomain' ),
+		'menu_name'          => _x( 'electives', 'admin menu', 'your-plugin-textdomain' ),
+		'name_admin_bar'     => _x( 'elective', 'add new on admin bar', 'your-plugin-textdomain' ),
+		'add_new'            => _x( 'Add New', 'elective', 'your-plugin-textdomain' ),
+		'add_new_item'       => __( 'Add New elective', 'your-plugin-textdomain' ),
+		'new_item'           => __( 'New elective', 'your-plugin-textdomain' ),
+		'edit_item'          => __( 'Edit elective', 'your-plugin-textdomain' ),
+		'view_item'          => __( 'View elective', 'your-plugin-textdomain' ),
+		'all_items'          => __( 'All electives', 'your-plugin-textdomain' ),
+		'search_items'       => __( 'Search electives', 'your-plugin-textdomain' ),
+		'parent_item_colon'  => __( 'Parent electives:', 'your-plugin-textdomain' ),
+		'not_found'          => __( 'No electives found.', 'your-plugin-textdomain' ),
+		'not_found_in_trash' => __( 'No electives found in Trash.', 'your-plugin-textdomain' )
+	);
+
+	$args = array(
+		'labels'             => $labels,
+                'description'        => __( 'Description.', 'your-plugin-textdomain' ),
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'elective' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+	);
+
+	register_post_type( 'elective', $args );
+}
+
+/**
+ * Proper way to enqueue scripts and styles.
+ */
+function wpdocs_theme_name_scripts() {
+    wp_enqueue_style( 'jquery-ui', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );
+    wp_enqueue_script( 'jquery-ui', 'https://code.jquery.com/ui/1.12.1/jquery-ui.js', array(), '1.12.1', true );
+}
+add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts' );
+
+add_action( 'gform_pre_submission_1', 'after_submission', 10, 3 );
+
+function after_submission($entry, $form){
+    
+    global $wpdb;
+    
+    $current_user = wp_get_current_user();
+    $user_id = $current_user->ID;
+    $querystr = "
+      SELECT DISTINCT *
+      FROM ".$wpdb->prefix."rg_lead   
+      WHERE form_id = 1 
+      AND created_by = ".$user_id."
+      GROUP BY created_by DESC
+      ";
+
+$check_user = $wpdb->get_results($querystr, OBJECT);
+  foreach ($check_user as $getuserID) {
+
+    $querydetails = "
+      SELECT * 
+      FROM ".$wpdb->prefix."rg_lead_detail
+      WHERE lead_id = ".$getuserID->id."
+      ";
+
+      $get_user_details = $wpdb->get_results($querydetails, OBJECT);
+      $instrumental = '';
+      $meal = 'N';
+      $room = '';
+      $single = 'N';
+      $dorm = '';
+      $first = 'N';
+      $vol = '';
+      
+    foreach ($get_user_details as $getUserDetails) {
+      
+      $meta_value = gform_get_meta( $entry_id, $meta_key );
+      
+      if($getUserDetails->field_number == '23'){
+           $instrumental = $getUserDetails->value;
+      }
+    }
+    if($_REQUEST['input_23'] != $instrumental){
+         $D1 = "
+              DELETE 
+              FROM ".$wpdb->prefix."questionnaires
+              WHERE userID = ".$user_id."
+              ";
+         $wpdb->query($D1);
+         $D2 = "
+              DELETE 
+              FROM ".$wpdb->prefix."questionnaires_ensemble
+              WHERE user_id = ".$user_id."
+              ";
+         $wpdb->query($D2);
+         $D3 = "
+              DELETE 
+              FROM ".$wpdb->prefix."questionnaires_afternoon
+              WHERE userID = ".$user_id."
+              ";
+         $wpdb->query($D3);
+         $D4 = "
+              DELETE 
+              FROM ".$wpdb->prefix."questionnaires_electives
+              WHERE user_id = ".$user_id."
+              ";
+         $wpdb->query($D4);
+         $D5 = "
+              DELETE 
+              FROM ".$wpdb->prefix."questionnaires_self_evaluations
+              WHERE user_id = ".$user_id."
+              ";
+         $wpdb->query($D5);
+         $D6 = "
+              DELETE 
+              FROM ".$wpdb->prefix."questionnaires_read_accept_terms
+              WHERE user_id = ".$user_id."
+              ";
+         $wpdb->query($D6);
+         $D7 = "
+              DELETE 
+              FROM ".$wpdb->prefix."questionnaires_review_and_commit
+              WHERE user_id = ".$user_id."
+              ";
+         $wpdb->query($D7);
+    }
+  }
+  
 }

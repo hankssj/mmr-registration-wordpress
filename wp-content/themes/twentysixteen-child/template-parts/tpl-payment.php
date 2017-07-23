@@ -7,7 +7,9 @@ session_start();
 // PayPal Integration starts here
 
 // Redirect URL
-$paypal_email = 'testtest5432112345@gmail.com';
+$payemail = get_post_meta( get_the_ID(), 'payer_email', true );
+
+$paypal_email = $payemail;
 $return_url = site_url()."/dashboard/";
 $cancel_url = site_url();
 $notify_url = site_url()."/dashboard/";
@@ -21,9 +23,9 @@ else{
 	$item_amount = $_REQUEST['fullpaymentoptions'];
 }
 
- $percent = ($item_amount*3)/100;
+$percent = ($item_amount*3)/100;
 
- $item_amount = $item_amount + 0.30 + $percent; 
+$item_amount = $item_amount + 0.30 + $percent; 
 
 // check_txnid - paypal default function to check transaction id
 function check_txnid($tnxid){
@@ -99,9 +101,11 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])){
 	
 	// Append querystring with custom field
 	//$querystring .= "&user_ID=".$current_user->ID;
-	$url = "https://www.sandbox.paypal.com/cgi-bin/webscr".$querystring;
-	wp_redirect( $url );
 
+	$payurl = get_post_meta( get_the_ID(), 'url', true );
+	$url = "".$payurl."/cgi-bin/webscr".$querystring;
+	wp_redirect( $url );
+	
 	// Redirect to paypal IPN
 	//header('location:https://www.sandbox.paypal.com/cgi-bin/webscr'.$querystring);
 	exit();
@@ -137,7 +141,9 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])){
 	$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 	$header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
 	
-	$fp = fsockopen ('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
+	$ssl_url = get_post_meta( get_the_ID(), 'ssl_url', true );
+	
+	$fp = fsockopen ($ssl_url, 443, $errno, $errstr, 30);
 	
 	if (!$fp) {
 		// HTTP ERROR
