@@ -102,8 +102,8 @@ $primary_instrument = $getprimaryinstrument[0][value];
     		}
     		$sql = "UPDATE ".$wpdb->prefix."questionnaires_self_evaluations SET `completed`='no' WHERE `user_id`='".$user_id."' AND `group` =''";
         $wpdb->query($sql);
-        $sql1 = "UPDATE ".$wpdb->prefix."questionnaires_read_accept_terms SET `completed`='no' WHERE `user_id`='".$user_id."'";
-        $wpdb->query($sql1);
+        /*$sql1 = "UPDATE ".$wpdb->prefix."questionnaires_read_accept_terms SET `completed`='no' WHERE `user_id`='".$user_id."'";
+        $wpdb->query($sql1);*/
         $sql2 = "UPDATE ".$wpdb->prefix."questionnaires_review_and_commit SET `completed`='no' WHERE `user_id`='".$user_id."'";
         $wpdb->query($sql2);
     		?>

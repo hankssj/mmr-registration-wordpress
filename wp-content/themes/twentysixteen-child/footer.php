@@ -327,27 +327,31 @@ if(trim($user->roles[0]) != 'administrator'){ ?>
 		
 		
 		jQuery('#study_privately_yes').click(function() {
-		   if(jQuery('#study_privately_yes').is(':checked')) { jQuery('#how_many_years').removeAttr('disabled'); }
+		   if(jQuery('#study_privately_yes').is(':checked')) { jQuery('#how_many_years').show(); jQuery('#how_many_years1').show(); }
 		   
 		});
+		if(jQuery('#study_privately_no').is(':checked')) { jQuery('#how_many_years').hide(); jQuery('#how_many_years1').hide();  }
+		if(jQuery('#study_privately_no_piano').is(':checked')) { jQuery('#how_many_years_piano').hide(); jQuery('#how_many_years_piano1').hide();  }
+		if(jQuery('#study_privately_no_brass').is(':checked')) { jQuery('#how_many_years_brass').hide(); jQuery('#how_many_years_brass1').hide();  }
+		
 		jQuery('#study_privately_no').click(function() {
-			if(jQuery('#study_privately_no').is(':checked')) { jQuery('#how_many_years').attr('disabled','disabled');  }
+			if(jQuery('#study_privately_no').is(':checked')) { jQuery('#how_many_years').hide(); jQuery('#how_many_years1').hide();  }
 		});
 		
 		jQuery('#study_privately_yes_piano').click(function() {
-		   if(jQuery('#study_privately_yes_piano').is(':checked')) { jQuery('#how_many_years_piano').removeAttr('disabled'); }
+		   if(jQuery('#study_privately_yes_piano').is(':checked')) { jQuery('#how_many_years_piano').show();jQuery('#how_many_years_piano1').show(); }
 		   
 		});
 		jQuery('#study_privately_no_piano').click(function() {
-			if(jQuery('#study_privately_no_piano').is(':checked')) { jQuery('#how_many_years_piano').attr('disabled','disabled');  }
+			if(jQuery('#study_privately_no_piano').is(':checked')) { jQuery('#how_many_years_piano').hide(); jQuery('#how_many_years_piano1').hide();  }
 		});
 		
 		jQuery('#study_privately_yes_brass').click(function() {
-		   if(jQuery('#study_privately_yes_brass').is(':checked')) { jQuery('#how_many_years_brass').removeAttr('disabled'); }
+		   if(jQuery('#study_privately_yes_brass').is(':checked')) { jQuery('#how_many_years_brass').show(); jQuery('#how_many_years_brass1').show(); }
 		   
 		});
 		jQuery('#study_privately_no_brass').click(function() {
-			if(jQuery('#study_privately_no_brass').is(':checked')) { jQuery('#how_many_years_brass').attr('disabled','disabled');  }
+			if(jQuery('#study_privately_no_brass').is(':checked')) { jQuery('#how_many_years_brass').hide(); jQuery('#how_many_years_brass1').hide();  }
 		});
        
 

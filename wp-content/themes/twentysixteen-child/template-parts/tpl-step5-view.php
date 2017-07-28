@@ -26,6 +26,8 @@ window.location.href = '<?php  echo site_url(); ?>';
           padding: 15px;
           border: double 1px;
           border-radius: 15px;
+          display: inline-block;
+          width: 100%;
     }
 </style>
 </head>
@@ -44,14 +46,30 @@ window.location.href = '<?php  echo site_url(); ?>';
       ";
 
       $check_user4 = $wpdb->get_results($querystr4, OBJECT);
+      /*echo"<pre>";
+      print_r($check_user4);exit;*/
       foreach ($check_user4 as  $value) {
+            if(!empty($value->instrument)){
             ?>
-            
+                <div class="col-sm-6">
                 <label for=""><?php echo $value->instrument; ?></label><br>
-            
+                </div>
+                <div class="col-sm-6">
+                <label for="">
+                    <?php 
+                    if(!empty($value->json)){
+                        echo "finished";
+                    }else{
+                        echo "unfinished";
+                    }
+                    ?>
+                </label>
+            </div>
             <?php
         }
+      }
         ?>
+        </div>
         </div>
 <?php
 }
