@@ -20,19 +20,6 @@ $announcement_content = get_field( "announcement_content" );
 $enrollment_status = get_field( "enrollment_status" );
 $enrollment_status_text = get_field( "enrollment_status_text" );
 
-// if user login redirect to dashboard
-if(is_user_logged_in()){ 
-	?>
-	<script>
-	jQuery(document).ready(function(){
-
-		window.location.href = '<?php  echo site_url(); ?>/dashboard';
-	});
-</script>
-	<?php
-}
-// End if user login redirect to dashboard
-			
 ?>
 <div id="primary" class="content-area-home">
 	<main id="main" class="site-main" role="main">
@@ -44,20 +31,6 @@ if(is_user_logged_in()){
             echo '<br/><br/>';
             echo '<h3 class="ann_title">'.$announcement_title.'</h3>'; 
             echo '<p class="ann_content">'.$announcement_content.'</p>';
-
-            if(!is_user_logged_in()){ 
-            	echo '<br/>';
-	            echo '<h3 class="ann_status">'.$enrollment_status.'</h3>'; 
-	            echo '<p class="ann_status_content">'.$enrollment_status_text.'</p>';
-            }
-
-            if(!is_user_logged_in()){ ?>
-                <div class="login_register">
-                    <a href="<?php echo site_url('/login'); ?>">Login</a>
-                    <a href="<?php echo site_url('/register'); ?>">Register</a>
-                </div>
-    		<?php
-            }
 			// End of the loop.
 		endwhile;
 		?>

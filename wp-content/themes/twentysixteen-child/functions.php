@@ -560,7 +560,7 @@ function wti_loginout_menu_link( $items, $args ) {
          $items .= '<li class="right"><a href="'. wp_logout_url(site_url()) .'">'. __("Log Out") .'</a></li>';
       } else {
          $items .= '<li class="right"><a href="'. get_permalink(31) .'">'. __("Log In") .'</a></li>';
-         $items .= '<li class="right"><a href="'. get_permalink(16) .'">'. __("Register") .'</a></li>';
+         $items .= '<li class="right"><a href="'. get_permalink(16) .'">'. __("Create an Account") .'</a></li>';
       }
    }
    return $items;
@@ -1577,8 +1577,7 @@ add_action( 'gform_pre_submission_1', 'after_submission', 10, 3 );
 function after_submission($entry, $form){
     
     global $wpdb;
-    
-    $current_user = wp_get_current_user();
+    get_current_user();
     $user_id = $current_user->ID;
     $querystr = "
       SELECT DISTINCT *
